@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">RssReader</string>
+    <string name="channels">Каналы</string>
+    <string name="settings">Настройки</string>
+    <string name="read">Читать</string>
+    <string name="address">Адрес канала</string>
+    <string name="title">Заголовок: %1$s</string>
+    <string name="description">Описание: %1$s</string>
+    <string name="link">Сcылка: %1$s</string>
+    <string name="invalid_address">Введите подходящий адрес.</string>
+</resources>
