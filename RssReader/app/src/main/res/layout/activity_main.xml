@@ -12,17 +12,37 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="ru.matthewhadzhiev.rssreader.MainActivity">
 
-    <Button
-        android:id="@+id/channels_button"
+
+
+    <ImageView
+        android:id="@+id/feed_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/channels"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/feed"
+        android:src="@drawable/feed"
+        android:layout_weight="1"
+        android:scaleType="centerCrop"
     />
 
-    <Button
+    <ImageView
+        android:id="@+id/channels_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/channels"
+        android:src="@drawable/channels_fhoto"
+        android:layout_weight="1"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="4dp"
+    />
+
+    <ImageView
         android:id="@+id/settings_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/settings"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/settings"
+        android:src="@drawable/settings_p"
+        android:layout_weight="1"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="4dp"
     />
 </LinearLayout>

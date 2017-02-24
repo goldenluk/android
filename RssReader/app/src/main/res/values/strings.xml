@@ -8,4 +8,5 @@
     <string name="description">Описание: %1$s</string>
     <string name="link">Сcылка: %1$s</string>
     <string name="invalid_address">Введите подходящий адрес.</string>
+    <string name="feed">Лента</string>
 </resources>
