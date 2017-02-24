@@ -164,6 +164,10 @@ public class ReadChannelActivity extends AppCompatActivity {
 
             if (success) {
                 mRecyclerView.setAdapter(new RssFeedListAdapter(mFeedModelList));
+                Toast.makeText(ReadChannelActivity.this,
+                        getString(R.string.success_add_channel),
+                        Toast.LENGTH_LONG).show();
+                //TODO Прикручиваем базу и сохраняем в неё
             } else {
                 Toast.makeText(ReadChannelActivity.this,
                         getString(R.string.invalid_address),

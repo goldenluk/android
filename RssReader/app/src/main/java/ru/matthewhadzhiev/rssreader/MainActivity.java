@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         channelsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ReadChannelActivity.class);
+                Intent intent = new Intent(MainActivity.this, ChannelsMenuActivity.class);
                 startActivity(intent);
             }
         });

@@ -9,4 +9,7 @@
     <string name="link">Сcылка: %1$s</string>
     <string name="invalid_address">Введите подходящий адрес.</string>
     <string name="feed">Лента</string>
+    <string name="add_new_channel">Добавить новый канал</string>
+    <string name="viewed_channels">Отображаемые каналы</string>
+    <string name="success_add_channel">Канал успешно добавлен</string>
 </resources>
