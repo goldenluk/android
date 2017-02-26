@@ -8,14 +8,14 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
-                tools:context="ru.matthewhadzhiev.rssreader.MainActivity">
+                tools:context="ru.matthewhadzhiev.rssreader.activity.MainActivity">
 
     <Button
         android:id="@+id/read_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:text="@string/read"
+        android:text="@string/add_new_channel_button"
         android:layout_alignParentRight="true"/>
 
     <android.support.design.widget.TextInputLayout
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_toStartOf="@id/read_button"
-        android:hint="@string/address"
+        android:hint="@string/channel_address"
         android:layout_toLeftOf="@id/read_button"
         android:layout_marginRight="@dimen/activity_horizontal_margin">
 

@@ -10,7 +10,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="ru.matthewhadzhiev.rssreader.MainActivity">
+    tools:context="ru.matthewhadzhiev.rssreader.activity.MainActivity">
 
 
 
@@ -18,7 +18,7 @@
         android:id="@+id/feed_button"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:contentDescription="@string/feed"
+        android:contentDescription="@string/open_news_feed"
         android:src="@drawable/feed"
         android:layout_weight="1"
         android:scaleType="centerCrop"
@@ -28,7 +28,7 @@
         android:id="@+id/channels_button"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:contentDescription="@string/channels"
+        android:contentDescription="@string/open_channels_settings"
         android:src="@drawable/channels_fhoto"
         android:layout_weight="1"
         android:scaleType="centerCrop"
@@ -39,7 +39,7 @@
         android:id="@+id/settings_button"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:contentDescription="@string/settings"
+        android:contentDescription="@string/open_app_settings"
         android:src="@drawable/settings_p"
         android:layout_weight="1"
         android:scaleType="centerCrop"
