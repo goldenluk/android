@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="ru.matthewhadzhiev.rssreader.activity.ReadChannelActivity"/>
+        <activity android:name="ru.matthewhadzhiev.rssreader.activity.AddChannelActivity"/>
         <activity android:name="ru.matthewhadzhiev.rssreader.activity.ChannelsMenuActivity"/>
     </application>
 

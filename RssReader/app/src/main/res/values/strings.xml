@@ -1,15 +1,5 @@
 <resources>
     <string name="app_name">RssReader</string>
-    <string name="open_channels_settings">Каналы</string>
-    <string name="open_app_settings">Настройки</string>
-    <string name="add_new_channel_button">Добавить</string>
-    <string name="channel_address">Адрес канала</string>
-    <string name="news_title">Заголовок: %1$s</string>
-    <string name="news_description">Описание: %1$s</string>
-    <string name="news_link">Сcылка: %1$s</string>
     <string name="invalid_address">Введите подходящий адрес.</string>
-    <string name="open_news_feed">Лента</string>
-    <string name="add_new_channel_menu_button">Добавить новый канал</string>
-    <string name="open_viewed_channels">Отображаемые каналы</string>
     <string name="success_add_channel">Канал успешно добавлен</string>
 </resources>
