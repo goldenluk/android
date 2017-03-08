@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Parser {
+public final class Parser {
 
     public static List<RssItem> parseFeed(final InputStream inputStream) throws XmlPullParserException,
             IOException {

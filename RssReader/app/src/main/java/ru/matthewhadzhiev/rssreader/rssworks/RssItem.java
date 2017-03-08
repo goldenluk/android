@@ -5,6 +5,7 @@ public final class RssItem {
     private final String title;
     private final String link;
     private final String description;
+    private String url;
 
     public String getLink() {
         return link;
@@ -16,6 +17,14 @@ public final class RssItem {
 
     public String getTitle() {
         return title;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUrl () {
+        return url;
     }
 
     RssItem(final String title, final String link, final String description) {
