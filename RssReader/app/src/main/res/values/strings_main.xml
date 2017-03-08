@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RssReader</string>
+    <string name="invalid_address">Введите подходящий адрес.</string>
+    <string name="success_add_channel">Канал успешно добавлен</string>
+</resources>

@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="ru.matthewhadzhiev.rssreader.activity.MainActivity">
+        <activity android:name="ru.matthewhadzhiev.rssreader.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -19,8 +19,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="ru.matthewhadzhiev.rssreader.activity.AddChannelActivity"/>
-        <activity android:name="ru.matthewhadzhiev.rssreader.activity.ChannelsMenuActivity"/>
+        <activity android:name="ru.matthewhadzhiev.rssreader.ui.AddChannelActivity"/>
+        <activity android:name="ru.matthewhadzhiev.rssreader.ui.ChannelsMenuActivity"/>
     </application>
 
 </manifest>

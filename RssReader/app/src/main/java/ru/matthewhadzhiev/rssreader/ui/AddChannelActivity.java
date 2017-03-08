@@ -1,4 +1,4 @@
-package ru.matthewhadzhiev.rssreader.activity;
+package ru.matthewhadzhiev.rssreader.ui;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,7 +23,6 @@ import java.util.List;
 
 import ru.matthewhadzhiev.rssreader.R;
 import ru.matthewhadzhiev.rssreader.rssworks.Parser;
-import ru.matthewhadzhiev.rssreader.rssworks.RssFeedListAdapter;
 import ru.matthewhadzhiev.rssreader.rssworks.RssItem;
 
 final public class AddChannelActivity extends AppCompatActivity {

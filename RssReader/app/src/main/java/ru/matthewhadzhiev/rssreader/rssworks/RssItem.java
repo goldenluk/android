@@ -1,12 +1,12 @@
 package ru.matthewhadzhiev.rssreader.rssworks;
 
 
-final public class RssItem {
+public final class RssItem {
     private String title;
     private String link;
     private String description;
 
-    String getLink() {
+    public String getLink() {
         return link;
     }
 
@@ -14,7 +14,7 @@ final public class RssItem {
         this.link = link;
     }
 
-    String getDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -31,7 +31,7 @@ final public class RssItem {
     }
 
 
-    public RssItem(final String title, final String link, final String description) {
+    RssItem(final String title, final String link, final String description) {
         this.title = title;
         this.link = link;
         this.description = description;
