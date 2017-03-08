@@ -1,5 +1,6 @@
 package ru.matthewhadzhiev.rssreader.rssworks;
 
+import android.util.Log;
 import android.util.Xml;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -76,7 +77,11 @@ public class Parser {
 
             return items;
         } finally {
-            inputStream.close();
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                Log.e("Parser", e.getMessage());
+            }
         }
     }
 }

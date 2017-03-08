@@ -14,10 +14,10 @@ import ru.matthewhadzhiev.rssreader.rssworks.RssItem;
 final class RssFeedListAdapter
         extends RecyclerView.Adapter<RssFeedListAdapter.FeedModelViewHolder> {
 
-    private List<RssItem> rssItems;
+    private final List<RssItem> rssItems;
 
     static class FeedModelViewHolder extends RecyclerView.ViewHolder {
-        private View rssFeedView;
+        private final View rssFeedView;
 
         FeedModelViewHolder(View v) {
             super(v);

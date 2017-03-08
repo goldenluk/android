@@ -26,7 +26,6 @@ import ru.matthewhadzhiev.rssreader.rssworks.Parser;
 import ru.matthewhadzhiev.rssreader.rssworks.RssItem;
 
 final public class AddChannelActivity extends AppCompatActivity {
-    private String TAG = "AddChannelActivity";
     private RecyclerView recyclerView;
     private EditText editText;
     private SwipeRefreshLayout swipeLayout;
@@ -89,7 +88,7 @@ final public class AddChannelActivity extends AppCompatActivity {
                 feedModelList = Parser.parseFeed(inputStream);
                 return true;
             } catch (IOException | XmlPullParserException e) {
-                Log.e(TAG, e.getMessage());
+                Log.e("AddChannelActivity", e.getMessage());
             }
             return false;
         }
