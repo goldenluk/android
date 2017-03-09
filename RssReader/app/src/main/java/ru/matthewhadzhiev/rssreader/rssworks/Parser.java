@@ -19,7 +19,7 @@ public final class Parser {
         String link = null;
         String description = null;
         boolean isItem = false;
-        List<RssItem> items = new ArrayList<>();
+        final List<RssItem> items = new ArrayList<>();
 
         try {
             XmlPullParser xmlPullParser = Xml.newPullParser();

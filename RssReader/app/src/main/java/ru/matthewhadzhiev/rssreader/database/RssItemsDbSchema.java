@@ -12,4 +12,13 @@ public final class RssItemsDbSchema {
             public static final String DESCRIPTION = "description";
         }
     }
+
+    public static final class RssChannelsTable {
+        public static final String NAME = "channels";
+
+        public static final class Cols {
+            public static final String ADDRESS = "address";
+            public static final String ACTIVE = "active";
+        }
+    }
 }

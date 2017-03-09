@@ -15,11 +15,20 @@ final public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageView channelsButton = (ImageView) findViewById(R.id.channels_button);
+        final ImageView channelsButton = (ImageView) findViewById(R.id.channels_button);
         channelsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ChannelsMenuActivity.class);
+                final Intent intent = new Intent(MainActivity.this, ChannelsMenuActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        final ImageView feedButton = (ImageView) findViewById(R.id.feed_button);
+        feedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Intent intent = new Intent(MainActivity.this, FeedNewsActivity.class);
                 startActivity(intent);
             }
         });

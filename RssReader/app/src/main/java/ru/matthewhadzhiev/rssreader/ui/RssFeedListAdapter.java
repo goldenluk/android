@@ -19,18 +19,18 @@ final class RssFeedListAdapter
     static class FeedModelViewHolder extends RecyclerView.ViewHolder {
         private final View rssFeedView;
 
-        FeedModelViewHolder(View v) {
+        FeedModelViewHolder(final View v) {
             super(v);
             rssFeedView = v;
         }
     }
 
-    RssFeedListAdapter(List<RssItem> rssFeedModels) {
+    RssFeedListAdapter(final List<RssItem> rssFeedModels) {
         rssItems = rssFeedModels;
     }
 
     @Override
-    public FeedModelViewHolder onCreateViewHolder(ViewGroup parent, int type) {
+    public FeedModelViewHolder onCreateViewHolder(final ViewGroup parent,final int type) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.rss_item, parent, false);
         return new FeedModelViewHolder(v);
@@ -40,8 +40,6 @@ final class RssFeedListAdapter
     public void onBindViewHolder(FeedModelViewHolder holder, int position) {
         final RssItem rssItem = rssItems.get(position);
         ((TextView)holder.rssFeedView.findViewById(R.id.title_text)).setText(rssItem.getTitle());
-        ((TextView)holder.rssFeedView.findViewById(R.id.description_text))
-                .setText(rssItem.getDescription());
         ((TextView)holder.rssFeedView.findViewById(R.id.link_text)).setText(rssItem.getLink());
     }
 

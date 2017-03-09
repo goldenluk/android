@@ -27,7 +27,7 @@ public final class RssItem {
         return url;
     }
 
-    RssItem(final String title, final String link, final String description) {
+    public RssItem(final String title, final String link, final String description) {
         this.title = title;
         this.link = link;
         this.description = description;

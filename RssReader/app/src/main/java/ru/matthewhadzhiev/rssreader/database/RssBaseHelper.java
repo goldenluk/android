@@ -24,6 +24,13 @@ public final class RssBaseHelper extends SQLiteOpenHelper {
         RssItemsTable.Cols.DESCRIPTION +
         ")"
         );
+
+        sqLiteDatabase.execSQL("create table " + RssItemsDbSchema.RssChannelsTable.NAME + "(" +
+                " _id integer primary key autoincrement, " +
+                RssItemsDbSchema.RssChannelsTable.Cols.ADDRESS + ", " +
+                RssItemsDbSchema.RssChannelsTable.Cols.ACTIVE +
+                ")"
+        );
     }
 
     @Override

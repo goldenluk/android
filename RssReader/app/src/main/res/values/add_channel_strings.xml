@@ -2,5 +2,5 @@
 <resources>
     <string name="add_new_channel_button">Добавить</string>
     <string name="channel_address">Адрес канала</string>
-    <string name="empty_address_input">Вы ввел пустую строку</string>
+    <string name="empty_address_input">Вы ввели пустую строку</string>
 </resources>
