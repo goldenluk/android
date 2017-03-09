@@ -28,7 +28,7 @@
         android:id="@+id/channels_button"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:contentDescription="@string/open_channels_settings"
+        android:contentDescription="@string/open_channels_menu"
         android:src="@drawable/channels_fhoto"
         android:layout_weight="1"
         android:scaleType="centerCrop"

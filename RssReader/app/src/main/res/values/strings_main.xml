@@ -2,4 +2,7 @@
     <string name="app_name">RssReader</string>
     <string name="show_bad_result_for_add_channel">Не удалось добавить канал с таким адресом. Такой канал уже добавлен, либо адрес введён неверно.</string>
     <string name="show_success_result_for_add_channel">Канал успешно добавлен</string>
+    <string name="show_bad_result_for_update_feed">Не удалось обновить ленту. Проверьте соединение с сетью.</string>
+    <string name="show_progress_adding_channel">Обрабатываю запрос…</string>
+    <string name="show_adding_channel_end">Обработано.</string>
 </resources>

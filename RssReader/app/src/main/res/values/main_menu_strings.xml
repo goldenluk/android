@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="open_channels_settings">Каналы</string>
+    <string name="open_channels_menu">Каналы</string>
     <string name="open_app_settings">Настройки</string>
     <string name="open_news_feed">Лента</string>
 </resources>

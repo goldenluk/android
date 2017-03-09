@@ -5,11 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,8 +18,8 @@ import ru.matthewhadzhiev.rssreader.network.FetchRssItemsService;
 
 final public class AddChannelActivity extends AppCompatActivity {
     private EditText editText;
-    private SwipeRefreshLayout swipeLayout;
     private MyBroadcastReceiver myBroadcastReceiver;
+    private TextView addingProccessTextView;
 
     public static final String URL_ADDRESS = "ru.matthewhadzhiev.rssreader.ui.url_address";
 
@@ -33,18 +29,16 @@ final public class AddChannelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_channel_activity);
 
+        addingProccessTextView = (TextView) findViewById(R.id.result_text_view);
         editText = (EditText) findViewById(R.id.rss_address);
         final Button fetchFeedButton = (Button) findViewById(R.id.read_button);
-        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-        swipeLayout.setEnabled(false);
 
-        final String LAST_CHANNEL_ADD_INPUT = "last_channel_add_input";
-        editText.setText(PreferenceManager.getDefaultSharedPreferences(AddChannelActivity.this).getString(LAST_CHANNEL_ADD_INPUT, ""));
+
 
         fetchFeedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                swipeLayout.setRefreshing(true);
+                addingProccessTextView.setText(R.string.show_progress_adding_channel);
                 startService(newFetchRssIntent());
             }
         });
@@ -69,13 +63,12 @@ final public class AddChannelActivity extends AppCompatActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            swipeLayout.setRefreshing(false);
-            TextView resultTextView = (TextView) findViewById(R.id.result_text_view);
+            addingProccessTextView.setText(R.string.show_adding_channel_end);
             boolean isResultSuccess = intent.getBooleanExtra(FetchRssItemsService.ANSWER_SUCCESS_OR_NOT, false);
             if (isResultSuccess) {
-                resultTextView.setText(R.string.show_success_result_for_add_channel);
+                Toast.makeText(AddChannelActivity.this, R.string.show_success_result_for_add_channel, Toast.LENGTH_SHORT).show();
             } else {
-                resultTextView.setText(R.string.show_bad_result_for_add_channel);
+                Toast.makeText(AddChannelActivity.this, R.string.show_bad_result_for_add_channel, Toast.LENGTH_SHORT).show();
             }
         }
     }

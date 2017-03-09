@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="add_new_channel_button">Добавить</string>
-    <string name="channel_address">Адрес канала</string>
-    <string name="empty_address_input">Вы ввели пустую строку</string>
+    <string name="name_for_field_for_input_channel_address">Адрес канала</string>
+    <string name="was_empty_address_input">Вы ввели пустую строку</string>
 </resources>

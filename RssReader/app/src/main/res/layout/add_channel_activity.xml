@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_toStartOf="@id/read_button"
-        android:hint="@string/channel_address"
+        android:hint="@string/name_for_field_for_input_channel_address"
         android:layout_toLeftOf="@id/read_button"
         android:layout_marginRight="@dimen/activity_horizontal_margin">
 
@@ -38,17 +38,9 @@
 
 
 
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/text_input_layout"
-        android:layout_marginTop="@dimen/activity_vertical_margin">
-    </android.support.v4.widget.SwipeRefreshLayout>
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:layout_alignTop="@+id/swipe_refresh_layout"
+        android:layout_height="wrap_content" android:layout_alignTop="@+id/text_input_layout"
         android:layout_centerHorizontal="true" android:layout_marginTop="176dp"
         android:id="@+id/result_text_view"/>
 </RelativeLayout>
