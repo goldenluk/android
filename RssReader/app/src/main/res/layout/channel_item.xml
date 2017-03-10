@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/channel_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textStyle="bold"
+        android:textSize="24sp"
+    />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:id="@+id/is_active_channel_checkbox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+        />
+
+        <TextView
+            android:gravity="center"
+            android:text="@string/show_about_channel_active"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+        />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/delete_channel_button"
+        android:text="@string/delete_channel_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/Button"
+    />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorAccent"
+    />
+</LinearLayout>

@@ -36,7 +36,7 @@ public final class FetchRssItemsService extends IntentService{
     public static final String IS_LAST_IN_UPDATE = "ru.matthewhadzhiev.rssreader.network";
 
     private static ContentValues getContentValues(final RssItem rssItem) {
-        ContentValues values = new ContentValues();
+        final ContentValues values = new ContentValues();
         values.put(RssItemsTable.Cols.ADDRESS, rssItem.getUrl());
         values.put(RssItemsTable.Cols.TITLE, rssItem.getTitle());
         values.put(RssItemsTable.Cols.LINK, rssItem.getLink());
@@ -46,7 +46,7 @@ public final class FetchRssItemsService extends IntentService{
     }
 
     private static ContentValues getContentValuesChannel(final RssChannel rssChannel) {
-        ContentValues values = new ContentValues();
+        final ContentValues values = new ContentValues();
         values.put(RssItemsDbSchema.RssChannelsTable.Cols.ADDRESS, rssChannel.getAddress());
         final int isActive;
         if (rssChannel.isActive()) {
@@ -69,12 +69,10 @@ public final class FetchRssItemsService extends IntentService{
     }
 
     @Override
-    protected void onHandleIntent(Intent intent) {
-        //TODO Сам канал в базу добавлять нужно
-        //TODO Чистим ведь сначала всё
+    protected void onHandleIntent(final Intent intent) {
         String urlLink = intent.getStringExtra(AddChannelActivity.URL_ADDRESS);
         InputStream inputStream = null;
-        Intent responseIntent = new Intent();
+        final Intent responseIntent = new Intent();
 
         responseIntent.putExtra(IS_LAST_IN_UPDATE, intent.getBooleanExtra(IS_LAST_IN_UPDATE, false));
 
@@ -91,9 +89,9 @@ public final class FetchRssItemsService extends IntentService{
 
                 final List<RssChannel> channelList = getChannels();
 
-                String TAG = "FetchRssItemsService";
+                final String TAG = "FetchRssItemsService";
                 if (!intent.getBooleanExtra(IS_UPDATE, false)) {
-                    for (RssChannel channel: channelList) {
+                    for (final RssChannel channel: channelList) {
                         if (channel.getAddress().equals(urlLink)) {
                             Log.d(TAG, "Такой канал уже есть");
                             responseIntent.putExtra(ANSWER_SUCCESS_OR_NOT, false);
@@ -102,6 +100,7 @@ public final class FetchRssItemsService extends IntentService{
                         }
                     }
                 }
+
 
                 final URL url = new URL(urlLink);
                 inputStream = url.openConnection().getInputStream();
@@ -113,35 +112,35 @@ public final class FetchRssItemsService extends IntentService{
                 final SQLiteDatabase database = new RssBaseHelper(getApplicationContext()).getWritableDatabase();
 
                 if (!intent.getBooleanExtra(IS_UPDATE, false)) {
-                    ContentValues valuesChannel = getContentValuesChannel(new RssChannel(urlLink, true));
+                    final ContentValues valuesChannel = getContentValuesChannel(new RssChannel(urlLink, true));
+
                     database.insert(RssItemsDbSchema.RssChannelsTable.NAME, null, valuesChannel);
                 }
 
 
-                int count = database.delete(RssItemsTable.NAME, RssItemsTable.Cols.ADDRESS + "= ?", new String[] { urlLink});
+                final int count = database.delete(RssItemsTable.NAME, RssItemsTable.Cols.ADDRESS + "= ?", new String[] { urlLink});
                 Log.d(TAG,"Удалено итемов " + Integer.toString(count));
 
                 for (final RssItem item : feedList) {
                     item.setUrl(urlLink);
-                    ContentValues values = getContentValues(item);
+                    final ContentValues values = getContentValues(item);
 
-                    long countInsert = database.insert(RssItemsTable.NAME, null, values);
+                    final long countInsert = database.insert(RssItemsTable.NAME, null, values);
                     Log.d(TAG, "Добавлено итемов " + countInsert);
                 }
 
                 database.close();
 
                 responseIntent.putExtra(ANSWER_SUCCESS_OR_NOT, true);
-            } catch (IOException | XmlPullParserException e) {
+            } catch (final Throwable e) {
                 responseIntent.putExtra(ANSWER_SUCCESS_OR_NOT, false);
                 Log.e("TAG", e.getMessage());
             } finally {
-                //TODO ЗАкрывать поток как-то по другому. Нельзя обворачивать close в catch тупо
                 try {
                     if (inputStream != null) {
                         inputStream.close();
                     }
-                } catch (IOException e) {
+                } catch (final IOException e) {
                     e.printStackTrace();
                 }
             }
@@ -166,7 +165,14 @@ public final class FetchRssItemsService extends IntentService{
     }
 
     private RssCursorWrapper queryItems(final String whereClause,final String[] whereArgs) {
-        final SQLiteDatabase database = new RssBaseHelper(getApplicationContext()).getWritableDatabase();
+        SQLiteDatabase database = null;
+
+        try {
+            database = new RssBaseHelper(getApplicationContext()).getWritableDatabase();
+        } catch (final Throwable e) {
+            e.printStackTrace();
+        }
+
 
         final Cursor cursor = database.query(
                 RssItemsDbSchema.RssChannelsTable.NAME,

@@ -20,6 +20,7 @@
         </activity>
         <activity android:name="ru.matthewhadzhiev.rssreader.ui.FeedNewsActivity"/>
         <activity android:name="ru.matthewhadzhiev.rssreader.ui.AddChannelActivity"/>
+        <activity android:name="ru.matthewhadzhiev.rssreader.ui.ChannelsControlActivity"/>
         <activity android:name="ru.matthewhadzhiev.rssreader.ui.ChannelsMenuActivity"/>
     </application>
 

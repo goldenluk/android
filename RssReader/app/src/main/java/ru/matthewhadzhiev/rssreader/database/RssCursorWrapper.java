@@ -10,7 +10,7 @@ import ru.matthewhadzhiev.rssreader.rssworks.RssItem;
 
 public final class RssCursorWrapper extends CursorWrapper{
 
-    public RssCursorWrapper(Cursor cursor) {
+    public RssCursorWrapper(final Cursor cursor) {
         super(cursor);
     }
 

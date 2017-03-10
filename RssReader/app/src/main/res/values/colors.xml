@@ -3,4 +3,9 @@
     <color name="colorActionBar">#3F51B5</color>
     <color name="colorSystemLine">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="green">#008000</color>
+    <color name="darkGreen">#006400</color>
+    <color name="ivory">#FFFFF0</color>
+    <color name="beige">#F5F5DC</color>
+    <color name="darkolivegreen">#556B2F</color>
 </resources>

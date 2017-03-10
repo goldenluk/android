@@ -25,7 +25,7 @@ final public class AddChannelActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_channel_activity);
 
@@ -37,7 +37,7 @@ final public class AddChannelActivity extends AppCompatActivity {
 
         fetchFeedButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 addingProccessTextView.setText(R.string.show_progress_adding_channel);
                 startService(newFetchRssIntent());
             }
@@ -46,14 +46,14 @@ final public class AddChannelActivity extends AppCompatActivity {
         myBroadcastReceiver = new MyBroadcastReceiver();
 
         // регистрируем BroadcastReceiver
-        IntentFilter intentFilter = new IntentFilter(
+        final IntentFilter intentFilter = new IntentFilter(
                 FetchRssItemsService.ACTION_FETCH_ITEMS);
         intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
         registerReceiver(myBroadcastReceiver, intentFilter);
     }
 
     private Intent newFetchRssIntent() {
-        Intent fetchRss = new Intent(AddChannelActivity.this, FetchRssItemsService.class);
+        final Intent fetchRss = new Intent(AddChannelActivity.this, FetchRssItemsService.class);
         fetchRss.putExtra(URL_ADDRESS, editText.getText().toString());
 
         return fetchRss;
@@ -62,13 +62,13 @@ final public class AddChannelActivity extends AppCompatActivity {
     private class MyBroadcastReceiver extends BroadcastReceiver {
 
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(final Context context, final Intent intent) {
             addingProccessTextView.setText(R.string.show_adding_channel_end);
-            boolean isResultSuccess = intent.getBooleanExtra(FetchRssItemsService.ANSWER_SUCCESS_OR_NOT, false);
+            final boolean isResultSuccess = intent.getBooleanExtra(FetchRssItemsService.ANSWER_SUCCESS_OR_NOT, false);
             if (isResultSuccess) {
-                Toast.makeText(AddChannelActivity.this, R.string.show_success_result_for_add_channel, Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddChannelActivity.this, R.string.show_success_result_for_add_channel, Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(AddChannelActivity.this, R.string.show_bad_result_for_add_channel, Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddChannelActivity.this, R.string.show_bad_result_for_add_channel, Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -76,6 +76,11 @@ final public class AddChannelActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(myBroadcastReceiver);
+        try {
+            unregisterReceiver(myBroadcastReceiver);
+        } catch (final Throwable e) {
+            e.printStackTrace();
+        }
+
     }
 }

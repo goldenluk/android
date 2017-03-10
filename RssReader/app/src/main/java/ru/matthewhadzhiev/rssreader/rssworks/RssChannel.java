@@ -5,7 +5,7 @@ public final class RssChannel {
     private final String address;
     private final boolean isActive;
 
-    public RssChannel(String address, boolean isActive) {
+    public RssChannel(final String address, final boolean isActive) {
         this.address = address;
         this.isActive = isActive;
     }

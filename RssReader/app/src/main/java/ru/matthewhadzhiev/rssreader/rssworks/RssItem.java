@@ -19,7 +19,7 @@ public final class RssItem {
         return title;
     }
 
-    public void setUrl(String url) {
+    public void setUrl(final String url) {
         this.url = url;
     }
 

@@ -10,12 +10,12 @@ public final class RssBaseHelper extends SQLiteOpenHelper {
     private static final int VERSION = 1;
     private static final String DATABASE_NAME = "rssItemsBase.db";
 
-    public RssBaseHelper(Context context) {
+    public RssBaseHelper(final Context context) {
         super(context, DATABASE_NAME, null, VERSION);
     }
 
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+    public void onCreate(final SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("create table " + RssItemsTable.NAME + "(" +
         " _id integer primary key autoincrement, " +
         RssItemsTable.Cols.ADDRESS + ", " +
@@ -34,7 +34,7 @@ public final class RssBaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+    public void onUpgrade(final SQLiteDatabase sqLiteDatabase, final int oldVersion, final int newVersion) {
 
     }
 }

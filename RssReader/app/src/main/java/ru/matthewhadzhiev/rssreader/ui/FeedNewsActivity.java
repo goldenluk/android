@@ -32,7 +32,7 @@ final public class FeedNewsActivity extends AppCompatActivity{
     private MyBroadcastReceiver myBroadcastReceiver;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.feed_news_activity);
 
@@ -44,11 +44,11 @@ final public class FeedNewsActivity extends AppCompatActivity{
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                List<RssChannel> channelList = getChannels();
+                final List<RssChannel> channelList = getChannels();
                 for (int i = 0; i < channelList.size(); ++i) {
                     if (channelList.get(i).isActive()) {
                         swipeRefreshLayout.setRefreshing(true);
-                        Intent fetchRss = new Intent(FeedNewsActivity.this, FetchRssItemsService.class);
+                        final Intent fetchRss = new Intent(FeedNewsActivity.this, FetchRssItemsService.class);
                         fetchRss.putExtra(AddChannelActivity.URL_ADDRESS, channelList.get(i).getAddress());
                         fetchRss.putExtra(FetchRssItemsService.IS_UPDATE, true);
                         if (i == channelList.size() - 1) {
@@ -66,14 +66,19 @@ final public class FeedNewsActivity extends AppCompatActivity{
         myBroadcastReceiver = new MyBroadcastReceiver();
 
         // регистрируем BroadcastReceiver
-        IntentFilter intentFilter = new IntentFilter(
+        final IntentFilter intentFilter = new IntentFilter(
                 FetchRssItemsService.ACTION_FETCH_ITEMS);
         intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
         registerReceiver(myBroadcastReceiver, intentFilter);
     }
 
     private RssCursorWrapper queryItems(final String whereClause,final String[] whereArgs,final String tableName) {
-        final SQLiteDatabase database = new RssBaseHelper(getApplicationContext()).getWritableDatabase();
+        SQLiteDatabase database = null;
+        try {
+            database = new RssBaseHelper(getApplicationContext()).getWritableDatabase();
+        } catch (final Throwable e) {
+            e.printStackTrace();
+        }
 
         final Cursor cursor = database.query(
                 tableName,
@@ -121,7 +126,7 @@ final public class FeedNewsActivity extends AppCompatActivity{
     private class MyBroadcastReceiver extends BroadcastReceiver {
 
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(final Context context, final Intent intent) {
             final List<RssItem> feedList = getItems();
             recyclerView.setAdapter(new RssFeedListAdapter(feedList));
             if (intent.getBooleanExtra(FetchRssItemsService.IS_LAST_IN_UPDATE, false)) {
@@ -136,6 +141,11 @@ final public class FeedNewsActivity extends AppCompatActivity{
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(myBroadcastReceiver);
+        try {
+            unregisterReceiver(myBroadcastReceiver);
+        } catch (final Throwable e) {
+            e.printStackTrace();
+        }
+
     }
 }

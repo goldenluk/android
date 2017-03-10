@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="show_about_channel_active">Показывать в ленте</string>
+    <string name="delete_channel_button">Удалить канал</string>
+</resources>

@@ -31,13 +31,13 @@ final class RssFeedListAdapter
 
     @Override
     public FeedModelViewHolder onCreateViewHolder(final ViewGroup parent,final int type) {
-        View v = LayoutInflater.from(parent.getContext())
+        final View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.rss_item, parent, false);
         return new FeedModelViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(FeedModelViewHolder holder, int position) {
+    public void onBindViewHolder(final FeedModelViewHolder holder, final int position) {
         final RssItem rssItem = rssItems.get(position);
         ((TextView)holder.rssFeedView.findViewById(R.id.title_text)).setText(rssItem.getTitle());
         ((TextView)holder.rssFeedView.findViewById(R.id.address_text)).setText(rssItem.getUrl());

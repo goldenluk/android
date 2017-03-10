@@ -22,15 +22,15 @@ public final class Parser {
         final List<RssItem> items = new ArrayList<>();
 
         try {
-            XmlPullParser xmlPullParser = Xml.newPullParser();
+            final XmlPullParser xmlPullParser = Xml.newPullParser();
             xmlPullParser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             xmlPullParser.setInput(inputStream, null);
 
             xmlPullParser.nextTag();
             while (xmlPullParser.next() != XmlPullParser.END_DOCUMENT) {
-                int eventType = xmlPullParser.getEventType();
+                final int eventType = xmlPullParser.getEventType();
 
-                String name = xmlPullParser.getName();
+                final String name = xmlPullParser.getName();
                 if(name == null) {
                     continue;
                 }
@@ -65,7 +65,7 @@ public final class Parser {
 
                 if (title != null && link != null && description != null) {
                     if(isItem) {
-                        RssItem item = new RssItem(title, link, description);
+                        final RssItem item = new RssItem(title, link, description);
                         items.add(item);
                     }
                     title = null;
@@ -79,7 +79,7 @@ public final class Parser {
         } finally {
             try {
                 inputStream.close();
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 Log.e("Parser", e.getMessage());
             }
         }
