@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import org.w3c.dom.Text;
 
 import ru.matthewhadzhiev.rssreader.R;
 import ru.matthewhadzhiev.rssreader.network.FetchRssItemsService;
@@ -29,8 +32,22 @@ final public class AddChannelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_channel_activity);
 
+        final String lastChannelKey = "last_channel";
+
         addingProccessTextView = (TextView) findViewById(R.id.result_text_view);
         editText = (EditText) findViewById(R.id.rss_address);
+
+        final String lastChannel = PreferenceManager.getDefaultSharedPreferences(AddChannelActivity.this)
+                .getString(lastChannelKey, null);
+
+        final TextView titleForExample = (TextView) findViewById(R.id.example_text_view);
+        final TextView standartOrNotExample = (TextView) findViewById(R.id.last_or_example);
+
+        if (lastChannel != null) {
+            titleForExample.setText(R.string.give_last_address);
+            standartOrNotExample.setText(lastChannel);
+        }
+
         final Button fetchFeedButton = (Button) findViewById(R.id.read_button);
 
 
@@ -39,6 +56,10 @@ final public class AddChannelActivity extends AppCompatActivity {
             @Override
             public void onClick(final View view) {
                 addingProccessTextView.setText(R.string.show_progress_adding_channel);
+                PreferenceManager.getDefaultSharedPreferences(AddChannelActivity.this)
+                        .edit()
+                        .putString(lastChannelKey, editText.getText().toString())
+                        .apply();
                 startService(newFetchRssIntent());
             }
         });

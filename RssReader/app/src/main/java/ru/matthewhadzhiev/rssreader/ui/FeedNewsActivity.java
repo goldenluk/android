@@ -128,9 +128,9 @@ final public class FeedNewsActivity extends AppCompatActivity{
         @Override
         public void onReceive(final Context context, final Intent intent) {
             final List<RssItem> feedList = getItems();
-            recyclerView.setAdapter(new RssFeedListAdapter(feedList));
             if (intent.getBooleanExtra(FetchRssItemsService.IS_LAST_IN_UPDATE, false)) {
                 swipeRefreshLayout.setRefreshing(false);
+                recyclerView.setAdapter(new RssFeedListAdapter(feedList));
                 if (!intent.getBooleanExtra(FetchRssItemsService.ANSWER_SUCCESS_OR_NOT, false)) {
                     Toast.makeText(FeedNewsActivity.this, R.string.show_bad_result_for_update_feed, Toast.LENGTH_SHORT).show();
                 }

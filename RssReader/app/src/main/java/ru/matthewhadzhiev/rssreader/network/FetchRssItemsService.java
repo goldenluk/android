@@ -186,4 +186,5 @@ public final class FetchRssItemsService extends IntentService{
 
         return new RssCursorWrapper(cursor);
     }
+
 }

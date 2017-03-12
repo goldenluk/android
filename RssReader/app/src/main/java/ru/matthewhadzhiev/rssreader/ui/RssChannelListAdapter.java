@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -29,6 +30,8 @@ final class RssChannelListAdapter extends RecyclerView.Adapter<RssChannelListAda
 
     RssChannelListAdapter(final List<RssChannel> rssChannelsModels) {
         channelItems = rssChannelsModels;
+
+
     }
 
     @Override
@@ -46,8 +49,7 @@ final class RssChannelListAdapter extends RecyclerView.Adapter<RssChannelListAda
         channelName.setText(channelItem.getAddress());
 
         final CheckBox isChannelActiveCheckBox = (CheckBox) holder.channelsView.findViewById(R.id.is_active_channel_checkbox);
-        isChannelActiveCheckBox.setActivated(channelItem.isActive());
-        //TODO Проверить, почему оно ставится неактивной
+        isChannelActiveCheckBox.setChecked(channelItem.isActive());
 
         isChannelActiveCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,4 +71,6 @@ final class RssChannelListAdapter extends RecyclerView.Adapter<RssChannelListAda
     public int getItemCount() {
         return channelItems.size();
     }
+
+
 }
