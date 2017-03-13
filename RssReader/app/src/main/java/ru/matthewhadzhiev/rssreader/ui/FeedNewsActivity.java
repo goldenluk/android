@@ -72,54 +72,79 @@ final public class FeedNewsActivity extends AppCompatActivity{
         registerReceiver(myBroadcastReceiver, intentFilter);
     }
 
-    private RssCursorWrapper queryItems(final String whereClause,final String[] whereArgs,final String tableName) {
-        SQLiteDatabase database = null;
+
+    private List<RssItem> getItems() {
+        List<RssItem> feedList = null;
+        final SQLiteDatabase database;
         try {
             database = new RssBaseHelper(getApplicationContext()).getWritableDatabase();
+            final Cursor cursorTemp = database.query(
+                    RssItemsTable.NAME,
+                    null, // Columns - null выбирает все столбцы
+                    null,
+                    null,
+                    null, // groupBy
+                    null, // having
+                    null // orderBy
+            );
+
+            feedList = new ArrayList<>();
+            final RssCursorWrapper cursor = new RssCursorWrapper(cursorTemp);
+
+            //noinspection TryFinallyCanBeTryWithResources
+            try {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    feedList.add(cursor.getRssItem());
+                    cursor.moveToNext();
+                }
+            } finally {
+                cursor.close();
+            }
+            cursorTemp.close();
         } catch (final Throwable e) {
             e.printStackTrace();
         }
 
-        final Cursor cursor = database.query(
-                tableName,
-                null, // Columns - null выбирает все столбцы
-                whereClause,
-                whereArgs,
-                null, // groupBy
-                null, // having
-                null // orderBy
-        );
-
-        return new RssCursorWrapper(cursor);
-    }
-
-    private List<RssItem> getItems() {
-        final List<RssItem> feedList = new ArrayList<>();
-        final RssCursorWrapper cursor = queryItems(null, null, RssItemsTable.NAME);
-        try {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                feedList.add(cursor.getRssItem());
-                cursor.moveToNext();
-            }
-        } finally {
-            cursor.close();
-        }
         return feedList;
     }
 
     private List<RssChannel> getChannels() {
-        final List<RssChannel> channelList = new ArrayList<>();
-        final RssCursorWrapper cursor = queryItems(null, null, RssItemsDbSchema.RssChannelsTable.NAME);
+        final SQLiteDatabase database;
+        List<RssChannel> channelList = null;
         try {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                channelList.add(cursor.getRssChannel());
-                cursor.moveToNext();
+            database = new RssBaseHelper(getApplicationContext()).getWritableDatabase();
+            final Cursor cursorTemp = database.query(
+                    RssItemsDbSchema.RssChannelsTable.NAME,
+                    null, // Columns - null выбирает все столбцы
+                    null,
+                    null,
+                    null, // groupBy
+                    null, // having
+                    null // orderBy
+            );
+
+            channelList = new ArrayList<>();
+            final RssCursorWrapper cursor = new RssCursorWrapper(cursorTemp);
+
+
+            //noinspection TryFinallyCanBeTryWithResources
+            try {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    channelList.add(cursor.getRssChannel());
+                    cursor.moveToNext();
+                }
+            } finally {
+                cursor.close();
             }
-        } finally {
-            cursor.close();
+            cursorTemp.close();
+        } catch (final Throwable e) {
+            e.printStackTrace();
         }
+
+
+
         return channelList;
     }
 

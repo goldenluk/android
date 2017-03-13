@@ -14,8 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import org.w3c.dom.Text;
-
 import ru.matthewhadzhiev.rssreader.R;
 import ru.matthewhadzhiev.rssreader.network.FetchRssItemsService;
 

@@ -34,39 +34,42 @@ public final class ChannelsControlActivity extends AppCompatActivity {
     }
 
 
-    private RssCursorWrapper queryItems(final String whereClause, final String[] whereArgs, final String tableName) {
-        SQLiteDatabase database = null;
+    private List<RssChannel> getChannels() {
+        List<RssChannel> channelList = null;
+        final SQLiteDatabase database;
         try {
             database = new RssBaseHelper(getApplicationContext()).getWritableDatabase();
+            final Cursor cursorTemp = database.query(
+                    RssItemsDbSchema.RssChannelsTable.NAME,
+                    null, // Columns - null выбирает все столбцы
+                    null,
+                    null,
+                    null, // groupBy
+                    null, // having
+                    null // orderBy
+            );
+
+            channelList = new ArrayList<>();
+            final RssCursorWrapper cursor = new RssCursorWrapper(cursorTemp);
+
+
+
+            //noinspection TryFinallyCanBeTryWithResources
+            try {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    channelList.add(cursor.getRssChannel());
+                    cursor.moveToNext();
+                }
+            } finally {
+                cursor.close();
+            }
+            cursorTemp.close();
+
         } catch (final Throwable e) {
             e.printStackTrace();
         }
 
-
-        final Cursor cursor = database.query(
-                tableName,
-                null, // Columns - null выбирает все столбцы
-                whereClause,
-                whereArgs,
-                null, // groupBy
-                null, // having
-                null // orderBy
-        );
-
-        return new RssCursorWrapper(cursor);
-    }
-    private List<RssChannel> getChannels() {
-        final List<RssChannel> channelList = new ArrayList<>();
-        final RssCursorWrapper cursor = queryItems(null, null, RssItemsDbSchema.RssChannelsTable.NAME);
-        try {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                channelList.add(cursor.getRssChannel());
-                cursor.moveToNext();
-            }
-        } finally {
-            cursor.close();
-        }
         return channelList;
     }
 }

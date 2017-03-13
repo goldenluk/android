@@ -7,13 +7,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
 import ru.matthewhadzhiev.rssreader.R;
 import ru.matthewhadzhiev.rssreader.rssworks.RssChannel;
-import ru.matthewhadzhiev.rssreader.rssworks.RssItem;
 
 final class RssChannelListAdapter extends RecyclerView.Adapter<RssChannelListAdapter.ChannelModelViewHolder> {
 

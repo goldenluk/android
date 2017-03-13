@@ -10,8 +10,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 
-import org.xmlpull.v1.XmlPullParserException;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -150,41 +148,43 @@ public final class FetchRssItemsService extends IntentService{
 
 
     private List<RssChannel> getChannels() {
-        final List<RssChannel> channelList = new ArrayList<>();
-        final RssCursorWrapper cursor = queryItems(null, null);
-        try {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                channelList.add(cursor.getRssChannel());
-                cursor.moveToNext();
-            }
-        } finally {
-            cursor.close();
-        }
-        return channelList;
-    }
 
-    private RssCursorWrapper queryItems(final String whereClause,final String[] whereArgs) {
-        SQLiteDatabase database = null;
-
+        final SQLiteDatabase database;
+        List<RssChannel> channelList = null;
         try {
             database = new RssBaseHelper(getApplicationContext()).getWritableDatabase();
+            final Cursor cursorTemp = database.query(
+                    RssItemsDbSchema.RssChannelsTable.NAME,
+                    null, // Columns - null выбирает все столбцы
+                    null,
+                    null,
+                    null, // groupBy
+                    null, // having
+                    null // orderBy
+            );
+
+            channelList = new ArrayList<>();
+            final RssCursorWrapper cursor = new RssCursorWrapper(cursorTemp);
+
+
+
+            //noinspection TryFinallyCanBeTryWithResources
+            try {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    channelList.add(cursor.getRssChannel());
+                    cursor.moveToNext();
+                }
+            } finally {
+                cursor.close();
+            }
+            cursorTemp.close();
         } catch (final Throwable e) {
             e.printStackTrace();
         }
 
 
-        final Cursor cursor = database.query(
-                RssItemsDbSchema.RssChannelsTable.NAME,
-                null, // Columns - null выбирает все столбцы
-                whereClause,
-                whereArgs,
-                null, // groupBy
-                null, // having
-                null // orderBy
-        );
-
-        return new RssCursorWrapper(cursor);
+        return channelList;
     }
 
 }

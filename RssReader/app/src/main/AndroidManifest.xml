@@ -9,7 +9,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" android:fullBackupContent="@xml/backup_descriptor">
         <service android:name="ru.matthewhadzhiev.rssreader.network.FetchRssItemsService" />
         <activity android:name="ru.matthewhadzhiev.rssreader.ui.MainActivity">
             <intent-filter>
@@ -17,11 +17,30 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
+            <intent-filter
+                android:label="@string/app_name">
+                <action android:name="android.intent.action.VIEW" />
+                   <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "http://www.example.com/gizmos” -->
+                <data android:scheme="http"
+                      android:host="www.example.com"
+                      android:pathPrefix="/gizmos" />
+                <!-- note that the leading "/" is required for pathPrefix-->
+                <!-- Accepts URIs that begin with "example://gizmos” -->
+                <data android:scheme="example"
+                      android:host="gizmos" />
+
+            </intent-filter>
+
         </activity>
         <activity android:name="ru.matthewhadzhiev.rssreader.ui.FeedNewsActivity"/>
         <activity android:name="ru.matthewhadzhiev.rssreader.ui.AddChannelActivity"/>
         <activity android:name="ru.matthewhadzhiev.rssreader.ui.ChannelsControlActivity"/>
         <activity android:name="ru.matthewhadzhiev.rssreader.ui.ChannelsMenuActivity"/>
+
+
     </application>
 
 </manifest>
