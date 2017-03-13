@@ -55,12 +55,16 @@ final public class AddChannelActivity extends AppCompatActivity {
         fetchFeedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                addingProccessTextView.setText(R.string.show_progress_adding_channel);
-                PreferenceManager.getDefaultSharedPreferences(AddChannelActivity.this)
-                        .edit()
-                        .putString(lastChannelKey, editText.getText().toString())
-                        .apply();
-                startService(newFetchRssIntent());
+                if (editText.getText().toString().equals("")){
+                    Toast.makeText(AddChannelActivity.this, R.string.was_empty_address_input, Toast.LENGTH_LONG).show();
+                } else {
+                    addingProccessTextView.setText(R.string.show_progress_adding_channel);
+                    PreferenceManager.getDefaultSharedPreferences(AddChannelActivity.this)
+                            .edit()
+                            .putString(lastChannelKey, editText.getText().toString())
+                            .apply();
+                    startService(newFetchRssIntent());
+                }
             }
         });
 
