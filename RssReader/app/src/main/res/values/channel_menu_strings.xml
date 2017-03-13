@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="add_new_channel_menu_button">Добавить новый канал</string>
-    <string name="open_channels_settings">Настройки каналов</string>
+    <string name="open_channels_settings_button">Настройки каналов</string>
 </resources>
