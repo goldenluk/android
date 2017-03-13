@@ -36,22 +36,33 @@
     </android.support.design.widget.TextInputLayout>
 
 
-
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:layout_alignTop="@+id/text_input_layout"
-        android:layout_centerHorizontal="true" android:layout_marginTop="176dp"
-        android:id="@+id/result_text_view"/>
-    <TextView
+        android:layout_marginTop="@dimen/text_view_margin_top"
         android:text="@string/give_the_example_for_channel"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:layout_below="@+id/read_button"
-        android:layout_centerHorizontal="true" android:id="@+id/example_text_view"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/read_button"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/example_text_view"/>
     <TextView
         android:text="@string/text_view_with_channel_example"
+        android:layout_marginTop="@dimen/text_view_margin_top"
         android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:layout_below="@+id/example_text_view"
-        android:id="@+id/last_or_example" android:layout_alignRight="@+id/read_button"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/example_text_view"
+        android:id="@+id/last_or_example"
+        android:layout_alignRight="@+id/read_button"
         android:layout_alignEnd="@+id/read_button"/>
+    <TextView
+        android:gravity="center"
+        android:layout_marginTop="@dimen/text_view_margin_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/last_or_example"
+        android:id="@+id/result_text_view"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/last_or_example"
+        android:layout_alignEnd="@+id/last_or_example"/>
 </RelativeLayout>

@@ -10,8 +10,7 @@
         <!--<item name="buttonStyle">@style/Button</item> -->
     </style>
     <style name="Button" parent="android:Widget.Holo">
-        <item name="android:layout_margin">4dp</item>
-        <item name="android:padding">4dp</item>
+        <item name="android:layout_margin">@dimen/button_layout_margin</item>
         <item name="android:background">@color/beige</item>
         <item name="android:textColor">@color/darkolivegreen</item>
     </style>

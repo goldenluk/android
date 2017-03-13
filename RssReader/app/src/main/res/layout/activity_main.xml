@@ -29,7 +29,7 @@
         android:src="@drawable/channels_fhoto"
         android:layout_weight="1"
         android:scaleType="centerCrop"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="@dimen/image_view_margin_top"
     />
 
     <ImageView
@@ -40,6 +40,6 @@
         android:src="@drawable/settings_p"
         android:layout_weight="1"
         android:scaleType="centerCrop"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="@dimen/image_view_margin_top"
     />
 </LinearLayout>
