@@ -21,4 +21,8 @@ public final class RssItemsDbSchema {
             public static final String ACTIVE = "active";
         }
     }
+
+    private RssItemsDbSchema () {
+        throw new UnsupportedOperationException();
+    }
 }

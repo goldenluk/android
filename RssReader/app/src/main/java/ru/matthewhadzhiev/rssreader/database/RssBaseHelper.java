@@ -1,6 +1,7 @@
 package ru.matthewhadzhiev.rssreader.database;
 
 import android.content.Context;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -16,21 +17,26 @@ public final class RssBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(final SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create table " + RssItemsTable.NAME + "(" +
-        " _id integer primary key autoincrement, " +
-        RssItemsTable.Cols.ADDRESS + ", " +
-        RssItemsTable.Cols.TITLE + ", " +
-        RssItemsTable.Cols.LINK + ", " +
-        RssItemsTable.Cols.DESCRIPTION +
-        ")"
-        );
+        try {
+            sqLiteDatabase.execSQL("create table " + RssItemsTable.NAME + "(" +
+                    " _id integer primary key autoincrement, " +
+                    RssItemsTable.Cols.ADDRESS + ", " +
+                    RssItemsTable.Cols.TITLE + ", " +
+                    RssItemsTable.Cols.LINK + ", " +
+                    RssItemsTable.Cols.DESCRIPTION +
+                    ")"
+            );
 
-        sqLiteDatabase.execSQL("create table " + RssItemsDbSchema.RssChannelsTable.NAME + "(" +
-                " _id integer primary key autoincrement, " +
-                RssItemsDbSchema.RssChannelsTable.Cols.ADDRESS + ", " +
-                RssItemsDbSchema.RssChannelsTable.Cols.ACTIVE +
-                ")"
-        );
+            sqLiteDatabase.execSQL("create table " + RssItemsDbSchema.RssChannelsTable.NAME + "(" +
+                    " _id integer primary key autoincrement, " +
+                    RssItemsDbSchema.RssChannelsTable.Cols.ADDRESS + ", " +
+                    RssItemsDbSchema.RssChannelsTable.Cols.ACTIVE +
+                    ")"
+            );
+        } catch (final SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

@@ -177,12 +177,11 @@ public final class FetchRssItemsService extends IntentService{
                 }
             } finally {
                 cursor.close();
+                cursorTemp.close();
             }
-            cursorTemp.close();
         } catch (final Throwable e) {
             e.printStackTrace();
         }
-
 
         return channelList;
     }
