@@ -9,7 +9,6 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import ru.matthewhadzhiev.rssreader.R;
 import ru.matthewhadzhiev.rssreader.rssworks.RssChannel;

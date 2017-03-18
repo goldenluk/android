@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 
 import ru.matthewhadzhiev.rssreader.R;
-import ru.matthewhadzhiev.rssreader.ui.MainActivity;
 
 final public class ChannelsMenuActivity extends AppCompatActivity {
     @Override
