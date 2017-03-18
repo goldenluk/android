@@ -171,8 +171,8 @@ final public class FeedNewsActivity extends AppCompatActivity{
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
+        super.onPause();
         try {
             unregisterReceiver(myBroadcastReceiver);
         } catch (final Throwable e) {

@@ -96,8 +96,8 @@ final public class AddChannelActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
+        super.onPause();
         try {
             unregisterReceiver(myBroadcastReceiver);
         } catch (final Throwable e) {
