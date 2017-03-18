@@ -27,15 +27,15 @@ public final class ChannelsControlActivity extends AppCompatActivity {
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        final List<RssChannel> rssChannels = getChannels();
+        final ArrayList<RssChannel> rssChannels = getChannels();
 
         recyclerView.setAdapter(new RssChannelListAdapter(rssChannels));
 
     }
 
 
-    private List<RssChannel> getChannels() {
-        List<RssChannel> channelList = null;
+    private ArrayList<RssChannel> getChannels() {
+        ArrayList<RssChannel> channelList = null;
         final SQLiteDatabase database;
         try {
             database = new RssBaseHelper(getApplicationContext()).getWritableDatabase();

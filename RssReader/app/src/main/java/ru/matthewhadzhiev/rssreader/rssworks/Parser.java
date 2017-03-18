@@ -13,13 +13,16 @@ import java.util.List;
 
 public final class Parser {
 
-    public static List<RssItem> parseFeed(final InputStream inputStream) throws XmlPullParserException,
+    public static ArrayList<RssItem> parseFeed(final InputStream inputStream) throws XmlPullParserException,
             IOException {
+        if (inputStream == null) {
+            throw new IOException();
+        }
         String title = null;
         String link = null;
         String description = null;
         boolean isItem = false;
-        final List<RssItem> items = new ArrayList<>();
+        final ArrayList<RssItem> items = new ArrayList<>();
 
         try {
             final XmlPullParser xmlPullParser = Xml.newPullParser();

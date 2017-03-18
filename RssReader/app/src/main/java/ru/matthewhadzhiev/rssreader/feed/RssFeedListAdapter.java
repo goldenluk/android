@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ru.matthewhadzhiev.rssreader.R;
@@ -14,7 +15,7 @@ import ru.matthewhadzhiev.rssreader.rssworks.RssItem;
 final class RssFeedListAdapter
         extends RecyclerView.Adapter<RssFeedListAdapter.FeedModelViewHolder> {
 
-    private final List<RssItem> rssItems;
+    private final ArrayList<RssItem> rssItems;
 
     static class FeedModelViewHolder extends RecyclerView.ViewHolder {
         private final View rssFeedView;
@@ -25,7 +26,7 @@ final class RssFeedListAdapter
         }
     }
 
-    RssFeedListAdapter(final List<RssItem> rssFeedModels) {
+    RssFeedListAdapter(final ArrayList<RssItem> rssFeedModels) {
         rssItems = rssFeedModels;
     }
 

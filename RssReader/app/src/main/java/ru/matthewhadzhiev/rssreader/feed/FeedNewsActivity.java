@@ -57,7 +57,7 @@ final public class FeedNewsActivity extends AppCompatActivity{
             }
         });
 
-        final List<RssItem> feedList = getItems();
+        final ArrayList<RssItem> feedList = getItems();
         recyclerView.setAdapter(new RssFeedListAdapter(feedList));
 
         myBroadcastReceiver = new MyBroadcastReceiver();
@@ -80,8 +80,8 @@ final public class FeedNewsActivity extends AppCompatActivity{
     }
 
 
-    private List<RssItem> getItems() {
-        List<RssItem> feedList = null;
+    private ArrayList<RssItem> getItems() {
+        ArrayList<RssItem> feedList = null;
         final SQLiteDatabase database;
         try {
             database = new RssBaseHelper(getApplicationContext()).getWritableDatabase();
@@ -116,9 +116,9 @@ final public class FeedNewsActivity extends AppCompatActivity{
         return feedList;
     }
 
-    private List<RssChannel> getChannels() {
+    private ArrayList<RssChannel> getChannels() {
         final SQLiteDatabase database;
-        List<RssChannel> channelList = null;
+        ArrayList<RssChannel> channelList = null;
         try {
             database = new RssBaseHelper(getApplicationContext()).getWritableDatabase();
             final Cursor cursorTemp = database.query(
@@ -159,7 +159,7 @@ final public class FeedNewsActivity extends AppCompatActivity{
 
         @Override
         public void onReceive(final Context context, final Intent intent) {
-            final List<RssItem> feedList = getItems();
+            final ArrayList<RssItem> feedList = getItems();
             if (intent.getBooleanExtra(FetchRssItemsService.IS_LAST_IN_UPDATE, false)) {
                 swipeRefreshLayout.setRefreshing(false);
                 recyclerView.setAdapter(new RssFeedListAdapter(feedList));

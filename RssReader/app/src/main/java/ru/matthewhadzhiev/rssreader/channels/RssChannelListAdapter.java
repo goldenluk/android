@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ru.matthewhadzhiev.rssreader.R;
@@ -15,7 +16,7 @@ import ru.matthewhadzhiev.rssreader.rssworks.RssChannel;
 
 final class RssChannelListAdapter extends RecyclerView.Adapter<RssChannelListAdapter.ChannelModelViewHolder> {
 
-    private final List<RssChannel> channelItems;
+    private final ArrayList<RssChannel> channelItems;
 
     static class ChannelModelViewHolder extends RecyclerView.ViewHolder {
         private final View channelsView;
@@ -26,7 +27,7 @@ final class RssChannelListAdapter extends RecyclerView.Adapter<RssChannelListAda
         }
     }
 
-    RssChannelListAdapter(final List<RssChannel> rssChannelsModels) {
+    RssChannelListAdapter(final ArrayList<RssChannel> rssChannelsModels) {
         channelItems = rssChannelsModels;
 
 

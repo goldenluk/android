@@ -70,10 +70,9 @@ public final class FetchRssItemsService extends IntentService{
     protected void onHandleIntent(final Intent intent) {
         String urlLink = intent.getStringExtra(AddChannelActivity.URL_ADDRESS);
         InputStream inputStream = null;
+
         final Intent responseIntent = new Intent();
-
         responseIntent.putExtra(IS_LAST_IN_UPDATE, intent.getBooleanExtra(IS_LAST_IN_UPDATE, false));
-
         responseIntent.setAction(ACTION_FETCH_ITEMS);
         responseIntent.addCategory(Intent.CATEGORY_DEFAULT);
 
@@ -85,7 +84,7 @@ public final class FetchRssItemsService extends IntentService{
                     urlLink = "https://" + urlLink;
                 }
 
-                final List<RssChannel> channelList = getChannels();
+                final ArrayList<RssChannel> channelList = getChannels();
 
                 final String TAG = "FetchRssItemsService";
                 if (!intent.getBooleanExtra(IS_UPDATE, false)) {
@@ -102,7 +101,7 @@ public final class FetchRssItemsService extends IntentService{
 
                 final URL url = new URL(urlLink);
                 inputStream = url.openConnection().getInputStream();
-                final List<RssItem> feedList = Parser.parseFeed(inputStream);
+                final ArrayList<RssItem> feedList = Parser.parseFeed(inputStream);
 
                 //К этому моменту, если бы мы не законнектились, или не смогли распарсить, мы бы уже пробросили исключение
 
@@ -147,10 +146,10 @@ public final class FetchRssItemsService extends IntentService{
     }
 
 
-    private List<RssChannel> getChannels() {
+    private ArrayList<RssChannel> getChannels() {
 
         final SQLiteDatabase database;
-        List<RssChannel> channelList = null;
+        ArrayList<RssChannel> channelList = null;
         try {
             database = new RssBaseHelper(getApplicationContext()).getWritableDatabase();
             final Cursor cursorTemp = database.query(
