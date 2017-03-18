@@ -86,13 +86,17 @@ final public class AddChannelActivity extends AppCompatActivity {
         @Override
         public void onReceive(final Context context, final Intent intent) {
             addingProccessTextView.setText(R.string.show_adding_channel_end);
-            final boolean isResultSuccess = intent.getBooleanExtra(FetchRssItemsService.ANSWER_SUCCESS_OR_NOT, false);
-            if (isResultSuccess) {
+
+            if (isResultSuccess(intent)) {
                 Toast.makeText(AddChannelActivity.this, R.string.show_success_result_for_add_channel, Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(AddChannelActivity.this, R.string.show_bad_result_for_add_channel, Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    private boolean isResultSuccess (final Intent intent) {
+        return intent.getBooleanExtra(FetchRssItemsService.ANSWER_SUCCESS_OR_NOT, false);
     }
 
     @Override

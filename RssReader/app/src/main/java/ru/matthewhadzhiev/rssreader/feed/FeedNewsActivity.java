@@ -163,11 +163,15 @@ final public class FeedNewsActivity extends AppCompatActivity{
             if (intent.getBooleanExtra(FetchRssItemsService.IS_LAST_IN_UPDATE, false)) {
                 swipeRefreshLayout.setRefreshing(false);
                 recyclerView.setAdapter(new RssFeedListAdapter(feedList));
-                if (!intent.getBooleanExtra(FetchRssItemsService.ANSWER_SUCCESS_OR_NOT, false)) {
+                if (!isAnswerSuccess(intent)) {
                     Toast.makeText(FeedNewsActivity.this, R.string.show_bad_result_for_update_feed, Toast.LENGTH_SHORT).show();
                 }
             }
         }
+    }
+
+    private boolean isAnswerSuccess (final Intent intent) {
+         return intent.getBooleanExtra(FetchRssItemsService.ANSWER_SUCCESS_OR_NOT, false);
     }
 
     @Override
