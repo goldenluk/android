@@ -58,7 +58,8 @@ final public class AddChannelActivity extends AppCompatActivity {
                             .edit()
                             .putString(lastChannelKey, editText.getText().toString())
                             .apply();
-                    startService(newFetchRssIntent());
+
+                    startFetchRssIntent();
                 }
             }
         });
@@ -72,12 +73,13 @@ final public class AddChannelActivity extends AppCompatActivity {
         registerReceiver(myBroadcastReceiver, intentFilter);
     }
 
-    private Intent newFetchRssIntent() {
+    private void startFetchRssIntent() {
         final Intent fetchRss = new Intent(AddChannelActivity.this, FetchRssItemsService.class);
         fetchRss.putExtra(URL_ADDRESS, editText.getText().toString());
-
-        return fetchRss;
+        startService(fetchRss);
     }
+
+
 
     private class MyBroadcastReceiver extends BroadcastReceiver {
 

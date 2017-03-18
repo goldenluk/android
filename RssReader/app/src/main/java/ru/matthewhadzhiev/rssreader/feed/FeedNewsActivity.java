@@ -51,13 +51,7 @@ final public class FeedNewsActivity extends AppCompatActivity{
                 for (int i = 0; i < channelList.size(); ++i) {
                     if (channelList.get(i).isActive()) {
                         swipeRefreshLayout.setRefreshing(true);
-                        final Intent fetchRss = new Intent(FeedNewsActivity.this, FetchRssItemsService.class);
-                        fetchRss.putExtra(AddChannelActivity.URL_ADDRESS, channelList.get(i).getAddress());
-                        fetchRss.putExtra(FetchRssItemsService.IS_UPDATE, true);
-                        if (i == channelList.size() - 1) {
-                            fetchRss.putExtra(FetchRssItemsService.IS_LAST_IN_UPDATE, true);
-                        }
-                        startService(fetchRss);
+                        startFetchRssIntent(channelList, i);
                     }
                 }
             }
@@ -73,6 +67,16 @@ final public class FeedNewsActivity extends AppCompatActivity{
                 FetchRssItemsService.ACTION_FETCH_ITEMS);
         intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
         registerReceiver(myBroadcastReceiver, intentFilter);
+    }
+
+    private void startFetchRssIntent(final List<RssChannel> channelList, final int i) {
+        final Intent fetchRss = new Intent(FeedNewsActivity.this, FetchRssItemsService.class);
+        fetchRss.putExtra(AddChannelActivity.URL_ADDRESS, channelList.get(i).getAddress());
+        fetchRss.putExtra(FetchRssItemsService.IS_UPDATE, true);
+        if (i == channelList.size() - 1) {
+            fetchRss.putExtra(FetchRssItemsService.IS_LAST_IN_UPDATE, true);
+        }
+        startService(fetchRss);
     }
 
 
