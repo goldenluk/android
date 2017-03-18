@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     style="@style/Linear"
-    tools:context="ru.matthewhadzhiev.rssreader.ui.FeedNewsActivity">
+    tools:context="ru.matthewhadzhiev.rssreader.feed.FeedNewsActivity">
 
 
     <android.support.v4.widget.SwipeRefreshLayout

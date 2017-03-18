@@ -1,4 +1,4 @@
-package ru.matthewhadzhiev.rssreader.ui;
+package ru.matthewhadzhiev.rssreader.feed;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -25,6 +25,7 @@ import ru.matthewhadzhiev.rssreader.database.RssItemsDbSchema.RssItemsTable;
 import ru.matthewhadzhiev.rssreader.network.FetchRssItemsService;
 import ru.matthewhadzhiev.rssreader.rssworks.RssChannel;
 import ru.matthewhadzhiev.rssreader.rssworks.RssItem;
+import ru.matthewhadzhiev.rssreader.channels.AddChannelActivity;
 
 final public class FeedNewsActivity extends AppCompatActivity{
     private SwipeRefreshLayout swipeRefreshLayout;

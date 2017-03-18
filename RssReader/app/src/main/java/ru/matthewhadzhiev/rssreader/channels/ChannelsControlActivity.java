@@ -1,4 +1,4 @@
-package ru.matthewhadzhiev.rssreader.ui;
+package ru.matthewhadzhiev.rssreader.channels;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;

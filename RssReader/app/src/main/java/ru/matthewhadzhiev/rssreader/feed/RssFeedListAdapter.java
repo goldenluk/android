@@ -1,4 +1,4 @@
-package ru.matthewhadzhiev.rssreader.ui;
+package ru.matthewhadzhiev.rssreader.feed;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

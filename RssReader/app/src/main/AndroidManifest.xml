@@ -35,10 +35,10 @@
             </intent-filter>
 
         </activity>
-        <activity android:name="ru.matthewhadzhiev.rssreader.ui.FeedNewsActivity"/>
-        <activity android:name="ru.matthewhadzhiev.rssreader.ui.AddChannelActivity"/>
-        <activity android:name="ru.matthewhadzhiev.rssreader.ui.ChannelsControlActivity"/>
-        <activity android:name="ru.matthewhadzhiev.rssreader.ui.ChannelsMenuActivity"/>
+        <activity android:name="ru.matthewhadzhiev.rssreader.feed.FeedNewsActivity"/>
+        <activity android:name="ru.matthewhadzhiev.rssreader.channels.AddChannelActivity"/>
+        <activity android:name="ru.matthewhadzhiev.rssreader.channels.ChannelsControlActivity"/>
+        <activity android:name="ru.matthewhadzhiev.rssreader.channels.ChannelsMenuActivity"/>
 
 
     </application>

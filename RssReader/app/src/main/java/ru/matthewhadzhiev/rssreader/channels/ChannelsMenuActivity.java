@@ -1,4 +1,4 @@
-package ru.matthewhadzhiev.rssreader.ui;
+package ru.matthewhadzhiev.rssreader.channels;
 
 import android.content.Intent;
 import android.os.Bundle;

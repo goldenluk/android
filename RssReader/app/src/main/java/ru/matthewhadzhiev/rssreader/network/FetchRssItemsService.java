@@ -23,7 +23,7 @@ import ru.matthewhadzhiev.rssreader.database.RssItemsDbSchema.RssItemsTable;
 import ru.matthewhadzhiev.rssreader.rssworks.Parser;
 import ru.matthewhadzhiev.rssreader.rssworks.RssChannel;
 import ru.matthewhadzhiev.rssreader.rssworks.RssItem;
-import ru.matthewhadzhiev.rssreader.ui.AddChannelActivity;
+import ru.matthewhadzhiev.rssreader.channels.AddChannelActivity;
 
 
 public final class FetchRssItemsService extends IntentService{
