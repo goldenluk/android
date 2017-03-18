@@ -47,9 +47,6 @@ final public class AddChannelActivity extends AppCompatActivity {
         }
 
         final Button fetchFeedButton = (Button) findViewById(R.id.read_button);
-
-
-
         fetchFeedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {

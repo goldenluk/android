@@ -42,6 +42,8 @@ final public class FeedNewsActivity extends AppCompatActivity{
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
 
+
+        //TODO Разобраться как эта штука работает
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

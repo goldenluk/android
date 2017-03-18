@@ -21,8 +21,7 @@ final public class MainActivity extends AppCompatActivity {
         channelsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                final Intent intent = new Intent(MainActivity.this, ChannelsMenuActivity.class);
-                startActivity(intent);
+                startMyActivity(ChannelsMenuActivity.class);
             }
         });
 
@@ -30,9 +29,13 @@ final public class MainActivity extends AppCompatActivity {
         feedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                final Intent intent = new Intent(MainActivity.this, FeedNewsActivity.class);
-                startActivity(intent);
+                startMyActivity(FeedNewsActivity.class);
             }
         });
+    }
+
+    private void startMyActivity (final Class myClass) {
+        final Intent intent = new Intent(MainActivity.this, myClass);
+        startActivity(intent);
     }
 }

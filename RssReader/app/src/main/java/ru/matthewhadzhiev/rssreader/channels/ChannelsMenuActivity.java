@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import ru.matthewhadzhiev.rssreader.R;
+import ru.matthewhadzhiev.rssreader.ui.MainActivity;
 
 final public class ChannelsMenuActivity extends AppCompatActivity {
     @Override
@@ -18,8 +19,7 @@ final public class ChannelsMenuActivity extends AppCompatActivity {
         newChannelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                final Intent intent = new Intent(ChannelsMenuActivity.this, AddChannelActivity.class);
-                startActivity(intent);
+               startMyActivity(AddChannelActivity.class);
             }
         });
 
@@ -27,9 +27,13 @@ final public class ChannelsMenuActivity extends AppCompatActivity {
         viewedChannelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                final Intent intent = new Intent(ChannelsMenuActivity.this, ChannelsControlActivity.class);
-                startActivity(intent);
+                startMyActivity(ChannelsControlActivity.class);
             }
         });
+    }
+
+    private void startMyActivity (final Class myClass) {
+        final Intent intent = new Intent(ChannelsMenuActivity.this, myClass);
+        startActivity(intent);
     }
 }
