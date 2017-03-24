@@ -4,8 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -19,9 +17,6 @@ import java.util.List;
 
 import ru.matthewhadzhiev.rssreader.R;
 import ru.matthewhadzhiev.rssreader.database.RssBaseHelper;
-import ru.matthewhadzhiev.rssreader.database.RssCursorWrapper;
-import ru.matthewhadzhiev.rssreader.database.RssItemsDbSchema;
-import ru.matthewhadzhiev.rssreader.database.RssItemsDbSchema.RssItemsTable;
 import ru.matthewhadzhiev.rssreader.network.FetchRssItemsService;
 import ru.matthewhadzhiev.rssreader.rssworks.RssChannel;
 import ru.matthewhadzhiev.rssreader.rssworks.RssItem;
@@ -43,11 +38,10 @@ final public class FeedNewsActivity extends AppCompatActivity{
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
 
 
-        //TODO Разобраться как эта штука работает
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                final List<RssChannel> channelList = getChannels();
+                final List<RssChannel> channelList = new RssBaseHelper(FeedNewsActivity.this).getChannels();
                 for (int i = 0; i < channelList.size(); ++i) {
                     if (channelList.get(i).isActive()) {
                         swipeRefreshLayout.setRefreshing(true);
@@ -57,7 +51,8 @@ final public class FeedNewsActivity extends AppCompatActivity{
             }
         });
 
-        final ArrayList<RssItem> feedList = getItems();
+        //TODO вот это в фон
+        final ArrayList<RssItem> feedList = new RssBaseHelper(FeedNewsActivity.this).getItems();
         recyclerView.setAdapter(new RssFeedListAdapter(feedList));
 
         myBroadcastReceiver = new MyBroadcastReceiver();
@@ -80,86 +75,14 @@ final public class FeedNewsActivity extends AppCompatActivity{
     }
 
 
-    private ArrayList<RssItem> getItems() {
-        ArrayList<RssItem> feedList = null;
-        final SQLiteDatabase database;
-        try {
-            database = new RssBaseHelper(getApplicationContext()).getWritableDatabase();
-            final Cursor cursorTemp = database.query(
-                    RssItemsTable.NAME,
-                    null, // Columns - null выбирает все столбцы
-                    null,
-                    null,
-                    null, // groupBy
-                    null, // having
-                    null // orderBy
-            );
-
-            feedList = new ArrayList<>();
-            final RssCursorWrapper cursor = new RssCursorWrapper(cursorTemp);
-
-            //noinspection TryFinallyCanBeTryWithResources
-            try {
-                cursor.moveToFirst();
-                while (!cursor.isAfterLast()) {
-                    feedList.add(cursor.getRssItem());
-                    cursor.moveToNext();
-                }
-            } finally {
-                cursor.close();
-            }
-            cursorTemp.close();
-        } catch (final Throwable e) {
-            e.printStackTrace();
-        }
-
-        return feedList;
-    }
-
-    private ArrayList<RssChannel> getChannels() {
-        final SQLiteDatabase database;
-        ArrayList<RssChannel> channelList = null;
-        try {
-            database = new RssBaseHelper(getApplicationContext()).getWritableDatabase();
-            final Cursor cursorTemp = database.query(
-                    RssItemsDbSchema.RssChannelsTable.NAME,
-                    null, // Columns - null выбирает все столбцы
-                    null,
-                    null,
-                    null, // groupBy
-                    null, // having
-                    null // orderBy
-            );
-
-            channelList = new ArrayList<>();
-            final RssCursorWrapper cursor = new RssCursorWrapper(cursorTemp);
 
 
-            //noinspection TryFinallyCanBeTryWithResources
-            try {
-                cursor.moveToFirst();
-                while (!cursor.isAfterLast()) {
-                    channelList.add(cursor.getRssChannel());
-                    cursor.moveToNext();
-                }
-            } finally {
-                cursor.close();
-            }
-            cursorTemp.close();
-        } catch (final Throwable e) {
-            e.printStackTrace();
-        }
-
-
-
-        return channelList;
-    }
 
     private class MyBroadcastReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(final Context context, final Intent intent) {
-            final ArrayList<RssItem> feedList = getItems();
+            final ArrayList<RssItem> feedList = new RssBaseHelper(FeedNewsActivity.this).getItems();
             if (intent.getBooleanExtra(FetchRssItemsService.IS_LAST_IN_UPDATE, false)) {
                 swipeRefreshLayout.setRefreshing(false);
                 recyclerView.setAdapter(new RssFeedListAdapter(feedList));

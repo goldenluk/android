@@ -4,7 +4,6 @@ import android.app.IntentService;
 import android.content.ContentValues;
 import android.content.Intent;
 
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,7 +15,6 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import ru.matthewhadzhiev.rssreader.database.RssBaseHelper;
-import ru.matthewhadzhiev.rssreader.database.RssCursorWrapper;
 import ru.matthewhadzhiev.rssreader.database.RssItemsDbSchema;
 import ru.matthewhadzhiev.rssreader.database.RssItemsDbSchema.RssItemsTable;
 import ru.matthewhadzhiev.rssreader.rssworks.Parser;
@@ -83,7 +81,7 @@ public final class FetchRssItemsService extends IntentService{
                     urlLink = "https://" + urlLink;
                 }
 
-                final ArrayList<RssChannel> channelList = getChannels();
+                final ArrayList<RssChannel> channelList = new RssBaseHelper(getApplicationContext()).getChannels();
 
                 final String TAG = "FetchRssItemsService";
                 if (!intent.getBooleanExtra(IS_UPDATE, false)) {
@@ -142,46 +140,6 @@ public final class FetchRssItemsService extends IntentService{
             }
         }
         sendBroadcast(responseIntent);
-    }
-
-
-    private ArrayList<RssChannel> getChannels() {
-
-        final SQLiteDatabase database;
-        ArrayList<RssChannel> channelList = null;
-        try {
-            database = new RssBaseHelper(getApplicationContext()).getWritableDatabase();
-            final Cursor cursorTemp = database.query(
-                    RssItemsDbSchema.RssChannelsTable.NAME,
-                    null, // Columns - null выбирает все столбцы
-                    null,
-                    null,
-                    null, // groupBy
-                    null, // having
-                    null // orderBy
-            );
-
-            channelList = new ArrayList<>();
-            final RssCursorWrapper cursor = new RssCursorWrapper(cursorTemp);
-
-
-
-            //noinspection TryFinallyCanBeTryWithResources
-            try {
-                cursor.moveToFirst();
-                while (!cursor.isAfterLast()) {
-                    channelList.add(cursor.getRssChannel());
-                    cursor.moveToNext();
-                }
-            } finally {
-                cursor.close();
-                cursorTemp.close();
-            }
-        } catch (final Throwable e) {
-            e.printStackTrace();
-        }
-
-        return channelList;
     }
 
 }

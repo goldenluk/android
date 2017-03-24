@@ -1,11 +1,16 @@
 package ru.matthewhadzhiev.rssreader.database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
 import ru.matthewhadzhiev.rssreader.database.RssItemsDbSchema.RssItemsTable;
+import ru.matthewhadzhiev.rssreader.rssworks.RssChannel;
+import ru.matthewhadzhiev.rssreader.rssworks.RssItem;
 
 public final class RssBaseHelper extends SQLiteOpenHelper {
     private static final int VERSION = 1;
@@ -42,5 +47,76 @@ public final class RssBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(final SQLiteDatabase sqLiteDatabase, final int oldVersion, final int newVersion) {
 
+    }
+
+    public ArrayList<RssItem> getItems() {
+        ArrayList<RssItem> feedList = null;
+        final SQLiteDatabase database;
+        try {
+            database = this.getWritableDatabase();
+            final Cursor cursorTemp = database.query(
+                    RssItemsTable.NAME,
+                    null, // Columns - null выбирает все столбцы
+                    null,
+                    null,
+                    null, // groupBy
+                    null, // having
+                    null // orderBy
+            );
+
+            feedList = new ArrayList<>();
+            final RssCursorWrapper cursor = new RssCursorWrapper(cursorTemp);
+
+            try {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    feedList.add(cursor.getRssItem());
+                    cursor.moveToNext();
+                }
+            } finally {
+                cursor.close();
+            }
+            cursorTemp.close();
+        } catch (final Throwable e) {
+            e.printStackTrace();
+        }
+        return feedList;
+    }
+
+    public ArrayList<RssChannel> getChannels() {
+        final SQLiteDatabase database;
+        ArrayList<RssChannel> channelList = null;
+        try {
+            database = this.getWritableDatabase();
+            final Cursor cursorTemp = database.query(
+                    RssItemsDbSchema.RssChannelsTable.NAME,
+                    null, // Columns - null выбирает все столбцы
+                    null,
+                    null,
+                    null, // groupBy
+                    null, // having
+                    null // orderBy
+            );
+
+            channelList = new ArrayList<>();
+            final RssCursorWrapper cursor = new RssCursorWrapper(cursorTemp);
+
+            try {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    channelList.add(cursor.getRssChannel());
+                    cursor.moveToNext();
+                }
+            } finally {
+                cursor.close();
+            }
+            cursorTemp.close();
+        } catch (final Throwable e) {
+            e.printStackTrace();
+        }
+
+
+
+        return channelList;
     }
 }
