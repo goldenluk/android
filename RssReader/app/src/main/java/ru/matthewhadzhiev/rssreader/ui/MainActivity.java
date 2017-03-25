@@ -10,7 +10,7 @@ import ru.matthewhadzhiev.rssreader.R;
 import ru.matthewhadzhiev.rssreader.channels.ChannelsMenuActivity;
 import ru.matthewhadzhiev.rssreader.feed.FeedNewsActivity;
 
-final public class MainActivity extends AppCompatActivity {
+final public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -18,25 +18,22 @@ final public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final ImageView channelsButton = (ImageView) findViewById(R.id.channels_button);
-        channelsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                startMyActivity(ChannelsMenuActivity.class);
-            }
-        });
+        channelsButton.setOnClickListener(this);
 
         final ImageView feedButton = (ImageView) findViewById(R.id.feed_button);
-        feedButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                startMyActivity(FeedNewsActivity.class);
-            }
-        });
+        feedButton.setOnClickListener(this);
+
     }
     //TODO Пройтись по строкам и добавить button, textview и т.д.
-    //TODO кнопкам назначить листенером саму активность и реализовать метод onClick , в нем свитч
-    private void startMyActivity (final Class myClass) {
-        final Intent intent = new Intent(MainActivity.this, myClass);
-        startActivity(intent);
+
+    @Override
+    public void onClick(final View view) {
+        switch (view.getId()) {
+            case R.id.channels_button:
+                startActivity(new Intent(this, ChannelsMenuActivity.class));
+                break;
+            case R.id.feed_button:
+                startActivity(new Intent(this, FeedNewsActivity.class));
+        }
     }
 }
