@@ -51,7 +51,6 @@ final public class FeedNewsActivity extends AppCompatActivity{
             }
         });
 
-        //TODO вот это в фон
         final ArrayList<RssItem> feedList = new RssBaseHelper(FeedNewsActivity.this).getItems();
         recyclerView.setAdapter(new RssFeedListAdapter(feedList));
 

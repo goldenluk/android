@@ -30,28 +30,6 @@ public final class FetchRssItemsService extends IntentService{
     public static final String IS_UPDATE = "ru.matthewhadzhiev.rssreader.network.is_update";
     public static final String IS_LAST_IN_UPDATE = "ru.matthewhadzhiev.rssreader.network";
 
-    private static ContentValues getContentValues(final RssItem rssItem) {
-        final ContentValues values = new ContentValues();
-        values.put(RssItemsTable.Cols.ADDRESS, rssItem.getUrl());
-        values.put(RssItemsTable.Cols.TITLE, rssItem.getTitle());
-        values.put(RssItemsTable.Cols.LINK, rssItem.getLink());
-        values.put(RssItemsTable.Cols.DESCRIPTION, rssItem.getDescription());
-
-        return values;
-    }
-
-    private static ContentValues getContentValuesChannel(final RssChannel rssChannel) {
-        final ContentValues values = new ContentValues();
-        values.put(RssItemsDbSchema.RssChannelsTable.Cols.ADDRESS, rssChannel.getAddress());
-        final int isActive;
-        if (rssChannel.isActive()) {
-            isActive = 1;
-        } else {
-            isActive = 0;
-        }
-        values.put(RssItemsDbSchema.RssChannelsTable.Cols.ACTIVE, isActive);
-        return values;
-    }
 
     public FetchRssItemsService(final String name) {
         super(name);
@@ -60,7 +38,6 @@ public final class FetchRssItemsService extends IntentService{
     //В манифесте была ошибка, пока я не сделал дефолтный конструктор
     public FetchRssItemsService() {
         super("");
-
     }
 
     @Override
@@ -102,23 +79,24 @@ public final class FetchRssItemsService extends IntentService{
 
                 //К этому моменту, если бы мы не законнектились, или не смогли распарсить, мы бы уже пробросили исключение
 
-
                 final SQLiteDatabase database = new RssBaseHelper(getApplicationContext()).getWritableDatabase();
 
                 if (!intent.getBooleanExtra(IS_UPDATE, false)) {
-                    final ContentValues valuesChannel = getContentValuesChannel(new RssChannel(urlLink, true));
+                    final ContentValues valuesChannel = RssBaseHelper.getContentValuesChannel(new RssChannel(urlLink, true));
 
+                    //TODO Для этого метод в хелпере
                     database.insert(RssItemsDbSchema.RssChannelsTable.NAME, null, valuesChannel);
                 }
 
-
+                //TODO Delete тоже в хелпер
                 final int count = database.delete(RssItemsTable.NAME, RssItemsTable.Cols.ADDRESS + "= ?", new String[] { urlLink});
                 Log.d(TAG,"Удалено итемов " + Integer.toString(count));
 
                 for (final RssItem item : feedList) {
                     item.setUrl(urlLink);
-                    final ContentValues values = getContentValues(item);
+                    final ContentValues values =RssBaseHelper.getContentValues(item);
 
+                    //TODO тут тоже инсёрт в хелпер
                     final long countInsert = database.insert(RssItemsTable.NAME, null, values);
                     Log.d(TAG, "Добавлено итемов " + countInsert);
                 }

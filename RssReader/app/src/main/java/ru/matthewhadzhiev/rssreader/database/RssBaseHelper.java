@@ -1,5 +1,6 @@
 package ru.matthewhadzhiev.rssreader.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -49,7 +50,33 @@ public final class RssBaseHelper extends SQLiteOpenHelper {
 
     }
 
+
+    public static ContentValues getContentValues(final RssItem rssItem) {
+        final ContentValues values = new ContentValues();
+        values.put(RssItemsTable.Cols.ADDRESS, rssItem.getUrl());
+        values.put(RssItemsTable.Cols.TITLE, rssItem.getTitle());
+        values.put(RssItemsTable.Cols.LINK, rssItem.getLink());
+        values.put(RssItemsTable.Cols.DESCRIPTION, rssItem.getDescription());
+
+        return values;
+    }
+
+    public static ContentValues getContentValuesChannel(final RssChannel rssChannel) {
+        final ContentValues values = new ContentValues();
+        values.put(RssItemsDbSchema.RssChannelsTable.Cols.ADDRESS, rssChannel.getAddress());
+        final int isActive;
+        if (rssChannel.isActive()) {
+            isActive = 1;
+        } else {
+            isActive = 0;
+        }
+        values.put(RssItemsDbSchema.RssChannelsTable.Cols.ACTIVE, isActive);
+        return values;
+    }
+
+    //TODO вот это в фон
     public ArrayList<RssItem> getItems() {
+
         ArrayList<RssItem> feedList = null;
         final SQLiteDatabase database;
         try {
@@ -83,6 +110,7 @@ public final class RssBaseHelper extends SQLiteOpenHelper {
         return feedList;
     }
 
+    //TODO вот это тоже в фон
     public ArrayList<RssChannel> getChannels() {
         final SQLiteDatabase database;
         ArrayList<RssChannel> channelList = null;
@@ -115,8 +143,8 @@ public final class RssBaseHelper extends SQLiteOpenHelper {
             e.printStackTrace();
         }
 
-
-
         return channelList;
     }
+
+
 }

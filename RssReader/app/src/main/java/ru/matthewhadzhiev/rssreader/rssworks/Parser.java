@@ -82,6 +82,7 @@ public final class Parser {
             try {
                 inputStream.close();
             } catch (final IOException e) {
+                //TODO Нормальное логирование
                 Log.e("Parser", e.getMessage());
             }
         }

@@ -33,7 +33,8 @@ final public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
+    //TODO Пройтись по строкам и добавить button, textview и т.д.
+    //TODO кнопкам назначить листенером саму активность и реализовать метод onClick , в нем свитч
     private void startMyActivity (final Class myClass) {
         final Intent intent = new Intent(MainActivity.this, myClass);
         startActivity(intent);

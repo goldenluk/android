@@ -28,6 +28,7 @@ public final class RssItem {
     }
 
     public RssItem(final String title, final String link, final String description) {
+        //TODO Подумать о проверке на null
         this.title = title;
         this.link = link;
         this.description = description;
