@@ -3,7 +3,7 @@ package ru.matthewhadzhiev.rssreader.rssworks;
 
 public final class RssChannel {
     private final String address;
-    private final boolean isActive;
+    private boolean isActive;
 
     public RssChannel(final String address, final boolean isActive) {
         this.address = address;
@@ -16,5 +16,9 @@ public final class RssChannel {
 
     public boolean isActive() {
         return isActive;
+    }
+
+    public void setActive (final boolean isActive) {
+        this.isActive = isActive;
     }
 }

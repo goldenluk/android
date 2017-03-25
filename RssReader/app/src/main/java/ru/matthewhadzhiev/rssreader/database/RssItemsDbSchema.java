@@ -7,9 +7,9 @@ public final class RssItemsDbSchema {
 
         public static final class Cols {
             public static final String ADDRESS = "address";
-            public static final String TITLE = "title";
-            public static final String LINK = "link";
-            public static final String DESCRIPTION = "description";
+            static final String TITLE = "title";
+            static final String LINK = "link";
+            static final String DESCRIPTION = "description";
         }
     }
 
@@ -18,7 +18,7 @@ public final class RssItemsDbSchema {
 
         public static final class Cols {
             public static final String ADDRESS = "address";
-            public static final String ACTIVE = "active";
+            static final String ACTIVE = "active";
         }
     }
 

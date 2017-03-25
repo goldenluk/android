@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -53,17 +54,30 @@ final class RssChannelListAdapter extends RecyclerView.Adapter<RssChannelListAda
         final CheckBox isChannelActiveCheckBox = (CheckBox) holder.channelsView.findViewById(R.id.is_active_channel_checkbox);
         isChannelActiveCheckBox.setChecked(channelItem.isActive());
 
-        isChannelActiveCheckBox.setOnClickListener(new View.OnClickListener() {
+        isChannelActiveCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(final View view) {
-                //TODO Реализация сего листенера
+            public void onCheckedChanged(final CompoundButton compoundButton, final boolean b) {
+                //TODO в try catch
+                final SQLiteDatabase database = new RssBaseHelper(context).getWritableDatabase();
+
+                if (isChannelActiveCheckBox.isChecked()) {
+                    channelItem.setActive(true);
+                    database.update(RssItemsDbSchema.RssChannelsTable.NAME, RssBaseHelper.getContentValuesChannel(channelItem),
+                            RssItemsDbSchema.RssChannelsTable.Cols.ADDRESS + "= ?", new String[] { channelItem.getAddress()});
+                } else {
+                    channelItem.setActive(false);
+                    database.update(RssItemsDbSchema.RssChannelsTable.NAME, RssBaseHelper.getContentValuesChannel(channelItem),
+                            RssItemsDbSchema.RssChannelsTable.Cols.ADDRESS + "= ?", new String[] { channelItem.getAddress()});
+                }
             }
         });
+
 
         final Button deleteChannel = (Button) holder.channelsView.findViewById(R.id.delete_channel_button);
         deleteChannel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
+                //TODO в try catch
                 final SQLiteDatabase database = new RssBaseHelper(context).getWritableDatabase();
                 database.delete(RssItemsDbSchema.RssItemsTable.NAME, RssItemsDbSchema.RssItemsTable.Cols.ADDRESS + "= ?", new String[] { channelItem.getAddress()});
                 database.delete(RssItemsDbSchema.RssChannelsTable.NAME, RssItemsDbSchema.RssChannelsTable.Cols.ADDRESS + "= ?", new String[] { channelItem.getAddress()});

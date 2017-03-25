@@ -13,7 +13,6 @@ import ru.matthewhadzhiev.rssreader.database.RssBaseHelper;
 import ru.matthewhadzhiev.rssreader.rssworks.RssChannel;
 
 public final class ChannelsControlActivity extends AppCompatActivity {
-    private RssChannelListAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
@@ -25,12 +24,9 @@ public final class ChannelsControlActivity extends AppCompatActivity {
 
         final ArrayList<RssChannel> rssChannels = new RssBaseHelper(getApplicationContext()).getChannels();
 
-        adapter = new RssChannelListAdapter(rssChannels, this);
+        final RssChannelListAdapter adapter = new RssChannelListAdapter(rssChannels, this);
 
         recyclerView.setAdapter(adapter);
     }
 
-    public void updateUI () {
-        adapter.notifyDataSetChanged();
-    }
 }
