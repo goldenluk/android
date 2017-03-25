@@ -76,7 +76,6 @@ public final class RssBaseHelper extends SQLiteOpenHelper {
 
     //TODO вот это в фон
     public ArrayList<RssItem> getItems() {
-
         ArrayList<RssItem> feedList = null;
         final SQLiteDatabase database;
         try {
@@ -93,11 +92,17 @@ public final class RssBaseHelper extends SQLiteOpenHelper {
 
             feedList = new ArrayList<>();
             final RssCursorWrapper cursor = new RssCursorWrapper(cursorTemp);
-
+            final ArrayList<RssChannel> rssChannels = getChannels();
             try {
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()) {
-                    feedList.add(cursor.getRssItem());
+                    final String address = cursor.getRssItem().getUrl();
+                    for (int i = 0; i < rssChannels.size(); ++i) {
+                        if (rssChannels.get(i).getAddress().equals(address) && rssChannels.get(i).isActive()) {
+                            feedList.add(cursor.getRssItem());
+                            break;
+                        }
+                    }
                     cursor.moveToNext();
                 }
             } finally {

@@ -24,7 +24,6 @@ final public class MainActivity extends AppCompatActivity implements View.OnClic
         feedButton.setOnClickListener(this);
 
     }
-    //TODO Пройтись по строкам и добавить button, textview и т.д.
 
     @Override
     public void onClick(final View view) {

@@ -83,20 +83,15 @@ public final class FetchRssItemsService extends IntentService{
 
                 if (!intent.getBooleanExtra(IS_UPDATE, false)) {
                     final ContentValues valuesChannel = RssBaseHelper.getContentValuesChannel(new RssChannel(urlLink, true));
-
-                    //TODO Для этого метод в хелпере
                     database.insert(RssItemsDbSchema.RssChannelsTable.NAME, null, valuesChannel);
                 }
 
-                //TODO Delete тоже в хелпер
                 final int count = database.delete(RssItemsTable.NAME, RssItemsTable.Cols.ADDRESS + "= ?", new String[] { urlLink});
                 Log.d(TAG,"Удалено итемов " + Integer.toString(count));
 
                 for (final RssItem item : feedList) {
                     item.setUrl(urlLink);
                     final ContentValues values =RssBaseHelper.getContentValues(item);
-
-                    //TODO тут тоже инсёрт в хелпер
                     final long countInsert = database.insert(RssItemsTable.NAME, null, values);
                     Log.d(TAG, "Добавлено итемов " + countInsert);
                 }

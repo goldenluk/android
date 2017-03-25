@@ -1,5 +1,7 @@
 package ru.matthewhadzhiev.rssreader.channels;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +13,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ru.matthewhadzhiev.rssreader.R;
+import ru.matthewhadzhiev.rssreader.database.RssBaseHelper;
+import ru.matthewhadzhiev.rssreader.database.RssItemsDbSchema;
 import ru.matthewhadzhiev.rssreader.rssworks.RssChannel;
 
 final class RssChannelListAdapter extends RecyclerView.Adapter<RssChannelListAdapter.ChannelModelViewHolder> {
 
     private final ArrayList<RssChannel> channelItems;
+    private final Context context;
 
     static class ChannelModelViewHolder extends RecyclerView.ViewHolder {
         private final View channelsView;
@@ -26,10 +31,9 @@ final class RssChannelListAdapter extends RecyclerView.Adapter<RssChannelListAda
         }
     }
 
-    RssChannelListAdapter(final ArrayList<RssChannel> rssChannelsModels) {
+    RssChannelListAdapter(final ArrayList<RssChannel> rssChannelsModels, final Context context) {
         channelItems = rssChannelsModels;
-
-
+        this.context = context;
     }
 
     @Override
@@ -60,7 +64,11 @@ final class RssChannelListAdapter extends RecyclerView.Adapter<RssChannelListAda
         deleteChannel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                //TODO удаляем сей канал
+                final SQLiteDatabase database = new RssBaseHelper(context).getWritableDatabase();
+                database.delete(RssItemsDbSchema.RssItemsTable.NAME, RssItemsDbSchema.RssItemsTable.Cols.ADDRESS + "= ?", new String[] { channelItem.getAddress()});
+                database.delete(RssItemsDbSchema.RssChannelsTable.NAME, RssItemsDbSchema.RssChannelsTable.Cols.ADDRESS + "= ?", new String[] { channelItem.getAddress()});
+                channelItems.remove(holder.getAdapterPosition());
+                notifyItemRemoved(holder.getAdapterPosition());
             }
         });
     }
