@@ -42,7 +42,7 @@ final public class AddChannelActivity extends AppCompatActivity {
         final TextView standartOrNotExample = (TextView) findViewById(R.id.last_or_example);
 
         if (lastChannel != null) {
-            titleForExample.setText(R.string.give_last_address);
+            titleForExample.setText(R.string.text_view_give_last_address);
             standartOrNotExample.setText(lastChannel);
         }
 
