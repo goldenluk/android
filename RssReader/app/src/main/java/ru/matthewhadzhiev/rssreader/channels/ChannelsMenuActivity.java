@@ -8,33 +8,28 @@ import android.widget.Button;
 
 import ru.matthewhadzhiev.rssreader.R;
 
-final public class ChannelsMenuActivity extends AppCompatActivity {
+final public class ChannelsMenuActivity extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.channel_menu_activity);
 
-        //TODO кнопкам оистенрером сама активность
-
         final Button newChannelButton = (Button) findViewById(R.id.add_channel_button);
-        newChannelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-               startMyActivity(AddChannelActivity.class);
-            }
-        });
+        newChannelButton.setOnClickListener(this);
 
         final Button viewedChannelButton = (Button) findViewById(R.id.viewed_channels_button);
-        viewedChannelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                startMyActivity(ChannelsControlActivity.class);
-            }
-        });
+        viewedChannelButton.setOnClickListener(this);
     }
 
-    private void startMyActivity (final Class myClass) {
-        final Intent intent = new Intent(ChannelsMenuActivity.this, myClass);
-        startActivity(intent);
+    @Override
+    public void onClick(final View view) {
+        switch (view.getId()) {
+            case R.id.add_channel_button:
+                startActivity(new Intent(this, AddChannelActivity.class));
+                break;
+            case R.id.viewed_channels_button:
+                startActivity(new Intent(this, ChannelsControlActivity.class));
+                break;
+        }
     }
 }
