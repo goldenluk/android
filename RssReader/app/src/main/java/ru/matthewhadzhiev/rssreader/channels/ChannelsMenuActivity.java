@@ -20,7 +20,7 @@ final public class ChannelsMenuActivity extends AppCompatActivity implements Vie
         final Button viewedChannelButton = (Button) findViewById(R.id.viewed_channels_button);
         viewedChannelButton.setOnClickListener(this);
     }
-    //
+
     @Override
     public void onClick(final View view) {
         switch (view.getId()) {
