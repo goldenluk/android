@@ -9,11 +9,17 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import ru.matthewhadzhiev.rssreader.AndroidLoggingHandler;
 
 public final class Parser {
 
     public static ArrayList<RssItem> parseFeed(final InputStream inputStream) throws XmlPullParserException,
             IOException {
+        AndroidLoggingHandler.reset(new AndroidLoggingHandler());
+        final Logger logger = Logger.getLogger("AddChannelActivity");
         if (inputStream == null) {
             throw new IOException();
         }
@@ -82,8 +88,7 @@ public final class Parser {
             try {
                 inputStream.close();
             } catch (final IOException e) {
-                //TODO Нормальное логирование
-                Log.e("Parser", e.getMessage());
+                logger.log(Level.WARNING, "Не распарсили данные");
             }
         }
     }

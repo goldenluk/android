@@ -6,9 +6,13 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import ru.matthewhadzhiev.rssreader.AndroidLoggingHandler;
 import ru.matthewhadzhiev.rssreader.database.RssItemsDbSchema.RssItemsTable;
 import ru.matthewhadzhiev.rssreader.rssworks.RssChannel;
 import ru.matthewhadzhiev.rssreader.rssworks.RssItem;
@@ -16,6 +20,7 @@ import ru.matthewhadzhiev.rssreader.rssworks.RssItem;
 public final class RssBaseHelper extends SQLiteOpenHelper {
     private static final int VERSION = 1;
     private static final String DATABASE_NAME = "rssItemsBase.db";
+    private Logger logger;
 
     public RssBaseHelper(final Context context) {
         super(context, DATABASE_NAME, null, VERSION);
@@ -23,6 +28,9 @@ public final class RssBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(final SQLiteDatabase sqLiteDatabase) {
+        AndroidLoggingHandler.reset(new AndroidLoggingHandler());
+        logger = Logger.getLogger("RssBaseHelper");
+
         try {
             sqLiteDatabase.execSQL("create table " + RssItemsTable.NAME + "(" +
                     " _id integer primary key autoincrement, " +
@@ -40,7 +48,7 @@ public final class RssBaseHelper extends SQLiteOpenHelper {
                     ")"
             );
         } catch (final SQLException e) {
-            e.printStackTrace();
+            logger.log(Level.WARNING, "Не создалась база");
         }
 
     }
@@ -110,7 +118,7 @@ public final class RssBaseHelper extends SQLiteOpenHelper {
             }
             cursorTemp.close();
         } catch (final Throwable e) {
-            e.printStackTrace();
+            logger.log(Level.WARNING, "Не смогли получить items");
         }
         return feedList;
     }
@@ -145,7 +153,7 @@ public final class RssBaseHelper extends SQLiteOpenHelper {
             }
             cursorTemp.close();
         } catch (final Throwable e) {
-            e.printStackTrace();
+            logger.log(Level.WARNING, "Не смогли получить channels");
         }
 
         return channelList;

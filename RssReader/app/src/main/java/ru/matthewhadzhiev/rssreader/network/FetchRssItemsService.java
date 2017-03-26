@@ -13,7 +13,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import ru.matthewhadzhiev.rssreader.AndroidLoggingHandler;
 import ru.matthewhadzhiev.rssreader.database.RssBaseHelper;
 import ru.matthewhadzhiev.rssreader.database.RssItemsDbSchema;
 import ru.matthewhadzhiev.rssreader.database.RssItemsDbSchema.RssItemsTable;
@@ -29,7 +32,7 @@ public final class FetchRssItemsService extends IntentService{
     public static final String ANSWER_SUCCESS_OR_NOT ="ru.matthewhadzhiev.rssreader.network.success_or_not";
     public static final String IS_UPDATE = "ru.matthewhadzhiev.rssreader.network.is_update";
     public static final String IS_LAST_IN_UPDATE = "ru.matthewhadzhiev.rssreader.network";
-
+    private Logger logger;
 
     public FetchRssItemsService(final String name) {
         super(name);
@@ -44,6 +47,9 @@ public final class FetchRssItemsService extends IntentService{
     protected void onHandleIntent(final Intent intent) {
         String urlLink = intent.getStringExtra(AddChannelActivity.URL_ADDRESS);
         InputStream inputStream = null;
+
+        AndroidLoggingHandler.reset(new AndroidLoggingHandler());
+        logger = Logger.getLogger("FeedNewsActivity");
 
         final Intent responseIntent = new Intent();
         responseIntent.putExtra(IS_LAST_IN_UPDATE, intent.getBooleanExtra(IS_LAST_IN_UPDATE, false));
@@ -64,7 +70,7 @@ public final class FetchRssItemsService extends IntentService{
                 if (!intent.getBooleanExtra(IS_UPDATE, false)) {
                     for (final RssChannel channel: channelList) {
                         if (channel.getAddress().equals(urlLink)) {
-                            Log.d(TAG, "Такой канал уже есть");
+                            logger.log(Level.INFO, "Такой канал уже есть");
                             responseIntent.putExtra(ANSWER_SUCCESS_OR_NOT, false);
                             sendBroadcast(responseIntent);
                             return;
@@ -87,13 +93,13 @@ public final class FetchRssItemsService extends IntentService{
                 }
 
                 final int count = database.delete(RssItemsTable.NAME, RssItemsTable.Cols.ADDRESS + "= ?", new String[] { urlLink});
-                Log.d(TAG,"Удалено итемов " + Integer.toString(count));
+                logger.log(Level.INFO, "Удалено итемов " + Integer.toString(count));
 
                 for (final RssItem item : feedList) {
                     item.setUrl(urlLink);
                     final ContentValues values =RssBaseHelper.getContentValues(item);
                     final long countInsert = database.insert(RssItemsTable.NAME, null, values);
-                    Log.d(TAG, "Добавлено итемов " + countInsert);
+                    logger.log(Level.INFO, "Добавлено итемов " + countInsert);
                 }
 
                 database.close();
@@ -101,7 +107,7 @@ public final class FetchRssItemsService extends IntentService{
                 responseIntent.putExtra(ANSWER_SUCCESS_OR_NOT, true);
             } catch (final Throwable e) {
                 responseIntent.putExtra(ANSWER_SUCCESS_OR_NOT, false);
-                Log.e("TAG", e.getMessage());
+                logger.log(Level.WARNING, "Не сформировали ответ");
             } finally {
                 try {
                     if (inputStream != null) {

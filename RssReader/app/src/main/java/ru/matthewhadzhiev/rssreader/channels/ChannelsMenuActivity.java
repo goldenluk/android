@@ -14,6 +14,8 @@ final public class ChannelsMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.channel_menu_activity);
 
+        //TODO кнопкам оистенрером сама активность
+
         final Button newChannelButton = (Button) findViewById(R.id.add_channel_button);
         newChannelButton.setOnClickListener(new View.OnClickListener() {
             @Override

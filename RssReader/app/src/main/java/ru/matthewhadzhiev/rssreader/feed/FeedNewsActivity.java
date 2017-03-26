@@ -14,7 +14,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import ru.matthewhadzhiev.rssreader.AndroidLoggingHandler;
 import ru.matthewhadzhiev.rssreader.R;
 import ru.matthewhadzhiev.rssreader.database.RssBaseHelper;
 import ru.matthewhadzhiev.rssreader.network.FetchRssItemsService;
@@ -26,11 +29,16 @@ final public class FeedNewsActivity extends AppCompatActivity{
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private MyBroadcastReceiver myBroadcastReceiver;
+    private Logger logger;
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.feed_news_activity);
+
+        AndroidLoggingHandler.reset(new AndroidLoggingHandler());
+        logger = Logger.getLogger("FeedNewsActivity");
+
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -102,7 +110,7 @@ final public class FeedNewsActivity extends AppCompatActivity{
         try {
             unregisterReceiver(myBroadcastReceiver);
         } catch (final Throwable e) {
-            e.printStackTrace();
+            logger.log(Level.WARNING,"Не отписался reciever");
         }
 
     }

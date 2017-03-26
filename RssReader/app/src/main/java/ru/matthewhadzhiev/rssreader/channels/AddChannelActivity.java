@@ -14,6 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import ru.matthewhadzhiev.rssreader.AndroidLoggingHandler;
 import ru.matthewhadzhiev.rssreader.R;
 import ru.matthewhadzhiev.rssreader.network.FetchRssItemsService;
 
@@ -21,7 +25,7 @@ final public class AddChannelActivity extends AppCompatActivity {
     private EditText editText;
     private MyBroadcastReceiver myBroadcastReceiver;
     private TextView addingProccessTextView;
-
+    private Logger logger;
     public static final String URL_ADDRESS = "ru.matthewhadzhiev.rssreader.ui.url_address";
 
 
@@ -29,6 +33,9 @@ final public class AddChannelActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_channel_activity);
+
+        AndroidLoggingHandler.reset(new AndroidLoggingHandler());
+        logger = Logger.getLogger("AddChannelActivity");
 
         final String lastChannelKey = "last_channel";
 
@@ -105,7 +112,7 @@ final public class AddChannelActivity extends AppCompatActivity {
         try {
             unregisterReceiver(myBroadcastReceiver);
         } catch (final Throwable e) {
-            e.printStackTrace();
+            logger.log(Level.WARNING, "Не отписался reciever");
         }
 
     }
