@@ -6,7 +6,6 @@ import android.content.Intent;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
-import android.util.Log;
 
 
 import java.io.IOException;
@@ -66,7 +65,6 @@ public final class FetchRssItemsService extends IntentService{
 
                 final ArrayList<RssChannel> channelList = new RssBaseHelper(getApplicationContext()).getChannels();
 
-                final String TAG = "FetchRssItemsService";
                 if (!intent.getBooleanExtra(IS_UPDATE, false)) {
                     for (final RssChannel channel: channelList) {
                         if (channel.getAddress().equals(urlLink)) {

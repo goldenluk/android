@@ -12,7 +12,10 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import ru.matthewhadzhiev.rssreader.AndroidLoggingHandler;
 import ru.matthewhadzhiev.rssreader.R;
 import ru.matthewhadzhiev.rssreader.database.RssBaseHelper;
 import ru.matthewhadzhiev.rssreader.database.RssItemsDbSchema;
@@ -22,6 +25,7 @@ final class RssChannelListAdapter extends RecyclerView.Adapter<RssChannelListAda
 
     private final ArrayList<RssChannel> channelItems;
     private final Context context;
+    private Logger logger;
 
     static class ChannelModelViewHolder extends RecyclerView.ViewHolder {
         private final View channelsView;
@@ -35,6 +39,8 @@ final class RssChannelListAdapter extends RecyclerView.Adapter<RssChannelListAda
     RssChannelListAdapter(final ArrayList<RssChannel> rssChannelsModels, final Context context) {
         channelItems = rssChannelsModels;
         this.context = context;
+        AndroidLoggingHandler.reset(new AndroidLoggingHandler());
+        logger = Logger.getLogger("RssChannelListAdapter");
     }
 
     @Override
@@ -57,17 +63,20 @@ final class RssChannelListAdapter extends RecyclerView.Adapter<RssChannelListAda
         isChannelActiveCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(final CompoundButton compoundButton, final boolean b) {
-                //TODO в try catch
-                final SQLiteDatabase database = new RssBaseHelper(context).getWritableDatabase();
+                try {
+                    final SQLiteDatabase database = new RssBaseHelper(context).getWritableDatabase();
 
-                if (isChannelActiveCheckBox.isChecked()) {
-                    channelItem.setActive(true);
-                    database.update(RssItemsDbSchema.RssChannelsTable.NAME, RssBaseHelper.getContentValuesChannel(channelItem),
-                            RssItemsDbSchema.RssChannelsTable.Cols.ADDRESS + "= ?", new String[] { channelItem.getAddress()});
-                } else {
-                    channelItem.setActive(false);
-                    database.update(RssItemsDbSchema.RssChannelsTable.NAME, RssBaseHelper.getContentValuesChannel(channelItem),
-                            RssItemsDbSchema.RssChannelsTable.Cols.ADDRESS + "= ?", new String[] { channelItem.getAddress()});
+                    if (isChannelActiveCheckBox.isChecked()) {
+                        channelItem.setActive(true);
+                        database.update(RssItemsDbSchema.RssChannelsTable.NAME, RssBaseHelper.getContentValuesChannel(channelItem),
+                                RssItemsDbSchema.RssChannelsTable.Cols.ADDRESS + "= ?", new String[] { channelItem.getAddress()});
+                    } else {
+                        channelItem.setActive(false);
+                        database.update(RssItemsDbSchema.RssChannelsTable.NAME, RssBaseHelper.getContentValuesChannel(channelItem),
+                                RssItemsDbSchema.RssChannelsTable.Cols.ADDRESS + "= ?", new String[] { channelItem.getAddress()});
+                    }
+                } catch (final Exception e) {
+                    logger.log(Level.WARNING, "Не смогли записать в базу");
                 }
             }
         });
@@ -77,12 +86,15 @@ final class RssChannelListAdapter extends RecyclerView.Adapter<RssChannelListAda
         deleteChannel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                //TODO в try catch
-                final SQLiteDatabase database = new RssBaseHelper(context).getWritableDatabase();
-                database.delete(RssItemsDbSchema.RssItemsTable.NAME, RssItemsDbSchema.RssItemsTable.Cols.ADDRESS + "= ?", new String[] { channelItem.getAddress()});
-                database.delete(RssItemsDbSchema.RssChannelsTable.NAME, RssItemsDbSchema.RssChannelsTable.Cols.ADDRESS + "= ?", new String[] { channelItem.getAddress()});
-                channelItems.remove(holder.getAdapterPosition());
-                notifyItemRemoved(holder.getAdapterPosition());
+                try {
+                    final SQLiteDatabase database = new RssBaseHelper(context).getWritableDatabase();
+                    database.delete(RssItemsDbSchema.RssItemsTable.NAME, RssItemsDbSchema.RssItemsTable.Cols.ADDRESS + "= ?", new String[] { channelItem.getAddress()});
+                    database.delete(RssItemsDbSchema.RssChannelsTable.NAME, RssItemsDbSchema.RssChannelsTable.Cols.ADDRESS + "= ?", new String[] { channelItem.getAddress()});
+                    channelItems.remove(holder.getAdapterPosition());
+                    notifyItemRemoved(holder.getAdapterPosition());
+                } catch (final Exception e) {
+                    logger.log(Level.WARNING, "Не смогли записать в базу");
+                }
             }
         });
     }
