@@ -110,7 +110,7 @@ final public class FeedNewsActivity extends AppCompatActivity{
         try {
             unregisterReceiver(myBroadcastReceiver);
         } catch (final Throwable e) {
-            logger.log(Level.WARNING,"Не отписался reciever");
+            logger.log(Level.WARNING,"Не отписался receiver");
         }
 
     }

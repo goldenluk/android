@@ -25,7 +25,7 @@ final class RssChannelListAdapter extends RecyclerView.Adapter<RssChannelListAda
 
     private final ArrayList<RssChannel> channelItems;
     private final Context context;
-    private Logger logger;
+    private final Logger logger;
 
     static class ChannelModelViewHolder extends RecyclerView.ViewHolder {
         private final View channelsView;

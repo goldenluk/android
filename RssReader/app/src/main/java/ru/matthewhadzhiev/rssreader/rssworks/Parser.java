@@ -1,6 +1,5 @@
 package ru.matthewhadzhiev.rssreader.rssworks;
 
-import android.util.Log;
 import android.util.Xml;
 
 import org.xmlpull.v1.XmlPullParser;

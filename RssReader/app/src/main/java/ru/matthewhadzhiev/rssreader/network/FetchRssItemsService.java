@@ -31,7 +31,6 @@ public final class FetchRssItemsService extends IntentService{
     public static final String ANSWER_SUCCESS_OR_NOT ="ru.matthewhadzhiev.rssreader.network.success_or_not";
     public static final String IS_UPDATE = "ru.matthewhadzhiev.rssreader.network.is_update";
     public static final String IS_LAST_IN_UPDATE = "ru.matthewhadzhiev.rssreader.network";
-    private Logger logger;
 
     public FetchRssItemsService(final String name) {
         super(name);
@@ -48,7 +47,7 @@ public final class FetchRssItemsService extends IntentService{
         InputStream inputStream = null;
 
         AndroidLoggingHandler.reset(new AndroidLoggingHandler());
-        logger = Logger.getLogger("FeedNewsActivity");
+        final Logger logger = Logger.getLogger("FeedNewsActivity");
 
         final Intent responseIntent = new Intent();
         responseIntent.putExtra(IS_LAST_IN_UPDATE, intent.getBooleanExtra(IS_LAST_IN_UPDATE, false));
