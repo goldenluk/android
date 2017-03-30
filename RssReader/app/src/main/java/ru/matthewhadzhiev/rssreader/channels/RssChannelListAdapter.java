@@ -1,6 +1,8 @@
 package ru.matthewhadzhiev.rssreader.channels;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -81,20 +83,33 @@ final class RssChannelListAdapter extends RecyclerView.Adapter<RssChannelListAda
             }
         });
 
-        //TODO Перед удалением спросить у пользователя хочет ли он этого
         final Button deleteChannel = (Button) holder.channelsView.findViewById(R.id.delete_channel_button);
         deleteChannel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                try {
-                    final SQLiteDatabase database = new RssBaseHelper(context).getWritableDatabase();
-                    database.delete(RssItemsDbSchema.RssItemsTable.NAME, RssItemsDbSchema.RssItemsTable.Cols.ADDRESS + "= ?", new String[] { channelItem.getAddress()});
-                    database.delete(RssItemsDbSchema.RssChannelsTable.NAME, RssItemsDbSchema.RssChannelsTable.Cols.ADDRESS + "= ?", new String[] { channelItem.getAddress()});
-                    channelItems.remove(holder.getAdapterPosition());
-                    notifyItemRemoved(holder.getAdapterPosition());
-                } catch (final Exception e) {
-                    logger.log(Level.WARNING, "Не смогли записать в базу");
-                }
+
+                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+                alertDialog.setTitle(R.string.title_delete_channel_dialog);
+                alertDialog.setMessage(R.string.message_delete_channel_dialog);
+                alertDialog.setPositiveButton(R.string.positive_button_delete_channel_dialog,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(final DialogInterface dialogInterface, final int i) {
+                                try {
+                                    final SQLiteDatabase database = new RssBaseHelper(context).getWritableDatabase();
+                                    database.delete(RssItemsDbSchema.RssItemsTable.NAME, RssItemsDbSchema.RssItemsTable.Cols.ADDRESS + "= ?",
+                                            new String[] { channelItem.getAddress()});
+                                    database.delete(RssItemsDbSchema.RssChannelsTable.NAME, RssItemsDbSchema.RssChannelsTable.Cols.ADDRESS + "= ?",
+                                            new String[] { channelItem.getAddress()});
+                                    channelItems.remove(holder.getAdapterPosition());
+                                    notifyItemRemoved(holder.getAdapterPosition());
+                                } catch (final Exception e) {
+                                    logger.log(Level.WARNING, "Не смогли записать в базу");
+                                }
+                            }
+                        });
+                alertDialog.setNegativeButton(R.string.negative_button_delete_channel_dialog, null);
+                alertDialog.show();
             }
         });
     }

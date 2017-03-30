@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import ru.matthewhadzhiev.rssreader.R;
 import ru.matthewhadzhiev.rssreader.channels.ChannelsMenuActivity;
 import ru.matthewhadzhiev.rssreader.feed.AllOrNewItemsActivity;
-import ru.matthewhadzhiev.rssreader.feed.FeedNewsActivity;
 
 final public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     //TODO Вертикальная ориентация

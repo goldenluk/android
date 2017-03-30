@@ -31,9 +31,10 @@ final public class FeedNewsActivity extends AppCompatActivity{
     private MyBroadcastReceiver myBroadcastReceiver;
     private Logger logger;
 
-    static String IS_ALL_ITEMS = "ru.matthewhadzhiev.rssreader.feed.IS_ALL_ITEMS";
+    static final String IS_ALL_ITEMS = "ru.matthewhadzhiev.rssreader.feed.IS_ALL_ITEMS";
 
     //TODO Очистить базу новостей
+    //TODO Собирать все новости
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
