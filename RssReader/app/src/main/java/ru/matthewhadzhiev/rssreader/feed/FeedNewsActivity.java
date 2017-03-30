@@ -30,7 +30,8 @@ final public class FeedNewsActivity extends AppCompatActivity{
     private RecyclerView recyclerView;
     private MyBroadcastReceiver myBroadcastReceiver;
     private Logger logger;
-
+    //TODO Разделение на свежие новости и все собранные новости
+    //TODO Очистить базу новостей
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

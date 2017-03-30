@@ -11,7 +11,7 @@ import ru.matthewhadzhiev.rssreader.channels.ChannelsMenuActivity;
 import ru.matthewhadzhiev.rssreader.feed.FeedNewsActivity;
 
 final public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
+    //TODO Вертикальная ориентация
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

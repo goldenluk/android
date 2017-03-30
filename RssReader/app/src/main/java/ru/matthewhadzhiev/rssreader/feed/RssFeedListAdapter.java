@@ -41,6 +41,7 @@ final class RssFeedListAdapter
         final RssItem rssItem = rssItems.get(position);
         ((TextView)holder.rssFeedView.findViewById(R.id.title_text)).setText(rssItem.getTitle());
         ((TextView)holder.rssFeedView.findViewById(R.id.address_text)).setText(rssItem.getUrl());
+        //TODO По клику откроется описание новости
     }
 
     @Override

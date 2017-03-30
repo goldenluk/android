@@ -115,6 +115,7 @@ public final class FetchRssItemsService extends IntentService{
                 }
             }
         }
+
         sendBroadcast(responseIntent);
     }
 

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/channel_menu_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    style="@style/Linear"
+    tools:context="ru.matthewhadzhiev.rssreader.feed.AllOrNewItemsActivity">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_new_items_feed"
+        android:text="@string/button_open_new_items_feed"
+        style="@style/Button"
+    />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_all_items_feed"
+        android:text="@string/button_open_all_items_feed"
+        style="@style/Button"
+    />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_delete_all_items"
+        android:text="@string/button_delete_all_items"
+        style="@style/Button"
+    />
+</LinearLayout>

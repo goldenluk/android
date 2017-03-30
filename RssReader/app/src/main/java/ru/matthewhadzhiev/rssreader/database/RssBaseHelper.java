@@ -81,7 +81,6 @@ public final class RssBaseHelper extends SQLiteOpenHelper {
         return values;
     }
 
-    //TODO вот это в фон
     public ArrayList<RssItem> getItems() {
         ArrayList<RssItem> feedList = null;
         final SQLiteDatabase database;
@@ -122,7 +121,6 @@ public final class RssBaseHelper extends SQLiteOpenHelper {
         return feedList;
     }
 
-    //TODO вот это тоже в фон
     public ArrayList<RssChannel> getChannels() {
         final SQLiteDatabase database;
         ArrayList<RssChannel> channelList = null;

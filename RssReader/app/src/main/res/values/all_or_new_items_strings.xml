@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="button_open_new_items_feed">Свежие новости</string>
+    <string name="button_open_all_items_feed">Все новости</string>
+    <string name="button_delete_all_items">Удалить все новости</string>
+</resources>

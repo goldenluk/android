@@ -81,7 +81,7 @@ final class RssChannelListAdapter extends RecyclerView.Adapter<RssChannelListAda
             }
         });
 
-
+        //TODO Перед удалением спросить у пользователя хочет ли он этого
         final Button deleteChannel = (Button) holder.channelsView.findViewById(R.id.delete_channel_button);
         deleteChannel.setOnClickListener(new View.OnClickListener() {
             @Override
