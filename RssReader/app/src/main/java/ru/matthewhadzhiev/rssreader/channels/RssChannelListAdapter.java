@@ -52,7 +52,7 @@ final class RssChannelListAdapter extends RecyclerView.Adapter<RssChannelListAda
 
     @Override
     public void onBindViewHolder(final RssChannelListAdapter.ChannelModelViewHolder holder, final int position) {
-        final RssChannel channelItem = channelItems.get(position);
+        final RssChannel channelItem = channelItems.get(channelItems.size() - 1 -position);
 
         final TextView channelName = (TextView) holder.channelsView.findViewById(R.id.channel_name);
         channelName.setText(channelItem.getAddress());

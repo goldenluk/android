@@ -89,6 +89,7 @@ public final class FetchRssItemsService extends IntentService{
                     database.insert(RssItemsDbSchema.RssChannelsTable.NAME, null, valuesChannel);
                 }
 
+                //Эти строки очищают все итемы данного канала
                 final int count = database.delete(RssItemsTable.NAME, RssItemsTable.Cols.ADDRESS + "= ?", new String[] { urlLink});
                 logger.log(Level.INFO, "Удалено итемов " + Integer.toString(count));
 

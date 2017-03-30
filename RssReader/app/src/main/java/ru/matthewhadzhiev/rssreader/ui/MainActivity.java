@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import ru.matthewhadzhiev.rssreader.R;
 import ru.matthewhadzhiev.rssreader.channels.ChannelsMenuActivity;
+import ru.matthewhadzhiev.rssreader.feed.AllOrNewItemsActivity;
 import ru.matthewhadzhiev.rssreader.feed.FeedNewsActivity;
 
 final public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -32,7 +33,7 @@ final public class MainActivity extends AppCompatActivity implements View.OnClic
                 startActivity(new Intent(this, ChannelsMenuActivity.class));
                 break;
             case R.id.feed_button:
-                startActivity(new Intent(this, FeedNewsActivity.class));
+                startActivity(new Intent(this, AllOrNewItemsActivity.class));
         }
     }
 }
