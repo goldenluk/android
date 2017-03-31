@@ -66,6 +66,15 @@ public final class RssBaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public static ContentValues getContentValuesForAll(final RssItem rssItem) {
+        final ContentValues values = new ContentValues();
+        values.put(RssItemsDbSchema.RssAllItemsTable.Cols.ADDRESS, rssItem.getUrl());
+        values.put(RssItemsDbSchema.RssAllItemsTable.Cols.TITLE, rssItem.getTitle());
+        values.put(RssItemsDbSchema.RssAllItemsTable.Cols.LINK, rssItem.getLink());
+        values.put(RssItemsDbSchema.RssAllItemsTable.Cols.DESCRIPTION, rssItem.getDescription());
+
+        return values;
+    }
 
     public static ContentValues getContentValues(final RssItem rssItem) {
         final ContentValues values = new ContentValues();
@@ -90,13 +99,21 @@ public final class RssBaseHelper extends SQLiteOpenHelper {
         return values;
     }
 
-    public ArrayList<RssItem> getItems() {
+    public ArrayList<RssItem> getItems(final boolean isAll) {
         ArrayList<RssItem> feedList = null;
         final SQLiteDatabase database;
         try {
+
+            final String table;
+            if (isAll) {
+                table = RssItemsDbSchema.RssAllItemsTable.NAME;
+            } else {
+                table = RssItemsTable.NAME;
+            }
+
             database = this.getWritableDatabase();
             final Cursor cursorTemp = database.query(
-                    RssItemsTable.NAME,
+                    table,
                     null, // Columns - null выбирает все столбцы
                     null,
                     null,
@@ -111,10 +128,21 @@ public final class RssBaseHelper extends SQLiteOpenHelper {
             try {
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()) {
-                    final String address = cursor.getRssItem().getUrl();
+                    final String address;
+                    if (isAll) {
+                        address = cursor.getRssItemFromAll().getUrl();
+                    } else {
+                        address = cursor.getRssItem().getUrl();
+                    }
+
                     for (int i = 0; i < rssChannels.size(); ++i) {
                         if (rssChannels.get(i).getAddress().equals(address) && rssChannels.get(i).isActive()) {
-                            feedList.add(cursor.getRssItem());
+                            if (isAll) {
+                                feedList.add(cursor.getRssItemFromAll());
+                            } else {
+                                feedList.add(cursor.getRssItem());
+                            }
+
                             break;
                         }
                     }
@@ -125,7 +153,9 @@ public final class RssBaseHelper extends SQLiteOpenHelper {
             }
             cursorTemp.close();
         } catch (final Throwable e) {
-            logger.log(Level.WARNING, "Не смогли получить items");
+            if (logger != null) {
+                logger.log(Level.WARNING, "Не смогли получить items");
+            }
         }
         return feedList;
     }

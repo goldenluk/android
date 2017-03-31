@@ -26,6 +26,18 @@ final class RssCursorWrapper extends CursorWrapper{
         return rssItem;
     }
 
+    RssItem getRssItemFromAll() {
+        final String address = getString(getColumnIndex(RssItemsDbSchema.RssAllItemsTable.Cols.ADDRESS));
+        final String title = getString(getColumnIndex(RssItemsDbSchema.RssAllItemsTable.Cols.TITLE));
+        final String link = getString(getColumnIndex(RssItemsDbSchema.RssAllItemsTable.Cols.LINK));
+        final String description = getString(getColumnIndex(RssItemsDbSchema.RssAllItemsTable.Cols.DESCRIPTION));
+
+        final RssItem rssItem = new RssItem(title, link, description);
+        rssItem.setUrl(address);
+
+        return rssItem;
+    }
+
     RssChannel getRssChannel() {
         final String address = getString(getColumnIndex(RssItemsDbSchema.RssChannelsTable.Cols.ADDRESS));
         final int isActiveInt = getInt(getColumnIndex(RssItemsDbSchema.RssChannelsTable.Cols.ACTIVE));

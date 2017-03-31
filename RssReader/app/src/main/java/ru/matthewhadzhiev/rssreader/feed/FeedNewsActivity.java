@@ -30,8 +30,9 @@ final public class FeedNewsActivity extends AppCompatActivity{
     private RecyclerView recyclerView;
     private MyBroadcastReceiver myBroadcastReceiver;
     private Logger logger;
+    private boolean isAll;
 
-    static final String IS_ALL_ITEMS = "ru.matthewhadzhiev.rssreader.feed.IS_ALL_ITEMS";
+    public static final String IS_ALL_ITEMS = "ru.matthewhadzhiev.rssreader.feed.IS_ALL_ITEMS";
 
     //TODO Очистить базу новостей
     //TODO Собирать все новости
@@ -39,6 +40,8 @@ final public class FeedNewsActivity extends AppCompatActivity{
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.feed_news_activity);
+
+        isAll = getIntent().getBooleanExtra(IS_ALL_ITEMS, false);
 
         AndroidLoggingHandler.reset(new AndroidLoggingHandler());
         logger = Logger.getLogger("FeedNewsActivity");
@@ -63,7 +66,7 @@ final public class FeedNewsActivity extends AppCompatActivity{
             }
         });
 
-        final ArrayList<RssItem> feedList = new RssBaseHelper(FeedNewsActivity.this).getItems();
+        final ArrayList<RssItem> feedList = new RssBaseHelper(FeedNewsActivity.this).getItems(isAll);
         recyclerView.setAdapter(new RssFeedListAdapter(feedList));
 
         myBroadcastReceiver = new MyBroadcastReceiver();
@@ -79,6 +82,7 @@ final public class FeedNewsActivity extends AppCompatActivity{
         final Intent fetchRss = new Intent(FeedNewsActivity.this, FetchRssItemsService.class);
         fetchRss.putExtra(AddChannelActivity.URL_ADDRESS, channelList.get(i).getAddress());
         fetchRss.putExtra(FetchRssItemsService.IS_UPDATE, true);
+        fetchRss.putExtra(IS_ALL_ITEMS, isAll);
         if (i == channelList.size() - 1) {
             fetchRss.putExtra(FetchRssItemsService.IS_LAST_IN_UPDATE, true);
         }
@@ -93,7 +97,7 @@ final public class FeedNewsActivity extends AppCompatActivity{
 
         @Override
         public void onReceive(final Context context, final Intent intent) {
-            final ArrayList<RssItem> feedList = new RssBaseHelper(FeedNewsActivity.this).getItems();
+            final ArrayList<RssItem> feedList = new RssBaseHelper(FeedNewsActivity.this).getItems(isAll);
             if (intent.getBooleanExtra(FetchRssItemsService.IS_LAST_IN_UPDATE, false)) {
                 swipeRefreshLayout.setRefreshing(false);
                 recyclerView.setAdapter(new RssFeedListAdapter(feedList));

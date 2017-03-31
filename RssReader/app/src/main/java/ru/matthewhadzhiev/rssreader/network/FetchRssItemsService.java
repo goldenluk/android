@@ -19,6 +19,7 @@ import ru.matthewhadzhiev.rssreader.AndroidLoggingHandler;
 import ru.matthewhadzhiev.rssreader.database.RssBaseHelper;
 import ru.matthewhadzhiev.rssreader.database.RssItemsDbSchema;
 import ru.matthewhadzhiev.rssreader.database.RssItemsDbSchema.RssItemsTable;
+import ru.matthewhadzhiev.rssreader.feed.FeedNewsActivity;
 import ru.matthewhadzhiev.rssreader.rssworks.Parser;
 import ru.matthewhadzhiev.rssreader.rssworks.RssChannel;
 import ru.matthewhadzhiev.rssreader.rssworks.RssItem;
@@ -89,15 +90,26 @@ public final class FetchRssItemsService extends IntentService{
                     database.insert(RssItemsDbSchema.RssChannelsTable.NAME, null, valuesChannel);
                 }
 
-                //Эти строки очищают все итемы данного канала
-                final int count = database.delete(RssItemsTable.NAME, RssItemsTable.Cols.ADDRESS + "= ?", new String[] { urlLink});
-                logger.log(Level.INFO, "Удалено итемов " + Integer.toString(count));
+                //Проверяе, свежие ли записи смотрим или все
+                if (!intent.getBooleanExtra(FeedNewsActivity.IS_ALL_ITEMS,false)) {
+                    //Эти строки очищают все итемы данного канала
+                    final int count = database.delete(RssItemsTable.NAME, RssItemsTable.Cols.ADDRESS + "= ?", new String[] { urlLink});
+                    logger.log(Level.INFO, "Удалено итемов " + Integer.toString(count));
+                }
+
 
                 for (final RssItem item : feedList) {
                     item.setUrl(urlLink);
-                    final ContentValues values =RssBaseHelper.getContentValues(item);
-                    final long countInsert = database.insert(RssItemsTable.NAME, null, values);
-                    logger.log(Level.INFO, "Добавлено итемов " + countInsert);
+                    if (intent.getBooleanExtra(FeedNewsActivity.IS_ALL_ITEMS, false)) {
+                        final ContentValues values = RssBaseHelper.getContentValuesForAll(item);
+                        database.delete(RssItemsDbSchema.RssAllItemsTable.NAME, RssItemsDbSchema.RssAllItemsTable.Cols.TITLE + "= ?",
+                                new String[] {item.getTitle()});
+                        database.insert(RssItemsDbSchema.RssAllItemsTable.NAME, null, values);
+                    } else {
+                        final ContentValues values = RssBaseHelper.getContentValues(item);
+                        database.insert(RssItemsTable.NAME, null, values);
+                    }
+
                 }
 
                 database.close();

@@ -21,8 +21,8 @@ public final class RssItemsDbSchema {
         public static final String NAME = "all_items";
 
         public static final class Cols {
-            public static final String ADDRESS = "address";
-            static final String TITLE = "title";
+            static final String ADDRESS = "address";
+            public static final String TITLE = "title";
             static final String LINK = "link";
             static final String DESCRIPTION = "description";
         }

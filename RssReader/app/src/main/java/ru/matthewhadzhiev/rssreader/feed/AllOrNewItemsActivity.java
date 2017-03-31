@@ -29,6 +29,8 @@ public final class AllOrNewItemsActivity extends AppCompatActivity implements Vi
             case R.id.button_new_items_feed:
                 startActivity(new Intent(this, FeedNewsActivity.class).putExtra(FeedNewsActivity.IS_ALL_ITEMS, false));
                 break;
+            case R.id.button_all_items_feed:
+                startActivity(new Intent(this, FeedNewsActivity.class).putExtra(FeedNewsActivity.IS_ALL_ITEMS, true));
         }
     }
 }
