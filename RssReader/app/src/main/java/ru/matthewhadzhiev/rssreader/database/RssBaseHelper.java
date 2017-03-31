@@ -40,6 +40,15 @@ public final class RssBaseHelper extends SQLiteOpenHelper {
                     ")"
             );
 
+            sqLiteDatabase.execSQL("create table " + RssItemsDbSchema.RssAllItemsTable.NAME + "(" +
+                    " _id integer primary key autoincrement, " +
+                    RssItemsDbSchema.RssAllItemsTable.Cols.ADDRESS + ", " +
+                    RssItemsDbSchema.RssAllItemsTable.Cols.TITLE + ", " +
+                    RssItemsDbSchema.RssAllItemsTable.Cols.LINK + ", " +
+                    RssItemsDbSchema.RssAllItemsTable.Cols.DESCRIPTION +
+                    ")"
+            );
+
             sqLiteDatabase.execSQL("create table " + RssItemsDbSchema.RssChannelsTable.NAME + "(" +
                     " _id integer primary key autoincrement, " +
                     RssItemsDbSchema.RssChannelsTable.Cols.ADDRESS + ", " +
