@@ -34,8 +34,8 @@ final public class FeedNewsActivity extends AppCompatActivity{
 
     public static final String IS_ALL_ITEMS = "ru.matthewhadzhiev.rssreader.feed.IS_ALL_ITEMS";
 
-    //TODO Очистить базу новостей
-    //TODO Собирать все новости
+    //TODO Очистить базу новосте
+    //TODO чтобы не добавлялось дважды, надо ключ задать
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

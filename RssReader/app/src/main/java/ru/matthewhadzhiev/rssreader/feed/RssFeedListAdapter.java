@@ -1,5 +1,6 @@
 package ru.matthewhadzhiev.rssreader.feed;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,9 +40,21 @@ final class RssFeedListAdapter
     @Override
     public void onBindViewHolder(final FeedModelViewHolder holder, final int position) {
         final RssItem rssItem = rssItems.get(position);
-        ((TextView)holder.rssFeedView.findViewById(R.id.title_text)).setText(rssItem.getTitle());
-        ((TextView)holder.rssFeedView.findViewById(R.id.address_text)).setText(rssItem.getUrl());
-        //TODO По клику откроется описание новости
+
+        final TextView titleText = (TextView) holder.rssFeedView.findViewById(R.id.title_text);
+        titleText.setText(rssItem.getTitle());
+        final TextView addressText = (TextView)holder.rssFeedView.findViewById(R.id.address_text);
+        addressText.setText(rssItem.getUrl());
+
+        titleText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+               view.getContext().startActivity(new Intent(view.getContext(), FullItemActivity.class)
+                       .putExtra(FullItemActivity.ITEM_DESCRIPTION,rssItem.getDescription()));
+            }
+        });
+        //TODO Текст итемов побольше
+        //TODO После клика новость отметится прочитанной
     }
 
     @Override

@@ -9,4 +9,5 @@
     <string name="message_delete_channel_dialog">Вы действительно хотите удалить канал?</string>
     <string name="positive_button_delete_channel_dialog">Удалить</string>
     <string name="negative_button_delete_channel_dialog">Отмена</string>
+    <string name="text_for_webview_no_description">У новости нет описания</string>
 </resources>

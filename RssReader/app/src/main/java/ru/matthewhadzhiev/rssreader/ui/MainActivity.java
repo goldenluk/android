@@ -11,7 +11,9 @@ import ru.matthewhadzhiev.rssreader.channels.ChannelsMenuActivity;
 import ru.matthewhadzhiev.rssreader.feed.AllOrNewItemsActivity;
 
 final public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    //TODO Вертикальная ориентация
+    //TODO Горизонтальная ориентация
+    //TODO Настройки. Показывать ли прочитанные
+    //TODO Настройки. Как часто обновлять новости
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

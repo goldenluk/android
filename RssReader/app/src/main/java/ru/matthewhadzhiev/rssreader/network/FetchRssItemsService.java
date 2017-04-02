@@ -33,10 +33,6 @@ public final class FetchRssItemsService extends IntentService{
     public static final String IS_UPDATE = "ru.matthewhadzhiev.rssreader.network.is_update";
     public static final String IS_LAST_IN_UPDATE = "ru.matthewhadzhiev.rssreader.network";
 
-    public FetchRssItemsService(final String name) {
-        super(name);
-    }
-
     //В манифесте была ошибка, пока я не сделал дефолтный конструктор
     public FetchRssItemsService() {
         super("");
