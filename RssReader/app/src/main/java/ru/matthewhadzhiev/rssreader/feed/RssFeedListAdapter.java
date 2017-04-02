@@ -53,7 +53,6 @@ final class RssFeedListAdapter
                        .putExtra(FullItemActivity.ITEM_DESCRIPTION,rssItem.getDescription()));
             }
         });
-        //TODO Текст итемов побольше
         //TODO После клика новость отметится прочитанной
     }
 
