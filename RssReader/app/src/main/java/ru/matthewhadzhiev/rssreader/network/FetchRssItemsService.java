@@ -94,18 +94,26 @@ public final class FetchRssItemsService extends IntentService{
                 }
 
 
+                final ArrayList<RssItem> fromDbList = new RssBaseHelper(getApplicationContext()).getItems(true);
+
                 for (final RssItem item : feedList) {
                     item.setUrl(urlLink);
+                    boolean addOrNot = true;
                     if (intent.getBooleanExtra(FeedNewsActivity.IS_ALL_ITEMS, false)) {
                         final ContentValues values = RssBaseHelper.getContentValuesForAll(item);
-                        database.delete(RssItemsDbSchema.RssAllItemsTable.NAME, RssItemsDbSchema.RssAllItemsTable.Cols.TITLE + "= ?",
-                                new String[] {item.getTitle()});
-                        database.insert(RssItemsDbSchema.RssAllItemsTable.NAME, null, values);
+                        for (final RssItem itemFromDb: fromDbList) {
+                            if (itemFromDb.getTitle().equals(item.getTitle())) {
+                                addOrNot = false;
+                                break;
+                            }
+                        }
+                        if (addOrNot) {
+                            database.insert(RssItemsDbSchema.RssAllItemsTable.NAME, null, values);
+                        }
                     } else {
                         final ContentValues values = RssBaseHelper.getContentValues(item);
                         database.insert(RssItemsTable.NAME, null, values);
                     }
-
                 }
 
                 database.close();

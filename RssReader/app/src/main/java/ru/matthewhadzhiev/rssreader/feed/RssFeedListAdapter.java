@@ -39,7 +39,7 @@ final class RssFeedListAdapter
 
     @Override
     public void onBindViewHolder(final FeedModelViewHolder holder, final int position) {
-        final RssItem rssItem = rssItems.get(position);
+        final RssItem rssItem = rssItems.get(rssItems.size() - 1 -position);
 
         final TextView titleText = (TextView) holder.rssFeedView.findViewById(R.id.title_text);
         titleText.setText(rssItem.getTitle());
