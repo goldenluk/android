@@ -58,7 +58,7 @@ final class RssFeedListAdapter
         titleText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                rssItem.setReaded(true);
+                rssItem.setReaded();
                 try {
                     final ContentValues values = RssBaseHelper.getContentValuesForAll(rssItem);
                     new RssBaseHelper(view.getContext()).getWritableDatabase().update(RssItemsDbSchema.RssAllItemsTable.NAME, values,

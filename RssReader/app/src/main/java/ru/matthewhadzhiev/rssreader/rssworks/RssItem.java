@@ -7,8 +7,8 @@ public final class RssItem {
     private final String description;
     private boolean isReaded;
 
-    public void setReaded(final boolean readed) {
-        isReaded = readed;
+    public void setReaded() {
+        isReaded = true;
     }
 
     public boolean isReaded() {
