@@ -96,6 +96,8 @@ public final class FetchRssItemsService extends IntentService{
 
                 final ArrayList<RssItem> fromDbList = new RssBaseHelper(getApplicationContext()).getItems(true);
 
+                int newItemsCount = 0;
+
                 for (final RssItem item : feedList) {
                     item.setUrl(urlLink);
                     boolean addOrNot = true;
@@ -108,6 +110,7 @@ public final class FetchRssItemsService extends IntentService{
                             }
                         }
                         if (addOrNot) {
+                            newItemsCount++;
                             database.insert(RssItemsDbSchema.RssAllItemsTable.NAME, null, values);
                         }
                     } else {
@@ -135,5 +138,4 @@ public final class FetchRssItemsService extends IntentService{
 
         sendBroadcast(responseIntent);
     }
-
 }

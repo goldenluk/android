@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import ru.matthewhadzhiev.rssreader.R;
+import ru.matthewhadzhiev.rssreader.network.FetchRssItemsService;
 
 final public class ChannelsMenuActivity extends AppCompatActivity implements View.OnClickListener {
     @Override

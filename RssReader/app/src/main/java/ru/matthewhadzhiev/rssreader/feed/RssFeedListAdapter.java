@@ -48,7 +48,8 @@ final class RssFeedListAdapter
         final TextView titleText = (TextView) holder.rssFeedView.findViewById(R.id.title_text);
         titleText.setText(rssItem.getTitle());
 
-        if (rssItem.isReaded()) {
+        //TODO Странный баг, что итемы помечаются прочитанными, когда крутишь туда сюда recyclerview
+        if (rssItems.get(rssItems.size() - 1 - holder.getAdapterPosition()).isReaded()) {
             titleText.setTypeface(Typeface.DEFAULT);
         }
 
@@ -58,7 +59,7 @@ final class RssFeedListAdapter
         titleText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                rssItem.setReaded();
+                rssItems.get(rssItems.size() - 1 - holder.getAdapterPosition()).setReaded();
                 try {
                     final ContentValues values = RssBaseHelper.getContentValuesForAll(rssItem);
                     new RssBaseHelper(view.getContext()).getWritableDatabase().update(RssItemsDbSchema.RssAllItemsTable.NAME, values,

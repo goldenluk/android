@@ -39,6 +39,7 @@ final public class FeedNewsActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.feed_news_activity);
 
+
         isAll = getIntent().getBooleanExtra(IS_ALL_ITEMS, false);
 
         AndroidLoggingHandler.reset(new AndroidLoggingHandler());
