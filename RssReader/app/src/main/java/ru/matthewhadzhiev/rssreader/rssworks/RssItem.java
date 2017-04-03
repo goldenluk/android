@@ -5,6 +5,16 @@ public final class RssItem {
     private final String title;
     private final String link;
     private final String description;
+    private boolean isReaded;
+
+    public void setReaded(final boolean readed) {
+        isReaded = readed;
+    }
+
+    public boolean isReaded() {
+        return isReaded;
+    }
+
     private String url;
 
     public String getLink() {
@@ -27,10 +37,11 @@ public final class RssItem {
         return url;
     }
 
-    public RssItem(final String title, final String link, final String description) {
+    public RssItem(final String title, final String link, final String description, final boolean isReaded) {
         //Проверка на null выполняется при их создании
         this.title = title;
         this.link = link;
         this.description = description;
+        this.isReaded = isReaded;
     }
 }

@@ -72,7 +72,7 @@ public final class Parser {
 
                 if (title != null && link != null && description != null) {
                     if(isItem) {
-                        final RssItem item = new RssItem(title, link, description);
+                        final RssItem item = new RssItem(title, link, description, false);
                         items.add(item);
                     }
                     title = null;

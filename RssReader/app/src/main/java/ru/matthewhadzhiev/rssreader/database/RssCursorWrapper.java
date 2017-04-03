@@ -20,7 +20,7 @@ final class RssCursorWrapper extends CursorWrapper{
         final String link = getString(getColumnIndex(RssItemsTable.Cols.LINK));
         final String description = getString(getColumnIndex(RssItemsTable.Cols.DESCRIPTION));
 
-        final RssItem rssItem = new RssItem(title, link, description);
+        final RssItem rssItem = new RssItem(title, link, description, false);
         rssItem.setUrl(address);
 
         return rssItem;
@@ -31,8 +31,12 @@ final class RssCursorWrapper extends CursorWrapper{
         final String title = getString(getColumnIndex(RssItemsDbSchema.RssAllItemsTable.Cols.TITLE));
         final String link = getString(getColumnIndex(RssItemsDbSchema.RssAllItemsTable.Cols.LINK));
         final String description = getString(getColumnIndex(RssItemsDbSchema.RssAllItemsTable.Cols.DESCRIPTION));
+        final int isReadedInt = getInt(getColumnIndex(RssItemsDbSchema.RssAllItemsTable.Cols.READED));
 
-        final RssItem rssItem = new RssItem(title, link, description);
+        final boolean isReaded;
+        isReaded = isReadedInt == 1;
+
+        final RssItem rssItem = new RssItem(title, link, description, isReaded);
         rssItem.setUrl(address);
 
         return rssItem;

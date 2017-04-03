@@ -1,6 +1,8 @@
 package ru.matthewhadzhiev.rssreader.feed;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ru.matthewhadzhiev.rssreader.R;
+import ru.matthewhadzhiev.rssreader.database.RssBaseHelper;
+import ru.matthewhadzhiev.rssreader.database.RssItemsDbSchema;
 import ru.matthewhadzhiev.rssreader.rssworks.RssItem;
 
 final class RssFeedListAdapter
@@ -43,17 +47,30 @@ final class RssFeedListAdapter
 
         final TextView titleText = (TextView) holder.rssFeedView.findViewById(R.id.title_text);
         titleText.setText(rssItem.getTitle());
+
+        if (rssItem.isReaded()) {
+            titleText.setTypeface(Typeface.DEFAULT);
+        }
+
         final TextView addressText = (TextView)holder.rssFeedView.findViewById(R.id.address_text);
         addressText.setText(rssItem.getUrl());
 
         titleText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-               view.getContext().startActivity(new Intent(view.getContext(), FullItemActivity.class)
+                rssItem.setReaded(true);
+                try {
+                    final ContentValues values = RssBaseHelper.getContentValuesForAll(rssItem);
+                    new RssBaseHelper(view.getContext()).getWritableDatabase().update(RssItemsDbSchema.RssAllItemsTable.NAME, values,
+                            "title = ?",
+                            new String[] { rssItem.getTitle() });
+                } catch (final Throwable ignored) {
+                }
+
+                view.getContext().startActivity(new Intent(view.getContext(), FullItemActivity.class)
                        .putExtra(FullItemActivity.ITEM_DESCRIPTION,rssItem.getDescription()));
             }
         });
-        //TODO После клика новость отметится прочитанной
     }
 
     @Override

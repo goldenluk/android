@@ -45,7 +45,8 @@ public final class RssBaseHelper extends SQLiteOpenHelper {
                     RssItemsDbSchema.RssAllItemsTable.Cols.ADDRESS + ", " +
                     RssItemsDbSchema.RssAllItemsTable.Cols.TITLE + ", " +
                     RssItemsDbSchema.RssAllItemsTable.Cols.LINK + ", " +
-                    RssItemsDbSchema.RssAllItemsTable.Cols.DESCRIPTION +
+                    RssItemsDbSchema.RssAllItemsTable.Cols.DESCRIPTION + ", " +
+                    RssItemsDbSchema.RssAllItemsTable.Cols.READED +
                     ")"
             );
 
@@ -72,6 +73,15 @@ public final class RssBaseHelper extends SQLiteOpenHelper {
         values.put(RssItemsDbSchema.RssAllItemsTable.Cols.TITLE, rssItem.getTitle());
         values.put(RssItemsDbSchema.RssAllItemsTable.Cols.LINK, rssItem.getLink());
         values.put(RssItemsDbSchema.RssAllItemsTable.Cols.DESCRIPTION, rssItem.getDescription());
+
+        final int isReaded;
+        if (rssItem.isReaded()) {
+            isReaded = 1;
+        } else {
+            isReaded = 0;
+        }
+
+        values.put(RssItemsDbSchema.RssAllItemsTable.Cols.READED, isReaded);
 
         return values;
     }
