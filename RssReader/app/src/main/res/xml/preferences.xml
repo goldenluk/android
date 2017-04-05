@@ -4,6 +4,22 @@
         android:key="@string/key_show_readed"
         android:title="@string/title_show_readed"
         android:summary="@string/summary_show_readed"
-        android:defaultValue="false"
+        android:defaultValue="true"
         />
+
+    <CheckBoxPreference
+        android:key="@string/key_update"
+        android:title="@string/title_update"
+        android:summary="@string/summary_update"
+        android:defaultValue="false"
+    />
+
+    <ListPreference
+        android:dependency="@string/key_update"
+        android:key="@string/key_update_freq"
+        android:title="@string/title_update_freq"
+        android:dialogTitle="@string/dialog_title_update_freq"
+        android:entries="@array/pref_update_entries"
+        android:entryValues="@array/pref_update_values"
+        android:defaultValue="@string/default_update_freq" />
 </PreferenceScreen>

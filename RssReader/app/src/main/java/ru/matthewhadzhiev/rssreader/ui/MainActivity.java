@@ -24,6 +24,9 @@ final public class MainActivity extends AppCompatActivity implements View.OnClic
         final ImageView feedButton = (ImageView) findViewById(R.id.feed_button);
         feedButton.setOnClickListener(this);
 
+        final ImageView settingsButton = (ImageView) findViewById(R.id.settings_button);
+        settingsButton.setOnClickListener(this);
+
     }
 
     @Override
@@ -34,6 +37,9 @@ final public class MainActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.feed_button:
                 startActivity(new Intent(this, AllOrNewItemsActivity.class));
+                break;
+            case R.id.settings_button:
+                startActivity(new Intent(this, SettingsActivity.class));
         }
     }
 }

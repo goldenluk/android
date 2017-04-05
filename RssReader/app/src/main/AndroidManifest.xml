@@ -42,6 +42,7 @@
         <activity android:name="ru.matthewhadzhiev.rssreader.channels.ChannelsControlActivity"/>
         <activity android:name="ru.matthewhadzhiev.rssreader.channels.ChannelsMenuActivity"/>
         <activity android:name="ru.matthewhadzhiev.rssreader.feed.FullItemActivity"/>
+        <activity android:name="ru.matthewhadzhiev.rssreader.ui.SettingsActivity"/>
 
 
     </application>

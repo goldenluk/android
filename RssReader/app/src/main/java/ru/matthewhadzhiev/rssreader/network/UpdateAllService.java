@@ -21,16 +21,12 @@ import java.util.logging.Logger;
 
 import ru.matthewhadzhiev.rssreader.AndroidLoggingHandler;
 import ru.matthewhadzhiev.rssreader.R;
-import ru.matthewhadzhiev.rssreader.channels.AddChannelActivity;
 import ru.matthewhadzhiev.rssreader.database.RssBaseHelper;
 import ru.matthewhadzhiev.rssreader.database.RssItemsDbSchema;
 import ru.matthewhadzhiev.rssreader.feed.AllOrNewItemsActivity;
-import ru.matthewhadzhiev.rssreader.feed.FeedNewsActivity;
 import ru.matthewhadzhiev.rssreader.rssworks.Parser;
 import ru.matthewhadzhiev.rssreader.rssworks.RssChannel;
 import ru.matthewhadzhiev.rssreader.rssworks.RssItem;
-
-import static ru.matthewhadzhiev.rssreader.feed.FeedNewsActivity.IS_ALL_ITEMS;
 
 
 public final class UpdateAllService extends IntentService {
