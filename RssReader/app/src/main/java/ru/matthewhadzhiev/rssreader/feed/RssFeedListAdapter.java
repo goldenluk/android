@@ -43,14 +43,15 @@ final class RssFeedListAdapter
 
     @Override
     public void onBindViewHolder(final FeedModelViewHolder holder, final int position) {
-        final RssItem rssItem = rssItems.get(rssItems.size() - 1 -position);
+        final RssItem rssItem = rssItems.get(position);
 
         final TextView titleText = (TextView) holder.rssFeedView.findViewById(R.id.title_text);
         titleText.setText(rssItem.getTitle());
 
-        //TODO Странный баг, что итемы помечаются прочитанными, когда крутишь туда сюда recyclerview
-        if (rssItems.get(rssItems.size() - 1 - holder.getAdapterPosition()).isReaded()) {
+        if (rssItems.get(holder.getAdapterPosition()).isReaded()) {
             titleText.setTypeface(Typeface.DEFAULT);
+        } else {
+            titleText.setTypeface(Typeface.DEFAULT_BOLD);
         }
 
         final TextView addressText = (TextView)holder.rssFeedView.findViewById(R.id.address_text);
@@ -59,7 +60,7 @@ final class RssFeedListAdapter
         titleText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                rssItems.get(rssItems.size() - 1 - holder.getAdapterPosition()).setReaded();
+                rssItems.get(holder.getAdapterPosition()).setReaded();
                 try {
                     final ContentValues values = RssBaseHelper.getContentValuesForAll(rssItem);
                     new RssBaseHelper(view.getContext()).getWritableDatabase().update(RssItemsDbSchema.RssAllItemsTable.NAME, values,
@@ -70,6 +71,7 @@ final class RssFeedListAdapter
 
                 view.getContext().startActivity(new Intent(view.getContext(), FullItemActivity.class)
                        .putExtra(FullItemActivity.ITEM_DESCRIPTION,rssItem.getDescription()));
+                notifyDataSetChanged();
             }
         });
     }
