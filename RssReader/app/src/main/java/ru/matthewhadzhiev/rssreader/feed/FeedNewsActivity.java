@@ -33,11 +33,7 @@ final public class FeedNewsActivity extends AppCompatActivity{
     private boolean isAll;
 
     public static final String IS_ALL_ITEMS = "ru.matthewhadzhiev.rssreader.feed.IS_ALL_ITEMS";
-    public static final String IS_BACKGROUND_UPDATE = "ru.matthewhadzhiev.rssreader.feed.IS_BACKGROUND_UPDATE";
 
-    public static Intent newIntent (final Context context) {
-        return new Intent(context, FeedNewsActivity.class).putExtra(IS_BACKGROUND_UPDATE, true);
-    }
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {

@@ -1,6 +1,7 @@
 package ru.matthewhadzhiev.rssreader.feed;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,7 +17,12 @@ import ru.matthewhadzhiev.rssreader.database.RssBaseHelper;
 import ru.matthewhadzhiev.rssreader.database.RssItemsDbSchema;
 
 
+
 public final class AllOrNewItemsActivity extends AppCompatActivity implements View.OnClickListener {
+    public static Intent newIntent (final Context context) {
+        return new Intent(context, AllOrNewItemsActivity.class);
+    }
+
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

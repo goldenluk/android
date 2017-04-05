@@ -24,10 +24,13 @@ import ru.matthewhadzhiev.rssreader.R;
 import ru.matthewhadzhiev.rssreader.channels.AddChannelActivity;
 import ru.matthewhadzhiev.rssreader.database.RssBaseHelper;
 import ru.matthewhadzhiev.rssreader.database.RssItemsDbSchema;
+import ru.matthewhadzhiev.rssreader.feed.AllOrNewItemsActivity;
 import ru.matthewhadzhiev.rssreader.feed.FeedNewsActivity;
 import ru.matthewhadzhiev.rssreader.rssworks.Parser;
 import ru.matthewhadzhiev.rssreader.rssworks.RssChannel;
 import ru.matthewhadzhiev.rssreader.rssworks.RssItem;
+
+import static ru.matthewhadzhiev.rssreader.feed.FeedNewsActivity.IS_ALL_ITEMS;
 
 
 public final class UpdateAllService extends IntentService {
@@ -43,9 +46,8 @@ public final class UpdateAllService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable final Intent intent) {
-        //TODO сервис для обновления новостей через определенные промежутки времени
-        final Intent newIntent = FeedNewsActivity.newIntent(this);
-        final PendingIntent pendingIntent =    PendingIntent.getActivity(this, 0, newIntent, 0);
+        final Intent newIntent = AllOrNewItemsActivity.newIntent(this);
+        final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, newIntent, 0);
 
         InputStream inputStream = null;
 

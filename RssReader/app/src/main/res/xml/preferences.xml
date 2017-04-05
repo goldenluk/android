@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:key="@string/key_show_readed"
+        android:title="@string/title_show_readed"
+        android:summary="@string/summary_show_readed"
+        android:defaultValue="false"
+        />
+</PreferenceScreen>

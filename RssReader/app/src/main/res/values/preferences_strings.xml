@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="key_show_readed">show_readed_items</string>
+    <string name="title_show_readed">Отображать прочитанные новости</string>
+    <string name="summary_show_readed">Показывать прочитанные новости в списке новостей</string>
+</resources>
