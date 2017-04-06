@@ -14,6 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/text_view_no_items"
+        android:textSize="@dimen/rss_item_title_size"
+        android:textStyle="bold"
     />
 
 

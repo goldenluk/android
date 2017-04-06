@@ -82,8 +82,8 @@ public final class UpdateAllService extends IntentService {
             }
 
             final Notification notification = new NotificationCompat.Builder(this).
-                    setContentText("Rss")
-                    .setContentTitle("Новых итемов "+newItemsCount)
+                    setContentText("Новых итемов "+newItemsCount)
+                    .setContentTitle("RssReader")
                     .setContentIntent(pendingIntent)
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setAutoCancel(true)
