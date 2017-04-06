@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.ListIterator;
 
 import ru.matthewhadzhiev.rssreader.R;
 import ru.matthewhadzhiev.rssreader.database.RssBaseHelper;
@@ -36,14 +35,6 @@ final class RssFeedListAdapter
 
     RssFeedListAdapter(final ArrayList<RssItem> rssFeedModels, final Context context) {
         rssItems = rssFeedModels;
-        if (!PreferenceManager.getDefaultSharedPreferences(context).getBoolean(context.getString(R.string.key_show_readed),false)) {
-            final ListIterator<RssItem> iterator = rssItems.listIterator();
-            while (iterator.hasNext()) {
-                if (iterator.next().isReaded()) {
-                    iterator.remove();
-                }
-            }
-        }
         this.context = context;
     }
 

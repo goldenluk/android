@@ -5,15 +5,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -67,6 +70,20 @@ final public class FeedNewsActivity extends AppCompatActivity{
         });
 
         final ArrayList<RssItem> feedList = new RssBaseHelper(FeedNewsActivity.this).getItems(isAll);
+        if (isAll) {
+            if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean(getString(R.string.key_show_readed),false)) {
+                final ListIterator<RssItem> iterator = feedList.listIterator();
+                while (iterator.hasNext()) {
+                    if (iterator.next().isReaded()) {
+                        iterator.remove();
+                    }
+                }
+            }
+        }
+
+        if (feedList.size() != 0) {
+            findViewById(R.id.text_view_no_items).setVisibility(View.GONE);
+        }
 
         recyclerView.setAdapter(new RssFeedListAdapter(feedList, getApplicationContext()));
 
@@ -99,6 +116,9 @@ final public class FeedNewsActivity extends AppCompatActivity{
         @Override
         public void onReceive(final Context context, final Intent intent) {
             final ArrayList<RssItem> feedList = new RssBaseHelper(FeedNewsActivity.this).getItems(isAll);
+            if (feedList.size() != 0) {
+                findViewById(R.id.text_view_no_items).setVisibility(View.GONE);
+            }
             if (intent.getBooleanExtra(FetchRssItemsService.IS_LAST_IN_UPDATE, false)) {
                 swipeRefreshLayout.setRefreshing(false);
                 recyclerView.setAdapter(new RssFeedListAdapter(feedList, getApplicationContext()));
