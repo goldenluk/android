@@ -1,8 +1,10 @@
 package ru.matthewhadzhiev.rssreader.feed;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 import ru.matthewhadzhiev.rssreader.R;
 import ru.matthewhadzhiev.rssreader.database.RssBaseHelper;
@@ -20,6 +23,7 @@ final class RssFeedListAdapter
         extends RecyclerView.Adapter<RssFeedListAdapter.FeedModelViewHolder> {
 
     private final ArrayList<RssItem> rssItems;
+    private final Context context;
 
     static class FeedModelViewHolder extends RecyclerView.ViewHolder {
         private final View rssFeedView;
@@ -30,8 +34,17 @@ final class RssFeedListAdapter
         }
     }
 
-    RssFeedListAdapter(final ArrayList<RssItem> rssFeedModels) {
+    RssFeedListAdapter(final ArrayList<RssItem> rssFeedModels, final Context context) {
         rssItems = rssFeedModels;
+        if (!PreferenceManager.getDefaultSharedPreferences(context).getBoolean(context.getString(R.string.key_show_readed),false)) {
+            final ListIterator<RssItem> iterator = rssItems.listIterator();
+            while (iterator.hasNext()) {
+                if (iterator.next().isReaded()) {
+                    iterator.remove();
+                }
+            }
+        }
+        this.context = context;
     }
 
     @Override
@@ -63,14 +76,17 @@ final class RssFeedListAdapter
                 rssItems.get(holder.getAdapterPosition()).setReaded();
                 try {
                     final ContentValues values = RssBaseHelper.getContentValuesForAll(rssItem);
-                    new RssBaseHelper(view.getContext()).getWritableDatabase().update(RssItemsDbSchema.RssAllItemsTable.NAME, values,
+                    new RssBaseHelper(context).getWritableDatabase().update(RssItemsDbSchema.RssAllItemsTable.NAME, values,
                             "title = ?",
                             new String[] { rssItem.getTitle() });
                 } catch (final Throwable ignored) {
                 }
 
-                view.getContext().startActivity(new Intent(view.getContext(), FullItemActivity.class)
+                view.getContext().startActivity(new Intent(context, FullItemActivity.class)
                        .putExtra(FullItemActivity.ITEM_DESCRIPTION,rssItem.getDescription()));
+                if (!PreferenceManager.getDefaultSharedPreferences(context).getBoolean(context.getString(R.string.key_show_readed),false)) {
+                    rssItems.remove(holder.getAdapterPosition());
+                }
                 notifyDataSetChanged();
             }
         });

@@ -67,7 +67,8 @@ final public class FeedNewsActivity extends AppCompatActivity{
         });
 
         final ArrayList<RssItem> feedList = new RssBaseHelper(FeedNewsActivity.this).getItems(isAll);
-        recyclerView.setAdapter(new RssFeedListAdapter(feedList));
+
+        recyclerView.setAdapter(new RssFeedListAdapter(feedList, getApplicationContext()));
 
         myBroadcastReceiver = new MyBroadcastReceiver();
 
@@ -100,7 +101,7 @@ final public class FeedNewsActivity extends AppCompatActivity{
             final ArrayList<RssItem> feedList = new RssBaseHelper(FeedNewsActivity.this).getItems(isAll);
             if (intent.getBooleanExtra(FetchRssItemsService.IS_LAST_IN_UPDATE, false)) {
                 swipeRefreshLayout.setRefreshing(false);
-                recyclerView.setAdapter(new RssFeedListAdapter(feedList));
+                recyclerView.setAdapter(new RssFeedListAdapter(feedList, getApplicationContext()));
                 if (!isAnswerSuccess(intent)) {
                     Toast.makeText(FeedNewsActivity.this, R.string.show_bad_result_for_update_feed, Toast.LENGTH_SHORT).show();
                 }
