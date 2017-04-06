@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="pref_update_entries">
+        <item>1 минута</item>
         <item>1 Час</item>
         <item>3 Часа</item>
         <item>12 Часов</item>
@@ -8,8 +9,9 @@
     </string-array>
     <string-array name="pref_update_values">
         <item>1</item>
-        <item>3</item>
-        <item>12</item>
-        <item>24</item>
+        <item>60</item>
+        <item>180</item>
+        <item>720</item>
+        <item>1440</item>
     </string-array>
 </resources>

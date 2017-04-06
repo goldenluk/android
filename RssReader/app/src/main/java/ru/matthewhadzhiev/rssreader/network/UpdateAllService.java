@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -30,8 +31,6 @@ import ru.matthewhadzhiev.rssreader.rssworks.RssItem;
 
 
 public final class UpdateAllService extends IntentService {
-    private static final int INTERVAL = 1000 * 15;
-
     public UpdateAllService() {
         super("");
     }
@@ -109,7 +108,7 @@ public final class UpdateAllService extends IntentService {
 
         if (isOn) {
             alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime(),
-                    INTERVAL, pendingIntent);
+                    Long.valueOf(PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.key_update_freq), ""))*1000*60, pendingIntent);
         } else {
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
