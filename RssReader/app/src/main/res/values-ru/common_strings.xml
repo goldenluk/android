@@ -1,0 +1,12 @@
+<resources>
+    <string name="application_name">RssReader</string>
+    <string name="show_bad_result_for_add_channel">Канал не добавлен. Такой канал уже есть, либо неверный адрес.</string>
+    <string name="show_success_result_for_add_channel">Канал успешно добавлен</string>
+    <string name="show_bad_result_for_update_feed">Не удалось обновить ленту. Проверьте соединение с сетью.</string>
+    <string name="show_progress_adding_channel">Обрабатываю запрос…</string>
+    <string name="show_adding_channel_end">Обработано.</string>
+    <string name="text_for_webview_no_description">У новости нет описания</string>
+    <string name="toast_cant_delete_all_items">Не удалось удалить новости</string>
+    <string name="toast_success_delete_all_items">Новости удалены</string>
+    <string name="text_view_no_items">Нет непрочитанных новостей. Обновите список или добавьте новые каналы.</string>
+</resources>

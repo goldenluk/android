@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" android:fullBackupContent="@xml/backup_descriptor">
         <service android:name="ru.matthewhadzhiev.rssreader.network.FetchRssItemsService" />
-        <service android:name="ru.matthewhadzhiev.rssreader.network.UpdateAllService"/>
+        <service android:name="ru.matthewhadzhiev.rssreader.feed.UpdateAllService"/>
         <activity android:name="ru.matthewhadzhiev.rssreader.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

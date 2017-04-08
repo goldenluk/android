@@ -26,7 +26,9 @@ final public class AddChannelActivity extends AppCompatActivity {
     private MyBroadcastReceiver myBroadcastReceiver;
     private TextView addingProccessTextView;
     private Logger logger;
-    public static final String URL_ADDRESS = "ru.matthewhadzhiev.rssreader.ui.url_address";
+    private static final String URL_ADDRESS = "ru.matthewhadzhiev.rssreader.ui.url_address";
+    private static final String ACTION_FETCH_ITEMS = "ru.matthewhadzhiev.rssreader.network.RESPONSE";
+    private static final String ANSWER_SUCCESS_OR_NOT ="ru.matthewhadzhiev.rssreader.network.success_or_not";
 
 
     @Override
@@ -75,7 +77,7 @@ final public class AddChannelActivity extends AppCompatActivity {
 
         // регистрируем BroadcastReceiver
         final IntentFilter intentFilter = new IntentFilter(
-                FetchRssItemsService.ACTION_FETCH_ITEMS);
+                ACTION_FETCH_ITEMS);
         intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
         registerReceiver(myBroadcastReceiver, intentFilter);
     }
@@ -103,7 +105,7 @@ final public class AddChannelActivity extends AppCompatActivity {
     }
 
     private boolean isResultSuccess (final Intent intent) {
-        return intent.getBooleanExtra(FetchRssItemsService.ANSWER_SUCCESS_OR_NOT, false);
+        return intent.getBooleanExtra(ANSWER_SUCCESS_OR_NOT, false);
     }
 
     @Override
@@ -114,6 +116,5 @@ final public class AddChannelActivity extends AppCompatActivity {
         } catch (final Throwable e) {
             logger.log(Level.WARNING, "Не отписался receiver");
         }
-
     }
 }

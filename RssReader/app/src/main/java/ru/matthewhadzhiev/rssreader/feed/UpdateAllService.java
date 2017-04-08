@@ -1,4 +1,4 @@
-package ru.matthewhadzhiev.rssreader.network;
+package ru.matthewhadzhiev.rssreader.feed;
 
 import android.app.AlarmManager;
 import android.app.IntentService;
@@ -24,7 +24,6 @@ import ru.matthewhadzhiev.rssreader.AndroidLoggingHandler;
 import ru.matthewhadzhiev.rssreader.R;
 import ru.matthewhadzhiev.rssreader.database.RssBaseHelper;
 import ru.matthewhadzhiev.rssreader.database.RssItemsDbSchema;
-import ru.matthewhadzhiev.rssreader.feed.AllOrNewItemsActivity;
 import ru.matthewhadzhiev.rssreader.rssworks.Parser;
 import ru.matthewhadzhiev.rssreader.rssworks.RssChannel;
 import ru.matthewhadzhiev.rssreader.rssworks.RssItem;

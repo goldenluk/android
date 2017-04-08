@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="key_show_readed">show_readed_items</string>
-    <string name="title_show_readed">Отображать прочитанные новости</string>
-    <string name="summary_show_readed">Показывать прочитанные новости в списке новостей</string>
+    <string name="title_show_readed">Show readed news</string>
+    <string name="summary_show_readed">Show readed news in news list.</string>
     <string name="key_update_freq">update_background</string>
-    <string name="title_update_freq">Частота фоновых обновлений</string>
-    <string name="dialog_title_update_freq">Как часто обновлять новости</string>
+    <string name="title_update_freq">Frequency of update</string>
+    <string name="dialog_title_update_freq">Frequency of news updates</string>
     <string name="default_update_freq">1</string>
 
     <string name="key_update">is_update</string>
-    <string name="title_update">Периодически обновлять новости</string>
-    <string name="summary_update">Обновлять ли новости через определенные промежутки времени, даже если приложение не активно</string>
+    <string name="title_update">Update news in background</string>
+    <string name="summary_update">Update news in background</string>
 </resources>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_delete_channel_dialog">Удаление канала</string>
-    <string name="message_delete_channel_dialog">Вы действительно хотите удалить канал?</string>
-    <string name="positive_button_delete_channel_dialog">Удалить</string>
-    <string name="negative_button_delete_channel_dialog">Отмена</string>
-    <string name="title_delete_all_items_dialog">Удалить все новости</string>
-    <string name="message_delete_all_items_dialog">Вы действительно хотите удалить все новости?</string>
-    <string name="positive_button_delete_all_items_dialog">Удалить</string>
-    <string name="negative_button_delete_all_items_dialog">Отмена</string>
+    <string name="title_delete_channel_dialog">Delete channel</string>
+    <string name="message_delete_channel_dialog">Do you really want to delete channel?</string>
+    <string name="positive_button_delete_channel_dialog">Delete</string>
+    <string name="negative_button_delete_channel_dialog">Cancel</string>
+    <string name="title_delete_all_items_dialog">Delete all news</string>
+    <string name="message_delete_all_items_dialog">Do you really want to delete all the news?</string>
+    <string name="positive_button_delete_all_items_dialog">Delete</string>
+    <string name="negative_button_delete_all_items_dialog">Cancel</string>
 </resources>

@@ -11,8 +11,12 @@ import ru.matthewhadzhiev.rssreader.channels.ChannelsMenuActivity;
 import ru.matthewhadzhiev.rssreader.feed.AllOrNewItemsActivity;
 
 final public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    //TODO Настройки. Показывать ли прочитанные
-    //TODO Настройки. Как часто обновлять новости
+    //TODO Регистрироваться как обработчик
+    //TODO ActionBar
+    //TODO Порядок слов в уведомлении и слово итем поменять
+    //TODO РАссстояния в списке канадлов
+    //TODO новых итемов 0 не писать
+    //TODO в новости дата ссылка и заголовок
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

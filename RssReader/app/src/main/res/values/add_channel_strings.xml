@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="button_add_new_channel">Добавить</string>
-    <string name="name_for_field_for_input_channel_address">Адрес канала</string>
-    <string name="was_empty_address_input">Вы ввели пустую строку</string>
-    <string name="text_view_give_the_example_for_channel">Например:</string>
+    <string name="button_add_new_channel">Add</string>
+    <string name="name_for_field_for_input_channel_address">Channel address</string>
+    <string name="was_empty_address_input">Empty input</string>
+    <string name="text_view_give_the_example_for_channel">For example:</string>
     <string name="text_view_with_channel_example">https://news.yandex.ru/science.rss</string>
-    <string name="text_view_give_last_address">Последний введённый адрес:</string>
+    <string name="text_view_give_last_address">Last input:</string>
 </resources>

@@ -19,19 +19,19 @@ import ru.matthewhadzhiev.rssreader.AndroidLoggingHandler;
 import ru.matthewhadzhiev.rssreader.database.RssBaseHelper;
 import ru.matthewhadzhiev.rssreader.database.RssItemsDbSchema;
 import ru.matthewhadzhiev.rssreader.database.RssItemsDbSchema.RssItemsTable;
-import ru.matthewhadzhiev.rssreader.feed.FeedNewsActivity;
 import ru.matthewhadzhiev.rssreader.rssworks.Parser;
 import ru.matthewhadzhiev.rssreader.rssworks.RssChannel;
 import ru.matthewhadzhiev.rssreader.rssworks.RssItem;
-import ru.matthewhadzhiev.rssreader.channels.AddChannelActivity;
 
 
 public final class FetchRssItemsService extends IntentService{
 
-    public static final String ACTION_FETCH_ITEMS = "ru.matthewhadzhiev.rssreader.network.RESPONSE";
-    public static final String ANSWER_SUCCESS_OR_NOT ="ru.matthewhadzhiev.rssreader.network.success_or_not";
-    public static final String IS_UPDATE = "ru.matthewhadzhiev.rssreader.network.is_update";
-    public static final String IS_LAST_IN_UPDATE = "ru.matthewhadzhiev.rssreader.network";
+    private static final String ACTION_FETCH_ITEMS = "ru.matthewhadzhiev.rssreader.network.RESPONSE";
+    private static final String ANSWER_SUCCESS_OR_NOT ="ru.matthewhadzhiev.rssreader.network.success_or_not";
+    private static final String IS_UPDATE = "ru.matthewhadzhiev.rssreader.network.is_update";
+    private static final String IS_LAST_IN_UPDATE = "ru.matthewhadzhiev.rssreader.network";
+    private static final String URL_ADDRESS = "ru.matthewhadzhiev.rssreader.ui.url_address";
+    private static final String IS_ALL_ITEMS = "ru.matthewhadzhiev.rssreader.feed.IS_ALL_ITEMS";
 
     //В манифесте была ошибка, пока я не сделал дефолтный конструктор
     public FetchRssItemsService() {
@@ -40,7 +40,7 @@ public final class FetchRssItemsService extends IntentService{
 
     @Override
     protected void onHandleIntent(final Intent intent) {
-        String urlLink = intent.getStringExtra(AddChannelActivity.URL_ADDRESS);
+        String urlLink = intent.getStringExtra(URL_ADDRESS);
         InputStream inputStream = null;
 
         AndroidLoggingHandler.reset(new AndroidLoggingHandler());
@@ -87,7 +87,7 @@ public final class FetchRssItemsService extends IntentService{
                 }
 
                 //Проверяе, свежие ли записи смотрим или все
-                if (!intent.getBooleanExtra(FeedNewsActivity.IS_ALL_ITEMS,false)) {
+                if (!intent.getBooleanExtra(IS_ALL_ITEMS,false)) {
                     //Эти строки очищают все итемы данного канала
                     final int count = database.delete(RssItemsTable.NAME, RssItemsTable.Cols.ADDRESS + "= ?", new String[] { urlLink});
                     logger.log(Level.INFO, "Удалено итемов " + Integer.toString(count));
@@ -99,7 +99,7 @@ public final class FetchRssItemsService extends IntentService{
                 for (final RssItem item : feedList) {
                     item.setUrl(urlLink);
                     boolean addOrNot = true;
-                    if (intent.getBooleanExtra(FeedNewsActivity.IS_ALL_ITEMS, false)) {
+                    if (intent.getBooleanExtra(IS_ALL_ITEMS, false)) {
                         final ContentValues values = RssBaseHelper.getContentValuesForAll(item);
                         for (final RssItem itemFromDb: fromDbList) {
                             if (itemFromDb.getTitle().equals(item.getTitle())) {

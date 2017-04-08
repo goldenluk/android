@@ -19,6 +19,8 @@ import ru.matthewhadzhiev.rssreader.database.RssItemsDbSchema;
 
 
 public final class AllOrNewItemsActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String IS_ALL_ITEMS = "ru.matthewhadzhiev.rssreader.feed.IS_ALL_ITEMS";
+
     public static Intent newIntent (final Context context) {
         return new Intent(context, AllOrNewItemsActivity.class);
     }
@@ -42,10 +44,10 @@ public final class AllOrNewItemsActivity extends AppCompatActivity implements Vi
     public void onClick(final View view) {
         switch (view.getId()) {
             case R.id.button_new_items_feed:
-                startActivity(new Intent(this, FeedNewsActivity.class).putExtra(FeedNewsActivity.IS_ALL_ITEMS, false));
+                startActivity(new Intent(this, FeedNewsActivity.class).putExtra(IS_ALL_ITEMS, false));
                 break;
             case R.id.button_all_items_feed:
-                startActivity(new Intent(this, FeedNewsActivity.class).putExtra(FeedNewsActivity.IS_ALL_ITEMS, true));
+                startActivity(new Intent(this, FeedNewsActivity.class).putExtra(IS_ALL_ITEMS, true));
                 break;
             case R.id.button_delete_all_items:
                 final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);

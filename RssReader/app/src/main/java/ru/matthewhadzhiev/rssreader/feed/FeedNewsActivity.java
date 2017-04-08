@@ -26,7 +26,7 @@ import ru.matthewhadzhiev.rssreader.database.RssBaseHelper;
 import ru.matthewhadzhiev.rssreader.network.FetchRssItemsService;
 import ru.matthewhadzhiev.rssreader.rssworks.RssChannel;
 import ru.matthewhadzhiev.rssreader.rssworks.RssItem;
-import ru.matthewhadzhiev.rssreader.channels.AddChannelActivity;
+
 
 final public class FeedNewsActivity extends AppCompatActivity{
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -35,8 +35,12 @@ final public class FeedNewsActivity extends AppCompatActivity{
     private Logger logger;
     private boolean isAll;
 
-    public static final String IS_ALL_ITEMS = "ru.matthewhadzhiev.rssreader.feed.IS_ALL_ITEMS";
-
+    private static final String ACTION_FETCH_ITEMS = "ru.matthewhadzhiev.rssreader.network.RESPONSE";
+    private static final String ANSWER_SUCCESS_OR_NOT ="ru.matthewhadzhiev.rssreader.network.success_or_not";
+    private static final String IS_UPDATE = "ru.matthewhadzhiev.rssreader.network.is_update";
+    private static final String IS_LAST_IN_UPDATE = "ru.matthewhadzhiev.rssreader.network";
+    private static final String URL_ADDRESS = "ru.matthewhadzhiev.rssreader.ui.url_address";
+    private static final String IS_ALL_ITEMS = "ru.matthewhadzhiev.rssreader.feed.IS_ALL_ITEMS";
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
@@ -91,18 +95,18 @@ final public class FeedNewsActivity extends AppCompatActivity{
 
         // регистрируем BroadcastReceiver
         final IntentFilter intentFilter = new IntentFilter(
-                FetchRssItemsService.ACTION_FETCH_ITEMS);
+                ACTION_FETCH_ITEMS);
         intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
         registerReceiver(myBroadcastReceiver, intentFilter);
     }
 
     private void startFetchRssIntent(final List<RssChannel> channelList, final int i) {
         final Intent fetchRss = new Intent(FeedNewsActivity.this, FetchRssItemsService.class);
-        fetchRss.putExtra(AddChannelActivity.URL_ADDRESS, channelList.get(i).getAddress());
-        fetchRss.putExtra(FetchRssItemsService.IS_UPDATE, true);
+        fetchRss.putExtra(URL_ADDRESS, channelList.get(i).getAddress());
+        fetchRss.putExtra(IS_UPDATE, true);
         fetchRss.putExtra(IS_ALL_ITEMS, isAll);
         if (i == channelList.size() - 1) {
-            fetchRss.putExtra(FetchRssItemsService.IS_LAST_IN_UPDATE, true);
+            fetchRss.putExtra(IS_LAST_IN_UPDATE, true);
         }
         startService(fetchRss);
     }
@@ -119,7 +123,7 @@ final public class FeedNewsActivity extends AppCompatActivity{
             if (feedList.size() != 0) {
                 findViewById(R.id.text_view_no_items).setVisibility(View.GONE);
             }
-            if (intent.getBooleanExtra(FetchRssItemsService.IS_LAST_IN_UPDATE, false)) {
+            if (intent.getBooleanExtra(IS_LAST_IN_UPDATE, false)) {
                 swipeRefreshLayout.setRefreshing(false);
                 recyclerView.setAdapter(new RssFeedListAdapter(feedList, getApplicationContext()));
                 if (!isAnswerSuccess(intent)) {
@@ -130,7 +134,7 @@ final public class FeedNewsActivity extends AppCompatActivity{
     }
 
     private boolean isAnswerSuccess (final Intent intent) {
-         return intent.getBooleanExtra(FetchRssItemsService.ANSWER_SUCCESS_OR_NOT, false);
+         return intent.getBooleanExtra(ANSWER_SUCCESS_OR_NOT, false);
     }
 
     @Override

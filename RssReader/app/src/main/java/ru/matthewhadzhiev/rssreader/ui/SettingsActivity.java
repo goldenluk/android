@@ -7,7 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 
 import ru.matthewhadzhiev.rssreader.R;
-import ru.matthewhadzhiev.rssreader.network.UpdateAllService;
+import ru.matthewhadzhiev.rssreader.feed.UpdateAllService;
 
 //А потому что я не вижу смысла использовать тут фрагменты
 @SuppressWarnings("deprecation")
