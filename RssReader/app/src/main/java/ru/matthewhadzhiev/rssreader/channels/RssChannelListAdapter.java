@@ -77,8 +77,9 @@ final class RssChannelListAdapter extends RecyclerView.Adapter<RssChannelListAda
                         database.update(RssItemsDbSchema.RssChannelsTable.NAME, RssBaseHelper.getContentValuesChannel(channelItem),
                                 RssItemsDbSchema.RssChannelsTable.Cols.ADDRESS + "= ?", new String[] { channelItem.getAddress()});
                     }
-                } catch (final Exception e) {
-                    logger.log(Level.WARNING, "Не смогли записать в базу");
+
+                } catch (final Throwable e) {
+                    logger.log(Level.WARNING, "Не смогли записать в базу\n" + e.getMessage());
                 }
             }
         });
