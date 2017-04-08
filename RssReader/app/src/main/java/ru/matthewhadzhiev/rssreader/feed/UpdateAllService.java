@@ -82,10 +82,10 @@ public final class UpdateAllService extends IntentService {
 
             if (newItemsCount != 0) {
                 final Notification notification = new NotificationCompat.Builder(this).
-                        setContentText("Новых итемов "+newItemsCount)
+                        setContentText("Новостей добавлено " + newItemsCount)
                         .setContentTitle("RssReader")
                         .setContentIntent(pendingIntent)
-                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSmallIcon(R.drawable.ic_yoda_1)
                         .setAutoCancel(true)
                         .build();
 

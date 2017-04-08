@@ -13,8 +13,6 @@ import ru.matthewhadzhiev.rssreader.feed.AllOrNewItemsActivity;
 final public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     //TODO Регистрироваться как обработчик
     //TODO ActionBar
-    //TODO Порядок слов в уведомлении и слово итем поменять
-    //TODO новых итемов 0 не писать
     //TODO в новости дата ссылка и заголовок
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
