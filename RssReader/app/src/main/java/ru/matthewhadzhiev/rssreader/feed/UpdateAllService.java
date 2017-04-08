@@ -80,22 +80,25 @@ public final class UpdateAllService extends IntentService {
                 }
             }
 
-            final Notification notification = new NotificationCompat.Builder(this).
-                    setContentText("Новых итемов "+newItemsCount)
-                    .setContentTitle("RssReader")
-                    .setContentIntent(pendingIntent)
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setAutoCancel(true)
-                    .build();
+            if (newItemsCount != 0) {
+                final Notification notification = new NotificationCompat.Builder(this).
+                        setContentText("Новых итемов "+newItemsCount)
+                        .setContentTitle("RssReader")
+                        .setContentIntent(pendingIntent)
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setAutoCancel(true)
+                        .build();
 
-            final NotificationManagerCompat notificationManagerCompat =
-                    NotificationManagerCompat.from(this);
-            notificationManagerCompat.notify(0, notification);
+                final NotificationManagerCompat notificationManagerCompat =
+                        NotificationManagerCompat.from(this);
+                notificationManagerCompat.notify(0, notification);
+            }
+
             try {
                 inputStream.close();
             } catch (final Exception ignored) {}
-        } catch (final Exception exception) {
-            logger.log(Level.INFO, "Проблемы с базой");
+        } catch (final Throwable exception) {
+            logger.log(Level.INFO, "Проблемы с базой" + exception.getMessage());
         }
     }
 
