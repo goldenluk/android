@@ -38,6 +38,22 @@ public final class UpdateAllService extends IntentService {
         return new Intent(context, UpdateAllService.class);
     }
 
+    public static void setServiceAlarm(final Context context, final boolean isOn) {
+        final Intent i = UpdateAllService.newIntent(context);
+        final PendingIntent pendingIntent = PendingIntent.getService(context, 0, i, 0);
+
+        final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        if (alarmManager != null) {
+            if (isOn) {
+                alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime(),
+                        Long.valueOf(PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.key_update_freq), ""))*1000*60, pendingIntent);
+            } else {
+                alarmManager.cancel(pendingIntent);
+                pendingIntent.cancel();
+            }
+        }
+    }
+
     @Override
     protected void onHandleIntent(@Nullable final Intent intent) {
         final Intent newIntent = AllOrNewItemsActivity.newIntent(this);
@@ -99,21 +115,6 @@ public final class UpdateAllService extends IntentService {
             } catch (final Exception ignored) {}
         } catch (final Throwable exception) {
             logger.log(Level.INFO, "Проблемы с базой" + exception.getMessage());
-        }
-    }
-
-    public static void setServiceAlarm(final Context context, final boolean isOn) {
-        final Intent i = UpdateAllService.newIntent(context);
-        final PendingIntent pendingIntent = PendingIntent.getService(context, 0, i, 0);
-
-        final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
-        if (isOn) {
-            alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime(),
-                    Long.valueOf(PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.key_update_freq), ""))*1000*60, pendingIntent);
-        } else {
-            alarmManager.cancel(pendingIntent);
-            pendingIntent.cancel();
         }
     }
 }
