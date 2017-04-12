@@ -13,7 +13,7 @@ import ru.matthewhadzhiev.rssreader.feed.AllOrNewItemsActivity;
 final public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     //TODO Регистрироваться как обработчик
     //TODO ActionBar
-    //TODO в новости дата ссылка и заголовок
+    //TODO дата новости
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

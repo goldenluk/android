@@ -24,15 +24,6 @@ final class RssFeedListAdapter
     private final ArrayList<RssItem> rssItems;
     private final Context context;
 
-    static class FeedModelViewHolder extends RecyclerView.ViewHolder {
-        private final View rssFeedView;
-
-        FeedModelViewHolder(final View v) {
-            super(v);
-            rssFeedView = v;
-        }
-    }
-
     RssFeedListAdapter(final ArrayList<RssItem> rssFeedModels, final Context context) {
         rssItems = rssFeedModels;
         this.context = context;
@@ -73,8 +64,11 @@ final class RssFeedListAdapter
                 } catch (final Throwable ignored) {
                 }
 
-                view.getContext().startActivity(new Intent(context, FullItemActivity.class)
-                       .putExtra(FullItemActivity.ITEM_DESCRIPTION,rssItem.getDescription()));
+                final Intent fullItem = new Intent(context, FullItemActivity.class)
+                        .putExtra(FullItemActivity.ITEM_DESCRIPTION_STRING, rssItem.getDescription())
+                        .putExtra(FullItemActivity.ITEM_TITLE_STRING, rssItem.getTitle())
+                        .putExtra(FullItemActivity.ITEM_LINK_STRING, rssItem.getLink());
+                view.getContext().startActivity(fullItem);
                 if (!PreferenceManager.getDefaultSharedPreferences(context).getBoolean(context.getString(R.string.key_show_readed),false)) {
                     rssItems.remove(holder.getAdapterPosition());
                 }
@@ -86,5 +80,14 @@ final class RssFeedListAdapter
     @Override
     public int getItemCount() {
         return rssItems.size();
+    }
+
+    static class FeedModelViewHolder extends RecyclerView.ViewHolder {
+        private final View rssFeedView;
+
+        FeedModelViewHolder(final View v) {
+            super(v);
+            rssFeedView = v;
+        }
     }
 }

@@ -9,4 +9,6 @@
     <string name="toast_cant_delete_all_items">Не удалось удалить новости</string>
     <string name="toast_success_delete_all_items">Новости удалены</string>
     <string name="text_view_no_items">Нет непрочитанных новостей. Обновите список или добавьте новые каналы.</string>
+    <string name="text_view_no_title_for_item">Заголовка нет</string>
+    <string name="text_view_no_link_for_item">У новости нет ссылки</string>
 </resources>

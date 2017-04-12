@@ -11,4 +11,6 @@
     <string name="toast_cant_delete_all_items">Can\'t delete news</string>
     <string name="toast_success_delete_all_items">News deleted</string>
     <string name="text_view_no_items">Now hot news. Update list or add new channels.</string>
+    <string name="text_view_no_title_for_item">No title</string>
+    <string name="text_view_no_link_for_item">No link</string>
 </resources>
