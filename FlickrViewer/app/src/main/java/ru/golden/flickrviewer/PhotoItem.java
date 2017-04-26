@@ -1,6 +1,8 @@
 package ru.golden.flickrviewer;
 
-public final class PhotoItem {
+import java.io.Serializable;
+
+public final class PhotoItem implements Serializable {
     private String caption;
     private String id;
     private String url;

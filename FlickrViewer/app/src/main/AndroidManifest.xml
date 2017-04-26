@@ -17,7 +17,7 @@
 
         <service android:name="ru.golden.flickrviewer.network.GetImagesService"/>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".feed.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

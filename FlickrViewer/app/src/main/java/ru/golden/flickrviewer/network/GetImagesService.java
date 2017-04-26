@@ -22,6 +22,8 @@ public final class GetImagesService extends IntentService {
 
     private static final String TAG = "FlickrFetch";
     private static final String API_KEY = "ec63bffd299e044a8aaee555bc3a45c2";
+    private static final String ACTION_FETCH_ITEMS = "ru.golden.flickrviewer.RESPONSE";
+    private static final String GETTED_IMAGES = "ru.golden.flickrviewer.images";
     private static final String FETCH_RECENTS_METHOD = "flickr.photos.getRecent";
     private static final String SEARCH_METHOD = "flickr.photos.search";
     private static final Uri ENDPOINT = Uri.parse("https://api.flickr.com/services/rest/")
@@ -81,7 +83,6 @@ public final class GetImagesService extends IntentService {
 
         try {
             final String jsonString = getUrlString(url);
-            Log.i(TAG, "Recieved json: " + jsonString);
             final JSONObject jsonBody = new JSONObject(jsonString);
             parseItems(items, jsonBody);
         } catch (final JSONException je) {
@@ -125,6 +126,11 @@ public final class GetImagesService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable final Intent intent) {
-        fetchRecentPhotos();
+        final Intent responseIntent = new Intent();
+        responseIntent.setAction(ACTION_FETCH_ITEMS);
+        responseIntent.addCategory(Intent.CATEGORY_DEFAULT);
+        final ArrayList<PhotoItem> photoItems = fetchRecentPhotos();
+        responseIntent.putExtra(GETTED_IMAGES, photoItems);
+        sendBroadcast(responseIntent);
     }
 }
