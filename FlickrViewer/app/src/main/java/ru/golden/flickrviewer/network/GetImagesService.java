@@ -16,7 +16,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import ru.golden.flickrviewer.PhotoItem;
+import ru.golden.flickrviewer.items.PhotoItem;
 
 public final class GetImagesService extends IntentService {
 
@@ -104,7 +104,7 @@ public final class GetImagesService extends IntentService {
     }
 
     private void parseItems(final ArrayList<PhotoItem> items, final JSONObject jsonBody)
-            throws IOException, JSONException {
+            throws  JSONException {
         final JSONObject photosJsonObject = jsonBody.getJSONObject("photos");
         final JSONArray photoJsonArray = photosJsonObject.getJSONArray("photo");
 
@@ -120,6 +120,7 @@ public final class GetImagesService extends IntentService {
             }
 
             item.setUrl(photoJsonObject.getString("url_s"));
+            item.setOwner(photoJsonObject.getString("owner"));
             items.add(item);
         }
     }

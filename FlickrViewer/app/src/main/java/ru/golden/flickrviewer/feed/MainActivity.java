@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import ru.golden.flickrviewer.PhotoItem;
+import ru.golden.flickrviewer.items.PhotoItem;
 import ru.golden.flickrviewer.R;
 import ru.golden.flickrviewer.network.GetImagesService;
 

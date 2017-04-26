@@ -1,5 +1,6 @@
 package ru.golden.flickrviewer.feed;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +11,14 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import ru.golden.flickrviewer.PhotoItem;
+import ru.golden.flickrviewer.items.FullItemActivity;
+import ru.golden.flickrviewer.items.PhotoItem;
 import ru.golden.flickrviewer.R;
 
 
 final class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.FeedModelViewHolder> {
 
+    private static final String ITEM_LINK_STRING = "ru.matthewhadzhiev.rssreader.feed.ITEM_LINK";
     private final ArrayList<PhotoItem> photoItems;
 
     FeedListAdapter(final ArrayList<PhotoItem> photoItems) {
@@ -37,6 +40,15 @@ final class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.FeedMod
                 .placeholder(R.drawable.ic_yoda_1)
                 .error(R.drawable.ic_fail)
                 .into(imageView);
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                final Intent fullIntent = new Intent(view.getContext(), FullItemActivity.class);
+                fullIntent.putExtra(ITEM_LINK_STRING, photoItems.get(holder.getAdapterPosition()).getPhotoPageUri());
+                view.getContext().startActivity(fullIntent);
+            }
+        });
     }
 
     @Override
