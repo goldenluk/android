@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -42,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Toast.makeText(this, getString(R.string.toast_update_main_activity), Toast.LENGTH_LONG).show();
-
         myBroadcastReceiver = new MyBroadcastReceiver();
         final IntentFilter intentFilter = new IntentFilter(ACTION_FETCH_ITEMS);
         intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
@@ -60,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
             final ArrayList<PhotoItem> photoItems = (ArrayList<PhotoItem>) intent.getSerializableExtra(GETTED_IMAGES);
             if (photoItems.size() != 0) {
                 recyclerView.setAdapter(new FeedListAdapter(photoItems));
+                findViewById(R.id.no_items).setVisibility(View.GONE);
             } else {
                 Toast.makeText(MainActivity.this, getString(R.string.toast_failed_update), Toast.LENGTH_LONG).show();
             }

@@ -9,6 +9,15 @@
     style="@style/Linear"
 >
 
+    <TextView
+        android:id="@+id/no_items"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/no_items_text_size"
+        android:text="@string/text_view_no_items"
+    />
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
