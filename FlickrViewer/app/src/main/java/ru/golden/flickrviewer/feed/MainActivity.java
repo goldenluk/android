@@ -10,11 +10,8 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import ru.golden.flickrviewer.PhotoItem;
@@ -59,8 +56,24 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(final Context context, final Intent intent) {
             swipeRefreshLayout.setRefreshing(false);
             //Ненадежный момент, но я в своей задаче уверен, что мне придет именно arraylist
+            @SuppressWarnings("unchecked")
             final ArrayList<PhotoItem> photoItems = (ArrayList<PhotoItem>) intent.getSerializableExtra(GETTED_IMAGES);
-            recyclerView.setAdapter(new FeedListAdapter(photoItems));
+            if (photoItems.size() != 0) {
+                recyclerView.setAdapter(new FeedListAdapter(photoItems));
+            } else {
+                Toast.makeText(MainActivity.this, getString(R.string.toast_failed_update), Toast.LENGTH_LONG).show();
+            }
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        try {
+            unregisterReceiver(myBroadcastReceiver);
+        } catch (final Throwable e) {
+            Log.i("MainActivity", "Не отписался Reciever");
+        }
+
     }
 }
