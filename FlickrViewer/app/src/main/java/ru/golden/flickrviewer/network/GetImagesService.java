@@ -129,7 +129,16 @@ public final class GetImagesService extends IntentService {
         final Intent responseIntent = new Intent();
         responseIntent.setAction(ACTION_FETCH_ITEMS);
         responseIntent.addCategory(Intent.CATEGORY_DEFAULT);
-        final ArrayList<PhotoItem> photoItems = fetchRecentPhotos();
+        final ArrayList<PhotoItem> photoItems;
+        if (intent != null && intent.getStringExtra(SEARCH_METHOD) == null) {
+            photoItems = fetchRecentPhotos();
+        } else {
+            if (intent != null) {
+                photoItems = searchPhotos(intent.getStringExtra(SEARCH_METHOD));
+            } else {
+                photoItems = new ArrayList<>();
+            }
+        }
         responseIntent.putExtra(GETTED_IMAGES, photoItems);
         sendBroadcast(responseIntent);
     }

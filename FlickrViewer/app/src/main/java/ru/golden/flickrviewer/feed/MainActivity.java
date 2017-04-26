@@ -9,7 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private MyBroadcastReceiver myBroadcastReceiver;
     private static final String ACTION_FETCH_ITEMS = "ru.golden.flickrviewer.RESPONSE";
     private static final String GETTED_IMAGES = "ru.golden.flickrviewer.images";
+    private static final String SEARCH_METHOD = "flickr.photos.search";
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -64,6 +68,29 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, getString(R.string.toast_failed_update), Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        getMenuInflater().inflate(R.menu.search_menu, menu);
+
+        final MenuItem searchItem = menu.findItem(R.id.menu_item_search);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(final String query) {
+                startService(new Intent(MainActivity.this, GetImagesService.class).putExtra(SEARCH_METHOD, query));
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(final String newText) {
+                return false;
+            }
+        });
+
+        return true;
     }
 
     @Override

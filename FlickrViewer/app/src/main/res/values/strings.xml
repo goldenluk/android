@@ -4,4 +4,5 @@
     <string name="content_desccription_for_image_view">Photo from flickr</string>
     <string name="toast_failed_update">Не удалось обновить изображения. Проверьте соединение</string>
     <string name="text_view_no_items">Потяните вниз для обновления ленты</string>
+    <string name="search">Искать</string>
 </resources>
