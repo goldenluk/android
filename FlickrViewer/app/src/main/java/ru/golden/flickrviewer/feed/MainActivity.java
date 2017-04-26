@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(final String query) {
+                swipeRefreshLayout.setRefreshing(true);
                 startService(new Intent(MainActivity.this, GetImagesService.class).putExtra(SEARCH_METHOD, query));
                 return true;
             }

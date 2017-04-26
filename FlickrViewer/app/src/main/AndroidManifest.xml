@@ -17,14 +17,20 @@
 
         <service android:name="ru.golden.flickrviewer.network.GetImagesService"/>
 
-        <activity android:name="ru.golden.flickrviewer.feed.MainActivity">
+        <activity
+            android:name="ru.golden.flickrviewer.feed.MainActivity"
+            android:screenOrientation="portrait"
+        >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="ru.golden.flickrviewer.items.FullItemActivity"/>
+        <activity
+            android:name="ru.golden.flickrviewer.items.FullItemActivity"
+            android:screenOrientation="portrait"
+        />
     </application>
 
 </manifest>
