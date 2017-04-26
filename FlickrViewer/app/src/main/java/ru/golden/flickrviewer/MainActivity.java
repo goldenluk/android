@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -17,13 +18,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final Button button = (Button) findViewById(R.id.refr);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                startService(new Intent(MainActivity.this, GetImagesService.class));
-            }
-        });
-
+        Toast.makeText(this, getString(R.string.toast_update_main_activity), Toast.LENGTH_LONG).show();
     }
 }

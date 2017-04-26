@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Flickr Viewer</string>
+    <string name="toast_update_main_activity">Потяните вниз, чтобы обновить картинки</string>
 </resources>
