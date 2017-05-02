@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools" package="ru.golden.validator">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +13,11 @@
         android:theme="@style/AppTheme"
         android:fullBackupContent="@xml/backup_descriptor"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".StartActivity">
+
+
+        <service android:name="ru.golden.validator.network.GetDataService"/>
+
+        <activity android:name="ru.golden.validator.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

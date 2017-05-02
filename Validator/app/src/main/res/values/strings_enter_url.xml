@@ -4,4 +4,7 @@
     <string name="button_get_fields">Получить данные</string>
     <string name="text_view_status_wait">Ожидание ввода</string>
     <string name="text_view_url_example">Нажмите на этот текст, чтобы подставить рабочий адрес</string>
+    <string name="example_url">http://www.mocky.io/v2/58fa10ce110000b81ad2106c</string>
+    <string name="text_view_status_download">Получаю данные</string>
+    <string name="toast_bad_url">Некорректный адрес</string>
 </resources>
