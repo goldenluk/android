@@ -2,4 +2,6 @@
 <resources>
     <string name="hint_url_input">Введите адрес</string>
     <string name="button_get_fields">Получить данные</string>
+    <string name="text_view_status_wait">Ожидание ввода</string>
+    <string name="text_view_url_example">Нажмите на этот текст, чтобы подставить рабочий адрес</string>
 </resources>
