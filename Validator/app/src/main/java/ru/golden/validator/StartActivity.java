@@ -74,6 +74,7 @@ public final class StartActivity extends AppCompatActivity implements View.OnCli
                     final Intent fieldActivityIntent = new Intent(StartActivity.this, FieldActivity.class);
                     fieldActivityIntent.putExtra(EXTRA_FIELDS, fields);
                     startActivity(fieldActivityIntent);
+                    activateWidgets();
                 }
             }
         }
