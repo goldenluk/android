@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="button_validate_fields">Проверить значения</string>
+    <string name="toast_invalid_numbers">Количество неверных полей</string>
+    <string name="hint_field_not_valid">Некорректные данные для типа</string>
 </resources>

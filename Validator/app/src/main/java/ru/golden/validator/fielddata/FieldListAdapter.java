@@ -3,6 +3,9 @@ package ru.golden.validator.fielddata;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,9 +43,38 @@ final class FieldListAdapter
 
         final EditText editText = textInputLayout.getEditText();
         if (editText != null) {
-            editText.setText(fields.get(position).getDefaultValue());
+            if (fields.get(holder.getAdapterPosition()).getValue() != null) {
+                editText.setText(fields.get(position).getValue());
+            } else {
+                editText.setText(fields.get(position).getDefaultValue());
+            }
+            editText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(final CharSequence charSequence, final int i, final int i1, final int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(final CharSequence charSequence, final int i, final int i1, final int i2) {
+
+                }
+
+                @Override
+                public void afterTextChanged(final Editable editable) {
+                    fields.get(holder.getAdapterPosition()).setValue(editable.toString());
+                }
+            });
         }
+
         textInputLayout.setHint("Введите " + fields.get(position).getType());
+
+        if (fields.get(holder.getAdapterPosition()).getValid() != null && !fields.get(holder.getAdapterPosition()).getValid()) {
+            textInputLayout.setErrorEnabled(true);
+            textInputLayout.setError(holder.fieldView.getContext().getString(R.string.hint_field_not_valid) + " " +
+                    fields.get(holder.getAdapterPosition()).getType());
+        } else {
+            textInputLayout.setErrorEnabled(false);
+        }
     }
 
     @Override

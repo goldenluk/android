@@ -7,6 +7,24 @@ public final class Field implements Serializable{
     private String type;
     private String placeholder;
     private String default_value;
+    private Boolean isValid = null;
+    private String value;
+
+    String getValue() {
+        return value;
+    }
+
+    void setValue(final String value) {
+        this.value = value;
+    }
+
+    void initValue() {
+        if (default_value == null) {
+            value = "";
+        } else {
+            value = default_value;
+        }
+    }
 
     public int getId() {
         return id;
@@ -38,5 +56,14 @@ public final class Field implements Serializable{
 
     public void setDefaultValue(final String defaultValue) {
         this.default_value = defaultValue;
+    }
+
+    Boolean getValid() {
+        return isValid;
+    }
+
+    Boolean setValid() {
+        isValid = new Validator().validate(type, value);
+        return isValid;
     }
 }
