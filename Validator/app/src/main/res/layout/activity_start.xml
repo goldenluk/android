@@ -48,4 +48,5 @@
         android:text="@string/text_view_status_wait"
         android:textStyle="bold"
     />
+
 </LinearLayout>

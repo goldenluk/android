@@ -2,6 +2,7 @@ package ru.golden.validator.network;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 
 import java.io.ByteArrayOutputStream;
@@ -10,10 +11,13 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import ru.golden.validator.R;
+
 
 public final class GetDataService extends IntentService {
     private static final String EXTRA_STRING_URL = "ru.golden.validator.URL";
     private static final String ACTION_GET_DATA_FROM_URL = "ru.golden.validator.GET_DATA";
+    private static final String ACTION_GET_IMAGES_FROM_URL = "ru.golden.validator.GET_IMAGES";
     private static final String EXTRA_RESPONSE_STRING = "ru.golden.validator.RESPONSE_STRING";
 
     public GetDataService() {
@@ -58,10 +62,20 @@ public final class GetDataService extends IntentService {
                 responseString = "";
             }
         }
+
         final Intent responseIntent = new Intent();
-        responseIntent.setAction(ACTION_GET_DATA_FROM_URL);
         responseIntent.addCategory(Intent.CATEGORY_DEFAULT);
-        responseIntent.putExtra(EXTRA_RESPONSE_STRING, responseString);
+
+        if (intent != null && intent.getBooleanExtra(ACTION_GET_IMAGES_FROM_URL, false)) {
+            responseIntent.setAction(ACTION_GET_IMAGES_FROM_URL);
+            PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+                    .edit()
+                    .putString(getString(R.string.images_response_key), responseString)
+                    .apply();
+        } else {
+            responseIntent.setAction(ACTION_GET_DATA_FROM_URL);
+            responseIntent.putExtra(EXTRA_RESPONSE_STRING, responseString);
+        }
         sendBroadcast(responseIntent);
     }
 }

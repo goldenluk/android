@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="text_view_status_json">Загружаю данные об изображениях</string>
+    <string name="text_view_status_parsing_images_json">Обрабатываю изображения</string>
+    <string name="text_view_status_failed_get_images">Не удалось получить изображения. Нажмите на этот текст, чтобы попробовать снова</string>
+    <string name="content_desccription_for_image_view">Картинка</string>
+    <string name="url_for_images">https://jsonplaceholder.typicode.com/photos</string>
+    <string name="images_response_key">imagekey</string>
+</resources>

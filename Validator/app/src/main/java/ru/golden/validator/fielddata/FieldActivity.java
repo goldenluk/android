@@ -1,5 +1,6 @@
 package ru.golden.validator.fielddata;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import ru.golden.validator.R;
+import ru.golden.validator.imagesworks.ImageListActivity;
 
 
 public final class FieldActivity extends AppCompatActivity implements View.OnClickListener {
@@ -58,13 +60,21 @@ public final class FieldActivity extends AppCompatActivity implements View.OnCli
         switch (view.getId()) {
             case  R.id.button_validate:
                 int invalidCounter = 0;
+                int firstInvalid = -1;
                 for (int i = 0; i < fields.size(); ++i) {
                     if (!fields.get(i).setValid()) {
+                        if (firstInvalid == -1) {
+                            firstInvalid = i;
+                        }
                         invalidCounter++;
                     }
                 }
                 if (invalidCounter != 0) {
                     recyclerView.getAdapter().notifyDataSetChanged();
+                    recyclerView.scrollToPosition(firstInvalid);
+                } else {
+                    final Intent intent = new Intent(FieldActivity.this, ImageListActivity.class);
+                    startActivity(intent);
                 }
         }
     }
