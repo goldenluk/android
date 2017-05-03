@@ -1,6 +1,5 @@
 package ru.golden.validator.fielddata;
 
-import android.text.TextUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,6 +13,10 @@ public final class Validator {
                 return validateEmail(value);
             case "phone":
                 return validatePhone(value);
+            case "number":
+                return validateNumber(value);
+            case "url":
+                return validateUrl(value);
             default:
                 return false;
         }
@@ -35,6 +38,20 @@ public final class Validator {
         final Pattern phoneRegex =
                 Pattern.compile("^[+][7][0-9]{10}$");
         final Matcher matcher = phoneRegex.matcher(value);
+        return matcher.find();
+    }
+
+    private boolean validateNumber(final String value) {
+        final Pattern numberRegex =
+                Pattern.compile("^[0-9]{1,5}$");
+        final Matcher matcher = numberRegex.matcher(value);
+        return matcher.find();
+    }
+
+    private boolean validateUrl(final String value) {
+        final Pattern urlRegex =
+                Pattern.compile("^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?");
+        final Matcher matcher = urlRegex.matcher(value);
         return matcher.find();
     }
 }

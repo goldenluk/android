@@ -36,4 +36,30 @@ public class ValidatorTest {
         assertEquals(false, new Validator().validate("PHONE", "+89139009700"));
         assertEquals(false, new Validator().validate("PHONE", "+794398799791"));
     }
+
+    @Test
+    public void numberValidationCorrect() {
+        assertEquals(true, new Validator().validate("NUMBER", "123"));
+        assertEquals(true, new Validator().validate("NUMBER", "1234"));
+        assertEquals(false, new Validator().validate("NUMBER", ""));
+        assertEquals(false, new Validator().validate("NUMBER", "123pe"));
+        assertEquals(true, new Validator().validate("NUMBER", "11111"));
+        assertEquals(false, new Validator().validate("NUMBER", "123456"));
+        assertEquals(false, new Validator().validate("NUMBER", "q"));
+        assertEquals(true, new Validator().validate("NUMBER", "00000"));
+    }
+
+    @Test
+    public void urlValidationCorrect() {
+        assertEquals(true, new Validator().validate("url", "http://www.mocky.io/v2/58fa10ce110000b81ad2106c"));
+        assertEquals(true, new Validator().validate("url", "https://github.com/goldenluk"));
+        assertEquals(true, new Validator().validate("url", "http://docs.oracle.com/javase/8/"));
+        assertEquals(true, new Validator().validate("url", "https://developer.android.com/reference/packages.html"));
+        assertEquals(true, new Validator().validate("url", "http://www.drom.ru"));
+        assertEquals(true, new Validator().validate("url", "https://www.yandex.ru"));
+        assertEquals(false, new Validator().validate("url", "1111"));
+        assertEquals(false, new Validator().validate("url", "1111@frgerg/re'g./fr"));
+        assertEquals(false, new Validator().validate("url", "ps://www.yandex.ru"));
+        assertEquals(false, new Validator().validate("url", "https:/www.yandex.ru"));
+    }
 }
