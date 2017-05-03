@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ru.golden.validator.fielddata.Field;
+import ru.golden.validator.fielddata.FieldActivity;
 import ru.golden.validator.fielddata.FieldsDataParser;
 import ru.golden.validator.network.GetDataService;
 
@@ -22,6 +23,7 @@ public final class StartActivity extends AppCompatActivity implements View.OnCli
     private static final String EXTRA_STRING_URL = "ru.golden.validator.URL";
     private static final String ACTION_GET_DATA_FROM_URL = "ru.golden.validator.GET_DATA";
     private static final String EXTRA_RESPONSE_STRING = "ru.golden.validator.RESPONSE_STRING";
+    private static final String EXTRA_FIELDS = "ru.golden.validator.FIELDS";
 
     private Button getDataButton;
     private TextInputEditText inputUrl;
@@ -69,6 +71,9 @@ public final class StartActivity extends AppCompatActivity implements View.OnCli
                     activateWidgets();
                 } else {
                     Toast.makeText(StartActivity.this, R.string.toast_success_parse, Toast.LENGTH_LONG).show();
+                    final Intent fieldActivityIntent = new Intent(StartActivity.this, FieldActivity.class);
+                    fieldActivityIntent.putExtra(EXTRA_FIELDS, fields);
+                    startActivity(fieldActivityIntent);
                 }
             }
         }

@@ -4,4 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="button_margin_top">4dp</dimen>
     <dimen name="text_view_margin_top">4dp</dimen>
+    <dimen name="text_view_field_title_size">14sp</dimen>
+    <dimen name="separator_item_height">1dp</dimen>
 </resources>
