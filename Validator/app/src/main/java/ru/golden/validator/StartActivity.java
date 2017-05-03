@@ -92,6 +92,8 @@ public final class StartActivity extends AppCompatActivity implements View.OnCli
             case R.id.example_text_view:
                 inputUrl.setText(R.string.example_url);
                 break;
+            default:
+                break;
         }
     }
 

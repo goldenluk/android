@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               style="@style/Linear"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              android:layout_height="wrap_content"
               android:orientation="vertical"
 >
     <TextView
@@ -18,10 +18,10 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/input_url_fields"
     >
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/input_url"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
         />

@@ -1,6 +1,8 @@
 package ru.golden.validator.fielddata;
 
-public final class Field {
+import java.io.Serializable;
+
+public final class Field implements Serializable{
     private int id;
     private String type;
     private String placeholder;
@@ -14,7 +16,7 @@ public final class Field {
         this.id = id;
     }
 
-    public String getType() {
+    String getType() {
         return type;
     }
 
@@ -22,7 +24,7 @@ public final class Field {
         this.type = type;
     }
 
-    public String getPlaceholder() {
+    String getPlaceholder() {
         return placeholder;
     }
 
@@ -30,7 +32,7 @@ public final class Field {
         this.placeholder = placeholder;
     }
 
-    public String getDefaultValue() {
+    String getDefaultValue() {
         return default_value;
     }
 
