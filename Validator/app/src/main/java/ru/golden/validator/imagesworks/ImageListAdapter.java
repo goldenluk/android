@@ -6,10 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import ru.golden.validator.R;
 
@@ -31,7 +33,13 @@ final class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.FeedM
 
     @Override
     public void onBindViewHolder(final FeedModelViewHolder holder, final int position) {
-        final ImageView imageView = (ImageView) holder.imagesView.findViewById(R.id.photo_gallery_image_view);
+        final TextView id = (TextView) holder.imagesView.findViewById(R.id.image_id);
+        id.setText(String.format(Locale.getDefault(),"%d",items.get(position).getId()));
+
+        final TextView title = (TextView) holder.imagesView.findViewById(R.id.image_title);
+        title.setText(items.get(position).getTitle());
+
+        final ImageView imageView = (ImageView) holder.imagesView.findViewById(R.id.image_view);
         Picasso.with(holder.imagesView.getContext())
                 .load(items.get(position).getThumbnailUrl().replace("http", "https"))
                 .placeholder(R.drawable.ic_yoda_1)

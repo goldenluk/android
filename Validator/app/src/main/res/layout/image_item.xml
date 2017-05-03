@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ImageView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/photo_gallery_image_view"
-    android:layout_width="match_parent"
-    android:layout_height="120dp"
-    android:layout_gravity="center"
-    android:scaleType="centerCrop"
-    android:contentDescription="@string/content_desccription_for_image_view"
-/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              style="@style/Linear"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+>
+    <TextView
+        android:id="@+id/image_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+    />
+
+    <TextView
+        android:id="@+id/image_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+    />
+
+    <ImageView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/content_desccription_for_image_view"
+        android:scaleType="centerCrop"
+    />
+</LinearLayout>

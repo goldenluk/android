@@ -18,16 +18,16 @@
         <service android:name="ru.golden.validator.network.GetDataService"/>
 
         <activity android:name="ru.golden.validator.StartActivity">
+
+        </activity>
+
+        <activity android:name="ru.golden.validator.fielddata.FieldActivity"/>
+        <activity android:name="ru.golden.validator.imagesworks.ImageListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-
-        <activity android:name="ru.golden.validator.fielddata.FieldActivity"/>
-        <activity android:name="ru.golden.validator.imagesworks.ImageListActivity">
-
         </activity>
     </application>
 

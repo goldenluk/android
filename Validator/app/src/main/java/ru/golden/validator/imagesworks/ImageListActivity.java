@@ -112,6 +112,7 @@ public final class ImageListActivity extends AppCompatActivity implements View.O
                     statusTextView.setEnabled(true);
                 } else {
                     images = new ArrayList<>(Arrays.asList(imagesTemp));
+                    statusTextView.setVisibility(View.GONE);
                     recyclerView.setLayoutManager(new GridLayoutManager(ImageListActivity.this, 3));
                     recyclerView.setAdapter(new ImageListAdapter(images));
                 }
