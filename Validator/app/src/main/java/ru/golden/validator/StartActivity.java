@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +13,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ru.golden.validator.fielddata.Field;
+import ru.golden.validator.fielddata.FieldsDataParser;
 import ru.golden.validator.network.GetDataService;
 
 public final class StartActivity extends AppCompatActivity implements View.OnClickListener {
@@ -56,11 +57,20 @@ public final class StartActivity extends AppCompatActivity implements View.OnCli
 
             if ("".equals(response)) {
                 Toast.makeText(StartActivity.this, R.string.toast_bad_url, Toast.LENGTH_LONG).show();
+                statusTextView.setText(R.string.text_view_status_incorrect_url);
+                activateWidgets();
+            } else {
+                statusTextView.setText(R.string.text_view_status_parsing);
+                final Field[] fields = FieldsDataParser.parse(response);
+
+                if (fields == null) {
+                    Toast.makeText(StartActivity.this, R.string.toast_bad_parse, Toast.LENGTH_LONG).show();
+                    statusTextView.setText(R.string.text_view_status_bad_parse);
+                    activateWidgets();
+                } else {
+                    Toast.makeText(StartActivity.this, R.string.toast_success_parse, Toast.LENGTH_LONG).show();
+                }
             }
-
-            statusTextView.setText(response);
-
-            activateWidgets();
         }
     }
 

@@ -2,9 +2,14 @@
 <resources>
     <string name="hint_url_input">Введите адрес</string>
     <string name="button_get_fields">Получить данные</string>
-    <string name="text_view_status_wait">Ожидание ввода</string>
+    <string name="text_view_status_wait">Ожидание ввода&#8230;</string>
     <string name="text_view_url_example">Нажмите на этот текст, чтобы подставить рабочий адрес</string>
     <string name="example_url">http://www.mocky.io/v2/58fa10ce110000b81ad2106c</string>
-    <string name="text_view_status_download">Получаю данные</string>
-    <string name="toast_bad_url">Некорректный адрес</string>
+    <string name="text_view_status_download">Получаю данные&#8230;</string>
+    <string name="toast_bad_url">Некорректный адрес либо отсутствует соединение</string>
+    <string name="text_view_status_incorrect_url">Некорректный адрес либо нет соединения</string>
+    <string name="text_view_status_parsing">Разбираюсь в данных&#8230;</string>
+    <string name="text_view_status_bad_parse">Были получены некорректные данные</string>
+    <string name="toast_bad_parse">Данные некорректны</string>
+    <string name="toast_success_parse">Данные верны</string>
 </resources>
