@@ -2,6 +2,8 @@ package ru.golden.validator;
 
 import org.junit.Test;
 
+import ru.golden.validator.fielddata.Validator;
+
 import static org.junit.Assert.*;
 
 /**
@@ -14,4 +16,12 @@ public class ExampleUnitTest {
     public void addition_isCorrect() throws Exception {
         assertEquals(4, 2 + 2);
     }
+
+    @Test
+    public void textValidationIsCorrect() {
+        assertEquals(true, new Validator().validate("text", "1232hjh3fhfjr3rh4f**"));
+        assertEquals(false, new Validator().validate("text", "1232h"));
+        assertEquals(false, new Validator().validate("text", "1232hwweeorjrjrjvevjrejoroewjjeoijevjojrorejofewjoioejid90||!!```//fggd"));
+    }
+
 }
