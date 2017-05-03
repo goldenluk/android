@@ -21,8 +21,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import ru.golden.validator.R;
-import ru.golden.validator.StartActivity;
-import ru.golden.validator.fielddata.Field;
 import ru.golden.validator.network.GetDataService;
 
 

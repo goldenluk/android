@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -69,8 +68,8 @@ public final class FieldActivity extends AppCompatActivity implements View.OnCli
                         invalidCounter++;
                     }
                 }
+                recyclerView.getAdapter().notifyDataSetChanged();
                 if (invalidCounter != 0) {
-                    recyclerView.getAdapter().notifyDataSetChanged();
                     recyclerView.scrollToPosition(firstInvalid);
                 } else {
                     final Intent intent = new Intent(FieldActivity.this, ImageListActivity.class);

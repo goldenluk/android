@@ -1,12 +1,12 @@
 package ru.golden.validator.imagesworks;
 
-import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -23,6 +23,8 @@ public final class FullImageActivity extends AppCompatActivity {
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_image);
+
+        Toast.makeText(this, R.string.toast_pinch, Toast.LENGTH_LONG).show();
 
         final String url = getIntent().getStringExtra(EXTRA_STRING_URL);
 
