@@ -1,6 +1,8 @@
 package ru.golden.validator.imagesworks;
 
-final class Image {
+import java.io.Serializable;
+
+final class Image implements Serializable {
     private int albumId;
     private int id;
     private String title;
@@ -23,7 +25,7 @@ final class Image {
         this.id = id;
     }
 
-    public String getTitle() {
+    String getTitle() {
         return title;
     }
 
@@ -31,7 +33,7 @@ final class Image {
         this.title = title;
     }
 
-    public String getUrl() {
+    String getUrl() {
         return url;
     }
 

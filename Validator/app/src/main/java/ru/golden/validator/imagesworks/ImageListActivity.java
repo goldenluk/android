@@ -35,7 +35,7 @@ public final class ImageListActivity extends AppCompatActivity implements View.O
     private RecyclerView recyclerView;
     private MyBroadcastReceiver myBroadcastReceiver;
     private CountDownTimer timerNoAnswer;
-    private ArrayList<Image> images;
+    private Image[] imagesTemp;
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
@@ -48,33 +48,43 @@ public final class ImageListActivity extends AppCompatActivity implements View.O
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_images);
 
-
-        myBroadcastReceiver = new MyBroadcastReceiver();
-        final IntentFilter intentFilter = new IntentFilter(ACTION_GET_IMAGES_FROM_URL);
-        intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
-        registerReceiver(myBroadcastReceiver, intentFilter);
-
-        final Intent intent = new Intent(ImageListActivity.this, GetDataService.class);
-        intent.putExtra(EXTRA_STRING_URL, getString(R.string.url_for_images));
-        intent.putExtra(ACTION_GET_IMAGES_FROM_URL, true);
-        startService(intent);
-
-        timerNoAnswer = new CountDownTimer(5000, 1000) {
-            public void onTick(final long millisUntilFinished) {
+        if (savedInstanceState != null) {
+            imagesTemp = (Image[]) savedInstanceState.getSerializable(EXTRA_FIELDS);
+            if (imagesTemp != null) {
+                final ArrayList<Image> images = new ArrayList<>(Arrays.asList(imagesTemp));
+                statusTextView.setVisibility(View.GONE);
+                recyclerView.setLayoutManager(new GridLayoutManager(ImageListActivity.this, 3));
+                recyclerView.setAdapter(new ImageListAdapter(images));
             }
+        } else {
+            myBroadcastReceiver = new MyBroadcastReceiver();
+            final IntentFilter intentFilter = new IntentFilter(ACTION_GET_IMAGES_FROM_URL);
+            intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
+            registerReceiver(myBroadcastReceiver, intentFilter);
 
-            public void onFinish() {
-                stopService(intent);
-                Toast.makeText(ImageListActivity.this, R.string.toast_time_end, Toast.LENGTH_LONG).show();
+            final Intent intent = new Intent(ImageListActivity.this, GetDataService.class);
+            intent.putExtra(EXTRA_STRING_URL, getString(R.string.url_for_images));
+            intent.putExtra(ACTION_GET_IMAGES_FROM_URL, true);
+            startService(intent);
 
-                statusTextView.setEnabled(true);
+            timerNoAnswer = new CountDownTimer(5000, 1000) {
+                public void onTick(final long millisUntilFinished) {
+                }
 
-                myBroadcastReceiver = new MyBroadcastReceiver();
-                final IntentFilter intentFilter = new IntentFilter(ACTION_GET_IMAGES_FROM_URL);
-                intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
-                registerReceiver(myBroadcastReceiver, intentFilter);
-            }
-        }.start();
+                public void onFinish() {
+                    stopService(intent);
+                    Toast.makeText(ImageListActivity.this, R.string.toast_time_end, Toast.LENGTH_LONG).show();
+
+                    statusTextView.setEnabled(true);
+                    statusTextView.setText(R.string.text_view_status_failed_get_images);
+
+                    myBroadcastReceiver = new MyBroadcastReceiver();
+                    final IntentFilter intentFilter = new IntentFilter(ACTION_GET_IMAGES_FROM_URL);
+                    intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
+                    registerReceiver(myBroadcastReceiver, intentFilter);
+                }
+            }.start();
+        }
     }
 
     @Override
@@ -96,7 +106,7 @@ public final class ImageListActivity extends AppCompatActivity implements View.O
             timerNoAnswer.cancel();
 
             final String response = PreferenceManager.getDefaultSharedPreferences(ImageListActivity.this)
-                    .getString(getString(R.string.images_response_key),"");
+                    .getString(getString(R.string.images_response_key), "");
 
 
             if ("".equals(response)) {
@@ -105,13 +115,13 @@ public final class ImageListActivity extends AppCompatActivity implements View.O
             } else {
                 statusTextView.setText(R.string.text_view_status_parsing_images_json);
 
-                final Image[] imagesTemp = ImagesInfoParser.parse(response);
+                imagesTemp = ImagesInfoParser.parse(response);
 
                 if (imagesTemp == null) {
                     statusTextView.setText(R.string.text_view_status_failed_get_images);
                     statusTextView.setEnabled(true);
                 } else {
-                    images = new ArrayList<>(Arrays.asList(imagesTemp));
+                    final ArrayList<Image> images = new ArrayList<>(Arrays.asList(imagesTemp));
                     statusTextView.setVisibility(View.GONE);
                     recyclerView.setLayoutManager(new GridLayoutManager(ImageListActivity.this, 3));
                     recyclerView.setAdapter(new ImageListAdapter(images));
@@ -130,5 +140,11 @@ public final class ImageListActivity extends AppCompatActivity implements View.O
             Log.i("StartActivity", "Не отписался Reciever, либо не существовал");
         }
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(final Bundle outState) {
+        outState.putSerializable(EXTRA_FIELDS, imagesTemp);
+        super.onSaveInstanceState(outState);
     }
 }
