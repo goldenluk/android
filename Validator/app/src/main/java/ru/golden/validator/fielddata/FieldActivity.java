@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -23,16 +22,27 @@ public final class FieldActivity extends AppCompatActivity implements View.OnCli
     private ArrayList<Field> fields;
     private RecyclerView recyclerView;
 
-    //TODO переворот
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_field);
 
-        fields = new ArrayList<>(Arrays.asList((Field[]) getIntent().getSerializableExtra(EXTRA_FIELDS)));
-        for (int i = 0; i < fields.size(); ++i) {
-            fields.get(i).initValue();
+        if (savedInstanceState != null && savedInstanceState.getSerializable(EXTRA_FIELDS) != null) {
+            final Field[] fieldsTemp = (Field[]) savedInstanceState.getSerializable(EXTRA_FIELDS);
+            if (fieldsTemp != null) {
+                fields = new ArrayList<>(Arrays.asList(fieldsTemp)) ;
+            } else {
+                fields = new ArrayList<>(Arrays.asList((Field[]) getIntent().getSerializableExtra(EXTRA_FIELDS)));
+                for (int i = 0; i < fields.size(); ++i) {
+                    fields.get(i).initValue();
+                }
+            }
+        } else {
+            fields = new ArrayList<>(Arrays.asList((Field[]) getIntent().getSerializableExtra(EXTRA_FIELDS)));
+            for (int i = 0; i < fields.size(); ++i) {
+                fields.get(i).initValue();
+            }
         }
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -54,9 +64,16 @@ public final class FieldActivity extends AppCompatActivity implements View.OnCli
                     }
                 }
                 if (invalidCounter != 0) {
-                    Toast.makeText(FieldActivity.this, getString(R.string.toast_invalid_numbers) + " " + invalidCounter, Toast.LENGTH_LONG).show();
                     recyclerView.getAdapter().notifyDataSetChanged();
                 }
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(final Bundle outState) {
+        final Field[] field = new Field[fields.size()];
+        fields.toArray(field);
+        outState.putSerializable(EXTRA_FIELDS, field);
+        super.onSaveInstanceState(outState);
     }
 }

@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.CountDownTimer;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ public final class StartActivity extends AppCompatActivity implements View.OnCli
     private TextInputEditText inputUrl;
     private TextView exampleTextView;
     private TextView statusTextView;
+    private CountDownTimer timerNoAnswer;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -55,6 +57,8 @@ public final class StartActivity extends AppCompatActivity implements View.OnCli
     private class MyBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(final Context context, final Intent intent) {
+            timerNoAnswer.cancel();
+
             final String response = intent.getStringExtra(EXTRA_RESPONSE_STRING);
 
             if ("".equals(response)) {
@@ -73,8 +77,10 @@ public final class StartActivity extends AppCompatActivity implements View.OnCli
                     Toast.makeText(StartActivity.this, R.string.toast_success_parse, Toast.LENGTH_LONG).show();
                     final Intent fieldActivityIntent = new Intent(StartActivity.this, FieldActivity.class);
                     fieldActivityIntent.putExtra(EXTRA_FIELDS, fields);
+
                     startActivity(fieldActivityIntent);
                     activateWidgets();
+                    statusTextView.setText(R.string.text_view_status_wait);
                 }
             }
         }
@@ -89,6 +95,22 @@ public final class StartActivity extends AppCompatActivity implements View.OnCli
                 final Intent intent = new Intent(StartActivity.this, GetDataService.class);
                 intent.putExtra(EXTRA_STRING_URL, inputUrl.getText().toString());
                 startService(intent);
+
+                timerNoAnswer = new CountDownTimer(5000, 1000) {
+                    public void onTick(final long millisUntilFinished) {
+                    }
+                    public void onFinish() {
+                        stopService(intent);
+                        Toast.makeText(StartActivity.this, R.string.toast_time_end, Toast.LENGTH_LONG).show();
+                        activateWidgets();
+                        statusTextView.setText(R.string.text_view_status_wait);
+
+                        myBroadcastReceiver = new MyBroadcastReceiver();
+                        final IntentFilter intentFilter = new IntentFilter(ACTION_GET_DATA_FROM_URL);
+                        intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
+                        registerReceiver(myBroadcastReceiver, intentFilter);
+                    }
+                }.start();
                 break;
             case R.id.example_text_view:
                 inputUrl.setText(R.string.example_url);
@@ -116,7 +138,7 @@ public final class StartActivity extends AppCompatActivity implements View.OnCli
         try {
             unregisterReceiver(myBroadcastReceiver);
         } catch (final Throwable e) {
-            Log.i("StartActivity", "Не отписался Reciever");
+            Log.i("StartActivity", "Не отписался Reciever, либо не существовал");
         }
 
     }

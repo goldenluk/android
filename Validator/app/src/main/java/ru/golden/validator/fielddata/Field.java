@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public final class Field implements Serializable{
     private int id;
+    //Эти поля нужны. Они заполняются, когда парсим из json
     private String type;
     private String placeholder;
     private String default_value;
@@ -38,24 +39,12 @@ public final class Field implements Serializable{
         return type;
     }
 
-    public void setType(final String type) {
-        this.type = type;
-    }
-
     String getPlaceholder() {
         return placeholder;
     }
 
-    public void setPlaceholder(final String placeholder) {
-        this.placeholder = placeholder;
-    }
-
     String getDefaultValue() {
         return default_value;
-    }
-
-    public void setDefaultValue(final String defaultValue) {
-        this.default_value = defaultValue;
     }
 
     Boolean getValid() {

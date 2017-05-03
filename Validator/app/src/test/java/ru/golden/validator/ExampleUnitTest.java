@@ -2,8 +2,6 @@ package ru.golden.validator;
 
 import org.junit.Test;
 
-import ru.golden.validator.fielddata.Validator;
-
 import static org.junit.Assert.*;
 
 /**

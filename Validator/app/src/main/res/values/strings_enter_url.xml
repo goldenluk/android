@@ -12,4 +12,5 @@
     <string name="text_view_status_bad_parse">Были получены некорректные данные</string>
     <string name="toast_bad_parse">Данные некорректны</string>
     <string name="toast_success_parse">Данные верны</string>
+    <string name="toast_time_end">Вышло время ожидания ответа. Попробуйте снова</string>
 </resources>

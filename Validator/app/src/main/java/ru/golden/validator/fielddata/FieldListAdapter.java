@@ -1,11 +1,9 @@
 package ru.golden.validator.fielddata;
 
-import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,12 +49,10 @@ final class FieldListAdapter
             editText.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(final CharSequence charSequence, final int i, final int i1, final int i2) {
-
                 }
 
                 @Override
                 public void onTextChanged(final CharSequence charSequence, final int i, final int i1, final int i2) {
-
                 }
 
                 @Override
